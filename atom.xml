@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>DustOfStars</title>
+  
+  <subtitle>醉后不知天在水，满船清梦压星河</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://xw-jia.github.io/"/>
+  <updated>2019-12-31T02:59:08.971Z</updated>
+  <id>http://xw-jia.github.io/</id>
+  
+  <author>
+    <name>Xw-Jia</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>你好</title>
+    <link href="http://xw-jia.github.io/2019/12/31/ni-hao/"/>
+    <id>http://xw-jia.github.io/2019/12/31/ni-hao/</id>
+    <published>2019-12-31T02:51:37.000Z</published>
+    <updated>2019-12-31T02:59:08.971Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;这是一篇测试&quot;&gt;&lt;a href=&quot;#这是一篇测试&quot; class=&quot;headerlink&quot; title=&quot;这是一篇测试&quot;&gt;&lt;/a&gt;这是一篇测试&lt;/h1&gt;&lt;h2 id=&quot;副标题1&quot;&gt;&lt;a href=&quot;#副标题1&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="测试" scheme="http://Xw-Jia.github.io/categories/%E6%B5%8B%E8%AF%95/"/>
+    
+    
+      <category term="cjw" scheme="http://Xw-Jia.github.io/tags/cjw/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://xw-jia.github.io/2019/10/20/hello-world/"/>
+    <id>http://xw-jia.github.io/2019/10/20/hello-world/</id>
+    <published>2019-10-20T06:49:26.859Z</published>
+    <updated>2019-10-20T06:49:26.859Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+</feed>
