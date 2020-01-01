@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://xw-jia.github.io/"/>
-  <updated>2019-10-20T06:49:26.859Z</updated>
+  <updated>2020-01-01T06:31:39.997Z</updated>
   <id>http://xw-jia.github.io/</id>
   
   <author>
@@ -15,6 +15,54 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>19年岁末</title>
+    <link href="http://xw-jia.github.io/2019/12/31/19-nian-sui-mo/"/>
+    <id>http://xw-jia.github.io/2019/12/31/19-nian-sui-mo/</id>
+    <published>2019-12-31T09:41:22.000Z</published>
+    <updated>2020-01-01T06:31:39.997Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;挥别2019，迎接变化&quot;&gt;&lt;a href=&quot;#挥别2019，迎接变化&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="日记" scheme="http://Xw-Jia.github.io/categories/%E6%97%A5%E8%AE%B0/"/>
+    
+    
+      <category term="年终总结" scheme="http://Xw-Jia.github.io/tags/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>01_PyTorch基础使用</title>
+    <link href="http://xw-jia.github.io/2019/11/07/01-pytorch-ji-chu-shi-yong/"/>
+    <id>http://xw-jia.github.io/2019/11/07/01-pytorch-ji-chu-shi-yong/</id>
+    <published>2019-11-07T09:12:58.000Z</published>
+    <updated>2019-12-31T09:03:30.388Z</updated>
+    
+    <summary type="html">
+    
+      陈云大佬的Pytorch入门书，准备全部看完，并整理，这是第一篇...
+    
+    </summary>
+    
+    
+      <category term="深度学习" scheme="http://Xw-Jia.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="PyTorch框架入门与实战" scheme="http://Xw-Jia.github.io/tags/PyTorch%E6%A1%86%E6%9E%B6%E5%85%A5%E9%97%A8%E4%B8%8E%E5%AE%9E%E6%88%98/"/>
+    
+  </entry>
   
   <entry>
     <title>Hello World</title>
@@ -36,35 +84,6 @@
     </summary>
     
     
-    
-  </entry>
-  
-  <entry>
-    <title>typora-vue-theme主题介绍</title>
-    <link href="http://xw-jia.github.io/2018/09/07/ni-hao/"/>
-    <id>http://xw-jia.github.io/2018/09/07/ni-hao/</id>
-    <published>2018-09-07T01:25:00.000Z</published>
-    <updated>2019-12-31T07:20:58.915Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;这是一篇测试&quot;&gt;&lt;a href=&quot;#这是一篇测试&quot; class=&quot;headerlink&quot; title=&quot;这是一篇测试&quot;&gt;&lt;/a&gt;这是一篇测试&lt;/h1&gt;&lt;h2 id=&quot;副标题1&quot;&gt;&lt;a href=&quot;#副标题1&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Markdown" scheme="http://Xw-Jia.github.io/categories/Markdown/"/>
-    
-    
-      <category term="Typora" scheme="http://Xw-Jia.github.io/tags/Typora/"/>
-    
-      <category term="Markdown" scheme="http://Xw-Jia.github.io/tags/Markdown/"/>
     
   </entry>
   
