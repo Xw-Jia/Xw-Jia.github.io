@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>1.1_What_is_Machine_Learning</title>
+      <link href="/2020/01/19/1-1-what-is-machine-learning/"/>
+      <url>/2020/01/19/1-1-what-is-machine-learning/</url>
+      
+        <content type="html"><![CDATA[<h1 id="What-is-Machine-Learning"><a href="#What-is-Machine-Learning" class="headerlink" title="What is Machine Learning"></a>What is Machine Learning</h1><p><img src="/2020/01/19/1-1-what-is-machine-learning/machine-learning.png" alt="Machine_Learning"></p><h2 id="一、-Definition"><a href="#一、-Definition" class="headerlink" title="一、 Definition"></a>一、 Definition</h2><p>定义：</p><p>1997年，<code>Tom Mitchell</code> 给出机器学习的定义：</p><pre><code>程序利用经验E改善了在任务T中的性能P，就可以说：关于任务T和测量性能P，该程序对经验E进行了学习。</code></pre><h2 id="二、-Classify"><a href="#二、-Classify" class="headerlink" title="二、 Classify"></a>二、 Classify</h2><p>分类：</p><ul><li>有监督学习<code>supervised learning</code> :已知的Data Set中明确了输入/输出，且输入和输出存在关系。 <ul><li><code>Supervised Learning</code>可以分为：分类(Classification)和回归(Regression)问题。</li><li><ol><li>Classification： 预测离散的结果。将输入映射到离散的类别中。</li></ol></li><li><ol start="2"><li>Regression： 预测连续输出中的结果。 从输入映射到某个连续的函数的输出中。</li></ol></li></ul></li></ul><blockquote><p>无监督学习使我们能够很少或根本不知道我们的结果应该是什么样子。<strong>我们可以从数据中得出结构</strong>，我们不一定知道变量的影响。 我们可以通过基于数据中变量之间的关系对数据进行聚类来推导出这种结构。 在无监督学习的情况下，<strong>没有基于预测结果的反馈</strong>。无监督学习可以分为“聚类”和“非聚类”。</p></blockquote><ul><li>无监督学习<code>unsupervised learning</code> : 没有预知的label，从变量的结构中寻找关系，而没有基于预测结果的反馈。<ul><li><code>Unspervised Learning</code>可以分为<code>聚类</code>， 和 <code>非聚类</code>。</li><li><ol><li>聚类： 可以理解为对数据自动分组成不同变量的相似或者相关的簇。</li></ol></li><li><ol start="2"><li>非聚类： 比如“鸡尾酒会算法”–&gt;从混乱的环境中识别和查找结果。</li></ol></li></ul></li></ul><blockquote><p>参考： GitHub Repo：<a href="https://github.com/halfrost/Halfrost-Field" target="_blank" rel="noopener">Halfrost-Field</a></p></blockquote><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+      
+      
+      <categories>
+          
+          <category> 机器学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Machine Learning </tag>
+            
+            <tag> 吴恩达 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>19年岁末</title>
       <link href="/2019/12/31/19-nian-sui-mo/"/>
       <url>/2019/12/31/19-nian-sui-mo/</url>
