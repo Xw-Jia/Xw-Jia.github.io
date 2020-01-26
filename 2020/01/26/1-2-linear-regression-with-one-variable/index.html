@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="1.1_What_is_Machine_Learning, DustOfStars">
-    <meta name="description" content="吴恩达Machine_Learning入门课Week1第一节">
+    <meta name="keywords" content="1.2_Linear_Regression_With_One_Variable(Gradient_Descent), DustOfStars">
+    <meta name="description" content="吴恩达Machine_Learning入门课Week1第二节">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>1.1_What_is_Machine_Learning | DustOfStars</title>
+    <title>1.2_Linear_Regression_With_One_Variable(Gradient_Descent) | DustOfStars</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -295,12 +295,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/cover_pics/24.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">1.1_What_is_Machine_Learning</h1>
+                    <h1 class="description center-align post-title">1.2_Linear_Regression_With_One_Variable(Gradient_Descent)</h1>
                 </div>
             </div>
         </div>
@@ -446,21 +446,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-01-19
+                    2020-01-26
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-01-19
+                    2020-01-26
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    444
+                    2.9k
                 </div>
                 
 
@@ -478,43 +478,233 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="What-is-Machine-Learning"><a href="#What-is-Machine-Learning" class="headerlink" title="What is Machine Learning"></a>What is Machine Learning</h1><p><img src="/2020/01/19/1-1-what-is-machine-learning/machine-learning.png" alt="Machine_Learning"></p>
-<h2 id="一、-Definition"><a href="#一、-Definition" class="headerlink" title="一、 Definition"></a>一、 Definition</h2><p>定义：</p>
-<p>1997年，<code>Tom Mitchell</code> 给出机器学习的定义：</p>
-<pre><code>程序利用经验E改善了在任务T中的性能P，就可以说：关于任务T和测量性能P，该程序对经验E进行了学习。</code></pre><h2 id="二、-Classify"><a href="#二、-Classify" class="headerlink" title="二、 Classify"></a>二、 Classify</h2><p>分类：</p>
-<ul>
-<li>有监督学习<code>supervised learning</code> :已知的Data Set中明确了输入/输出，且输入和输出存在关系。 <ul>
-<li><code>Supervised Learning</code>可以分为：分类(Classification)和回归(Regression)问题。</li>
-<li><ol>
-<li>Classification： 预测离散的结果。将输入映射到离散的类别中。</li>
+                <h1 id="Linear-Regression-With-One-Variable-Gradient-Descent"><a href="#Linear-Regression-With-One-Variable-Gradient-Descent" class="headerlink" title="Linear Regression With One Variable(Gradient Descent)"></a>Linear Regression With One Variable(Gradient Descent)</h1><h2 id="一-Model-Representation"><a href="#一-Model-Representation" class="headerlink" title="一. Model Representation"></a>一. Model Representation</h2><p>在给定训练集的情况下，学习函数h：X→Y，使得h（x）是y的相应值的“好”预测器。由于历史原因，这个函数h被称为假设。</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/68_0_1.png" alt=""></p>
+<p>通过输入住房面积 x，通过学习好的函数，输出房子的估价。</p>
+<h2 id="二-Cost-Function"><a href="#二-Cost-Function" class="headerlink" title="二. Cost Function"></a>二. Cost Function</h2><p>代价函数是线性回归中的一个应用，在线性回归中，要解决的一个问题就是最小化问题。</p>
+<p>假设在一元线性回归中，在一个训练集中，我们需要找到一条直线能和该训练集中的点最接近。假设直线方程为 </p>
+<p>$$h_{\theta}(x) = \theta_{0} + \theta_{1}x$$</p>
+<p>如何选择 $\theta_{0}$、$\theta_{1}$，使得 $h_{\theta}(x)$ 更接近于训练集 (x,y) ？</p>
+<p>上述问题可以转换为求 $$ \rm{CostFunction} = \rm{F}({\theta_{0}},{\theta_{1}}) = \frac{1}{2m}\sum_{i = 1}^{m} (h_{\theta}(x^{(i)})-y^{(i)})^2 $$  求最小值$$\min_{{\theta_{0}} {\theta_{1}}} \rm{F}({\theta_{0},{\theta_{1}})} $$</p>
+<h2 id="三-Gradient-Descent-梯度下降"><a href="#三-Gradient-Descent-梯度下降" class="headerlink" title="三. Gradient Descent 梯度下降"></a>三. Gradient Descent 梯度下降</h2><p>梯度下降的主要思想：</p>
+<ol>
+<li><p>初始化<br>$$<br>{\theta_{0}}和 {\theta_{1}} , {\theta_{0}} = 0 , {\theta_{1}}=0<br>$$</p>
+</li>
+<li><p>不断的改变 ${\theta_{0}}$ 和 ${\theta_{1}}$ 值，不断减少 $F({\theta_{0}},{\theta_{1}})$ 直至达到最小值（或者局部最小）。</p>
+</li>
 </ol>
-</li>
-<li><ol start="2">
-<li>Regression： 预测连续输出中的结果。 从输入映射到某个连续的函数的输出中。</li>
-</ol>
-</li>
-</ul>
-</li>
-</ul>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/68_1_0.png" alt=""></p>
+<p>想象成下山，如何下山的速度最快？这里涉及到了下山的速度，即步长。</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/68_2_.png" alt=""></p>
+<p>有趣的是换旁边一个点，下山，找到的最优解可能就是另一个了。这也是梯度下降的一个特点。它会找到所有的局部最优解出来。</p>
+<p>梯度下降算法，不断更新：</p>
+
+\begin{align*}
+\rm{temp}0 &amp;:= {\theta_{0}} - \alpha * \frac{\partial }{\partial {\theta_{0}}}\rm{F}({\theta_{0}},{\theta_{1}}) \\
+\rm{temp}1 &amp;:= {\theta_{1}} - \alpha * \frac{\partial }{\partial {\theta_{1}}}\rm{F}({\theta_{0}},{\theta_{1}}) \\
+{\theta_{0}} &amp;:= \rm{temp}0 \\
+{\theta_{1}} &amp;:= \rm{temp}1 \\
+\end{align*}
+
+
+<p>直到收敛。注意 ${\theta_{0}}$ 和 ${\theta_{1}}$ 值要<strong>同时更新</strong>，<strong>切记不要求一次导更新一次！</strong></p>
+<p>$\alpha$ 被称作为学习速率。</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/68_3.gif" alt=""></p>
+<p>如果 $\alpha$ 被设置的很小，需要很多次循环才能到底最低点。<br>如果 $\alpha$ 被设置的很大，来来回回可能就会离最低点越来越远，<strong>会导致无法收敛，甚至发散</strong>。</p>
+<p>当快要到最低点的时候，梯度下降会越来越慢，因为 $ \frac{\partial }{\partial {\theta}}$ 越来越小。</p>
+<h2 id="关于-梯度-和-偏导数-的关系"><a href="#关于-梯度-和-偏导数-的关系" class="headerlink" title="关于 梯度 和 偏导数 的关系"></a>关于 梯度 和 偏导数 的关系</h2><p>在上面梯度下降算法中，我们一直用的是偏导数进行讨论的，可能会有人有疑问，偏导数和梯度有啥关系？</p>
+<h3 id="1-导数"><a href="#1-导数" class="headerlink" title="1. 导数"></a>1. 导数</h3><p>如果是一元的，那么偏导数就降级成了求导数</p>
+$$ f^{'}(x_{0}) = \lim_{\Delta x\rightarrow 0} \frac{\Delta y}{\Delta x} = \lim_{\Delta x\rightarrow 0} \frac{f(x_{0} + \Delta x) - f(x_{0})}{\Delta x} $$
+
+<p>导数的几何意义是切线在该点的斜率，物理意义是函数在这一点的 (瞬时) 变化率。</p>
+<h3 id="2-偏导数"><a href="#2-偏导数" class="headerlink" title="2. 偏导数"></a>2. 偏导数</h3><p>在来看看偏导数的定义：</p>
+
+$$
+\begin{align*}
+f_{x}(x_{0},y_{0}) &amp; = \lim_{\Delta x \rightarrow 0} \frac{f(x_{0} + \Delta x , y_{0}) - f(x_{0},y_{0})}{\Delta x} \\ f_{y}(x_{0},y_{0}) &amp; = \lim_{\Delta y \rightarrow 0} \frac{f(x_{0} , y_{0} + \Delta y) - f(x_{0},y_{0})}{\Delta y} \\
+\end{align*}
+$$
+
+
+
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/68_4.png" alt=""></p>
+<p>偏导数的几何意义也是切线的斜率，不过由于在曲面上，在一个点上与该曲面曲线相切的是一个面，就意味着切线有无数条。这里我们感兴趣的是2条切线，一个条是垂直于 y 轴（平行于 xOz 平面）的切线，另外一条是垂直于 x 轴（平行于 yOz 平面）的切线。这两条切线对应的斜率就是对 X 求偏导和对 Y 求偏导。</p>
+<p>一个多变量函数的偏导数是它关于其中一个变量的导数，而保持其他变量恒定（相对于全导数，在其中所有变量都允许变化）。</p>
+<p>偏导数的物理意义表示函数沿着坐标轴正方向上的变化率。</p>
+<h3 id="3-方向导数"><a href="#3-方向导数" class="headerlink" title="3. 方向导数"></a>3. 方向导数</h3><p>在说梯度之前，不应该漏掉方向导数。偏导数是求的在特定的2个方向上的导数，但是任意一个方向上也是存在导数的。这里就引入了方向导数的概念。</p>
 <blockquote>
-<p>无监督学习使我们能够很少或根本不知道我们的结果应该是什么样子。<strong>我们可以从数据中得出结构</strong>，我们不一定知道变量的影响。 我们可以通过基于数据中变量之间的关系对数据进行聚类来推导出这种结构。 在无监督学习的情况下，<strong>没有基于预测结果的反馈</strong>。无监督学习可以分为“聚类”和“非聚类”。</p>
+<p>设函数 u = u(x,y) 在点 $p_{0}(x_{0},y_{0})$ 的某空间临域 $ U \subset R^{2}$ 内有定义， L 为从点 $p_{0}$ 出发的射线，$p(x_{0},y_{0})$ 为 L 上且在 U 内的任一点，以 $t = \sqrt{(\Delta x)^{2} +(\Delta y)^{2} }$ 表示 $p$ 与 $p_{0}$ 之间的距离，若极限 ：</p>
 </blockquote>
-<ul>
-<li>无监督学习<code>unsupervised learning</code> : 没有预知的label，从变量的结构中寻找关系，而没有基于预测结果的反馈。<ul>
-<li><code>Unspervised Learning</code>可以分为<code>聚类</code>， 和 <code>非聚类</code>。</li>
-<li><ol>
-<li>聚类： 可以理解为对数据自动分组成不同变量的相似或者相关的簇。</li>
-</ol>
-</li>
-<li><ol start="2">
-<li>非聚类： 比如“鸡尾酒会算法”–&gt;从混乱的环境中识别和查找结果。</li>
-</ol>
-</li>
-</ul>
-</li>
-</ul>
 <blockquote>
-<p>参考： GitHub Repo：<a href="https://github.com/halfrost/Halfrost-Field" target="_blank" rel="noopener">Halfrost-Field</a></p>
+$$ \left.\begin{matrix}
+\frac{\partial f}{\partial l}
+\end{matrix}\right|_{(x_{0},y_{0})} = \lim_{t \rightarrow 0^{+}} \frac{f(x_{0} + tcos \alpha , y_{0}  +   tcos \beta) - f(x_{0},y_{0})}{t}
+$$
+<p>存在，则称此极限为函数 u = u(x,y) 在点 $p_{0}$ 沿方向 L 的方向导数，记作 $ \left.\begin{matrix}
+\frac{\partial f}{\partial l}
+\end{matrix}\right|_{(x_{0},y_{0})}$ 。</p>
+</blockquote>
+<p>方向导数是偏导数的概念的推广, 偏导数研究的是指定方向 (坐标轴方向) 的变化率，到了方向导数，指定的方向可以是任意方向了。</p>
+<blockquote>
+<p>如果函数 u = u(x,y) 在点 $p_{0}(x_{0},y_{0})$ 可微分，那么函数在该点沿任一方向 L 的方向导数存在，且有</p>
+</blockquote>
+<blockquote>
+$$ \left.\begin{matrix}
+\frac{\partial f}{\partial l}
+\end{matrix}\right|_{(x_{0},y_{0})} = f_{x}(x_{0},y_{0})cos \alpha + f_{y}(x_{0},y_{0})cos \beta
+$$
+</blockquote>
+<blockquote>
+<p>其中， $cos \alpha  $ ，$cos \beta$ 是方向 L 的方向余弦。</p>
+</blockquote>
+<p>一个标量场在某点沿着某个向量方向上的方向导数，描绘了该点附近标量场沿着该向量方向变动时的瞬时变化率。这个向量方向可以是任一方向。</p>
+<p>方向导数的物理意义表示函数在某点沿着某一特定方向上的变化率。</p>
+<h3 id="4-梯度"><a href="#4-梯度" class="headerlink" title="4. 梯度"></a>4. 梯度</h3><p>最后来讲讲梯度，梯度的定义：</p>
+<blockquote>
+<p>在二元函数的情形，设函数 $f(x,y)$ 在平面区域 D 内具有一阶连续偏导数，则对于每一点 $P_{0}(x_{0},y_{0}) \in D $,都可定出一个向量：</p>
+</blockquote>
+<blockquote>
+$$ f_{x}(x_{0},y_{0}) \vec{i} + f_{y}(x_{0},y_{0}) \vec{j} $$
+</blockquote>
+<blockquote>
+<p>这个向量称为函数 $f(x,y)$ 在点 $p_{0}(x_{0},y_{0})$ 的梯度，记作 $ \textbf{grad}\;\;f(x_{0},y_{0}) $ 或 $ \triangledown f(x_{0},y_{0}) $ , 即</p>
+</blockquote>
+<blockquote>
+$$ \textbf{grad}\;\;f(x_{0},y_{0}) = \triangledown f(x_{0},y_{0}) = f_{x}(x_{0},y_{0}) \vec{i} + f_{y}(x_{0},y_{0}) \vec{j} $$
+</blockquote>
+<blockquote>
+<p>其中 $ \triangledown = \frac{\partial }{\partial x} \vec{i} + \frac{\partial }{\partial y} \vec{j} $ 称为 (二维的) 向量微分算子 或者 Nabla 算子， $ \triangledown f = \frac{\partial f}{\partial x} \;\; \vec{i} + \frac{\partial f }{\partial y} \;\; \vec{j} $</p>
+</blockquote>
+<p>如果函数 $f(x,y)$ 在点 $p_{0}(x_{0},y_{0})$ 可微分， $\vec{e_{j}} = (cos \alpha,cos \beta)$ 是与方向 L 同向的单位向量，则：</p>
+
+$$
+\begin{align*}
+\left.\begin{matrix}
+\frac{\partial f}{\partial l}
+\end{matrix}\right|_{(x_{0},y_{0})} &amp;= f_{x}(x_{0},y_{0})cos \alpha + f_{y}(x_{0},y_{0})cos \beta \\
+&amp;= \textbf{grad}\;\;f(x_{0},y_{0}) \cdot \vec{e_{j}} = \left | \textbf{grad}\;\;f(x_{0},y_{0}) \right | cos \theta \\
+\end{align*}
+$$
+
+
+
+<p>其中 $ \theta $ 为 $ \textbf{grad};;f(x_{0},y_{0}) $ 与 $ \vec{e_{j}} $ 的夹角。</p>
+<ol>
+<li>当 $\theta = 0 $ 的时候，$\left.\begin{matrix}
+\frac{\partial f}{\partial l}
+\end{matrix}\right|_{(x_{0},y_{0})}  = \left | \textbf{grad}\;\;f(x_{0},y_{0}) \right |$</li>
+</ol>
+<p>即 <strong>函数 $f(x,y)$ 在一点的梯度 $ \textbf{grad};;f $ 是这样的一个向量，它的方向是函数在这点的方向导数取得最大值的方向，它的模就等于方向导数的最大值</strong> 。</p>
+<ol start="2">
+<li>当 $\theta = \pi $ 的时候，$\left.\begin{matrix}
+\frac{\partial f}{\partial l}
+\end{matrix}\right|_{(x_{0},y_{0})}  = - \left | \textbf{grad}\;\;f(x_{0},y_{0}) \right |$</li>
+</ol>
+<p>即 $ \vec{e_{j}} $ 与 梯度 方向相反的时候，函数减少最快，在这个方向的方向导数达到最小值。</p>
+<p><strong>所以梯度下降就是基于这个原理</strong>。</p>
+<p>函数在某一点处的方向导数在其梯度方向上达到最大值，此最大值即梯度的模数。</p>
+<p>这就是说，沿梯度方向，函数值增加最快。同样可知，方向导数的最小值在梯度的相反方向取得，此最小值为最大值的相反数，从而沿梯度相反方向函数值的减少最快。</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>物理意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>导数   $ f^{‘}(x)  $</td>
+<td>函数在该点的瞬时变化率</td>
+</tr>
+<tr>
+<td>偏导数 $ \frac{\partial f(x,y) }{\partial x}  $</td>
+<td>函数在坐标轴方向上的变化率</td>
+</tr>
+<tr>
+<td>方向导数</td>
+<td>函数在某点沿某个特定方向的变化率</td>
+</tr>
+<tr>
+<td>梯度  $ \textbf{grad};;f(x,y)  $</td>
+<td>函数在该点沿所有方向变化率最大的那个方向</td>
+</tr>
+</tbody></table>
+<h2 id="四-Linear-Regression-线性回归"><a href="#四-Linear-Regression-线性回归" class="headerlink" title="四. Linear Regression 线性回归"></a>四. Linear Regression 线性回归</h2><p>梯度下降是很常用的算法，它不仅被用在线性回归，还用在线性回归模型、平方误差代价函数中。</p>
+
+\begin{align*}
+\frac{\partial }{\partial {\theta_{j}}}\rm{F}({\theta_{0}},{\theta_{1}}) &amp; = \frac{\partial }{\partial {\theta_{j}}} \frac{1}{2m}\sum_{i = 1}^{m} (h_{\theta}(x^{(i)})-y^{(i)})^2\\
+\end{align*}
+
+
+<p>令 $ z = (h_{\theta}(x^{(i)})-y^{(i)})^2$ , $ u = h_{\theta}(x^{(i)})-y^{(i)}$ , 则 $ z = u^2 $。 考虑到 $f(z)$  和 $f(u)$ 都是连续的，则有：</p>
+
+\begin{align*}
+\frac{\partial }{\partial {\theta_{j}}}\rm{F}({\theta_{0}},{\theta_{1}}) &amp; = \frac{\partial }{\partial {\theta_{j}}} \frac{1}{2m}\sum_{i = 1}^{m} (h_{\theta}(x^{(i)})-y^{(i)})^2\\
+&amp; = \frac{1}{2m}\sum_{i = 1}^{m} \frac{\partial z }{\partial u} \frac{\partial u }{\partial {\theta_{j}}} = \frac{1}{2m} * 2 \sum_{i = 1}^{m} u \frac{\partial u }{\partial {\theta_{j}}}\\
+&amp; = \frac{1}{m} \sum_{i = 1}^{m} u \frac{\partial u }{\partial {\theta_{j}}} \\
+\end{align*}
+
+
+
+<p>++++++++++++</p>
+<p>将 u 展开 $ u = \theta_{0} + {\theta_{1}}x^{(i)}-y^{(i)}$ , 令 j = 0,则有</p>
+
+\begin{align*}
+\frac{\partial }{\partial {\theta_{0}}}\rm{F}({\theta_{0}},{\theta_{1}}) &amp;= \frac{1}{m} \sum_{i = 1}^{m} u \frac{\partial u }{\partial {\theta_{0}}} \\
+&amp;= \frac{1}{m} \sum_{i = 1}^{m}(\theta_{0} + \theta_{1}x^{(i)} - y^{(i)}) = \frac{1}{m} \sum_{i = 1}^{m}(h_{\theta}(x^{(i)}) - y^{(i)}) \\
+\end{align*}
+
+
+<p>令 j = 1,则有</p>
+
+\begin{align*}
+\frac{\partial }{\partial {\theta_{1}}}\rm{F}({\theta_{0}},{\theta_{1}}) &amp;=  \frac{1}{m} \sum_{i = 1}^{m} u \frac{\partial u }{\partial {\theta_{1}}}\\
+&amp;= \frac{1}{m} \sum_{i = 1}^{m}(\theta_{0} + \theta_{1}x^{(i)} - y^{(i)}) * x^{(i)} = \frac{1}{m} \sum_{i = 1}^{m}(h_{\theta}(x^{(i)}) - y^{(i)}) * x^{(i)} \\
+\end{align*}
+
+
+
+<p>梯度下降算法：</p>
+ 
+\begin{align*}
+\rm{temp}0 &amp;:= {\theta_{0}} - \alpha * \frac{\partial }{\partial {\theta_{0}}}\rm{F}({\theta_{0}},{\theta_{1}}) = {\theta_{0}} - \alpha * \frac{1}{m} \sum_{i = 1}^{m}(h_{\theta}(x^{(i)}) - y^{(i)})  \\
+\rm{temp}1 &amp;:= {\theta_{1}} - \alpha * \frac{\partial }{\partial {\theta_{1}}}\rm{F}({\theta_{0}},{\theta_{1}}) = {\theta_{1}} - \alpha * \frac{1}{m} \sum_{i = 1}^{m}(h_{\theta}(x^{(i)}) - y^{(i)}) * x^{(i)} \\
+{\theta_{0}} &amp;:= \rm{temp}0  \\
+{\theta_{1}} &amp;:= \rm{temp}1  \\
+\end{align*}
+
+
+
+<p>当然除了用梯度下降的迭代算法，还有其他方法可以算出代价函数的最小值，比如线性代数里面的 正规方程组法。但是两者相比较而言，梯度下降适合更大的数据集。</p>
+<p>举个例子，通过梯度下降不断更新以后，线性回归以后的曲线和原始数据集会越来越拟合。</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+x_train <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">2.5</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">3.5</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">6.3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">9.9</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">9.91</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">8.02</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">[</span><span class="token number">4.5</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">5.5</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">6.23</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">7.923</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">2.941</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">5.02</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">[</span><span class="token number">6.34</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">7.543</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">7.546</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">8.744</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">9.674</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">9.643</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">[</span><span class="token number">5.33</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">5.31</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">6.78</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">1.01</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">9.68</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">[</span><span class="token number">9.99</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">3.54</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">6.89</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">10.9</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span> dtype<span class="token operator">=</span>np<span class="token punctuation">.</span>float32<span class="token punctuation">)</span>
+
+y_train <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">3.34</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">3.86</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">5.63</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">7.78</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">10.6453</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">8.43</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">[</span><span class="token number">4.75</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">5.345</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">6.546</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">7.5754</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">2.35654</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">5.43646</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">[</span><span class="token number">6.6443</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">7.64534</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">7.546</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">8.7457</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">9.6464</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">9.74643</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">[</span><span class="token number">6.32</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">6.42</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">6.1243</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">1.088</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">10.342</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">[</span><span class="token number">9.24</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">4.22</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">5.44</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">9.33</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span> dtype<span class="token operator">=</span>np<span class="token punctuation">.</span>float32<span class="token punctuation">)</span>
+
+y_data <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">2.5</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">3.5</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">6.3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">9.9</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">9.91</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">8.02</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">[</span><span class="token number">4.5</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">5.5</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">6.23</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">7.923</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">2.941</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">5.02</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">[</span><span class="token number">6.34</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">7.543</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">7.546</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">8.744</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">9.674</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">9.643</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">[</span><span class="token number">5.33</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">5.31</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">6.78</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">1.01</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">9.68</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">[</span><span class="token number">9.99</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">3.54</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">6.89</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">10.9</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span> dtype<span class="token operator">=</span>np<span class="token punctuation">.</span>float32<span class="token punctuation">)</span></code></pre>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pyplot <span class="token keyword">as</span> plt
+<span class="token operator">%</span>matplotlib inline
+plt<span class="token punctuation">.</span>plot<span class="token punctuation">(</span>x_train<span class="token punctuation">,</span> y_train<span class="token punctuation">,</span> <span class="token string">'bo'</span><span class="token punctuation">,</span>label<span class="token operator">=</span><span class="token string">'real'</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>plot<span class="token punctuation">(</span>x_train<span class="token punctuation">,</span> y_data<span class="token punctuation">,</span> <span class="token string">'r-'</span><span class="token punctuation">,</span>label<span class="token operator">=</span><span class="token string">'estimated'</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>legend<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<pre><code>&lt;matplotlib.legend.Legend at 0x7fa6805ab128&gt;</code></pre><p><img src="/2020/01/26/1-2-linear-regression-with-one-variable/output_7_1.png" alt="output"></p>
+<hr>
+<blockquote>
+<p>GitHub Repo：<a href="https://github.com/halfrost/Halfrost-Field" target="_blank" rel="noopener">Halfrost-Field</a></p>
+<p>Follow: <a href="https://github.com/halfrost" target="_blank" rel="noopener">halfrost · GitHub</a></p>
+<p>Source: <a href="https://github.com/halfrost/Halfrost-Field/blob/master/contents/Machine_Learning/Gradient_descent.ipynb" target="_blank" rel="noopener">https://github.com/halfrost/Halfrost-Field/blob/master/contents/Machine_Learning/Gradient_descent.ipynb</a></p>
 </blockquote>
 <script>
         document.querySelectorAll('.github-emoji')
@@ -559,7 +749,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://Xw-Jia.github.io/2020/01/19/1-1-what-is-machine-learning/">http://Xw-Jia.github.io/2020/01/19/1-1-what-is-machine-learning/</a>
+                    <a href="http://Xw-Jia.github.io/2020/01/26/1-2-linear-regression-with-one-variable/">http://Xw-Jia.github.io/2020/01/26/1-2-linear-regression-with-one-variable/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -768,9 +958,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/01/26/1-2-linear-regression-with-one-variable/">
                     <div class="card-image">
@@ -787,9 +978,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-01-26
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-01-26
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -802,6 +993,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -824,30 +1016,31 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/12/31/19-nian-sui-mo/">
+                <a href="/2020/01/19/1-1-what-is-machine-learning/">
                     <div class="card-image">
                         
-                        <img src="/medias/cover_pics/20191231.jpg" class="responsive-img" alt="19年岁末">
                         
-                        <span class="card-title">19年岁末</span>
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="1.1_What_is_Machine_Learning">
+                        
+                        <span class="card-title">1.1_What_is_Machine_Learning</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            写于19年最后一天的碎碎念...
+                            吴恩达Machine_Learning入门课Week1第一节
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2019-12-31
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-01-19
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E6%97%A5%E8%AE%B0/" class="post-category">
-                                    日记
+                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    机器学习
                                 </a>
                             
                             
@@ -857,8 +1050,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/">
-                        <span class="chip bg-color">年终总结</span>
+                    <a href="/tags/Machine-Learning/">
+                        <span class="chip bg-color">Machine Learning</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%90%B4%E6%81%A9%E8%BE%BE/">
+                        <span class="chip bg-color">吴恩达</span>
                     </a>
                     
                 </div>
@@ -1032,6 +1229,13 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
 </main>
 
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
 
 
     <footer class="page-footer bg-color">
