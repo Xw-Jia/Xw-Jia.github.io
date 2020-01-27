@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://xw-jia.github.io/"/>
-  <updated>2020-01-27T02:29:14.801Z</updated>
+  <updated>2020-01-27T02:52:55.170Z</updated>
   <id>http://xw-jia.github.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>2.2_Computing_Parameters_Analytically</title>
+    <link href="http://xw-jia.github.io/2020/01/27/2-2-computing-parameters-analytically/"/>
+    <id>http://xw-jia.github.io/2020/01/27/2-2-computing-parameters-analytically/</id>
+    <published>2020-01-27T02:34:42.000Z</published>
+    <updated>2020-01-27T02:52:55.170Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;2-2-Computing-Parameters-Analytically&quot;&gt;&lt;a href=&quot;#2-2-Computing-Parameters-Analytically&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="机器学习" scheme="http://Xw-Jia.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="Machine Learning" scheme="http://Xw-Jia.github.io/tags/Machine-Learning/"/>
+    
+      <category term="吴恩达" scheme="http://Xw-Jia.github.io/tags/%E5%90%B4%E6%81%A9%E8%BE%BE/"/>
+    
+  </entry>
   
   <entry>
     <title>2.1_Multivariate_Linear_Regression</title>
