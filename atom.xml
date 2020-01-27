@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://xw-jia.github.io/"/>
-  <updated>2020-01-26T12:30:37.857Z</updated>
+  <updated>2020-01-27T02:29:14.801Z</updated>
   <id>http://xw-jia.github.io/</id>
   
   <author>
@@ -17,11 +17,40 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>2.1_Multivariate_Linear_Regression</title>
+    <link href="http://xw-jia.github.io/2020/01/27/2-1-multivariate-linear-regression/"/>
+    <id>http://xw-jia.github.io/2020/01/27/2-1-multivariate-linear-regression/</id>
+    <published>2020-01-27T02:19:12.000Z</published>
+    <updated>2020-01-27T02:29:14.801Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Multivariate-Linear-Regression&quot;&gt;&lt;a href=&quot;#Multivariate-Linear-Regression&quot; class=&quot;headerlink&quot; title=&quot;Multivariate Linear
+        
+      
+    
+    </summary>
+    
+    
+      <category term="机器学习" scheme="http://Xw-Jia.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="Machine Learning" scheme="http://Xw-Jia.github.io/tags/Machine-Learning/"/>
+    
+      <category term="吴恩达" scheme="http://Xw-Jia.github.io/tags/%E5%90%B4%E6%81%A9%E8%BE%BE/"/>
+    
+  </entry>
+  
+  <entry>
     <title>1.2_Linear_Regression_With_One_Variable(Gradient_Descent)</title>
     <link href="http://xw-jia.github.io/2020/01/26/1-2-linear-regression-with-one-variable/"/>
     <id>http://xw-jia.github.io/2020/01/26/1-2-linear-regression-with-one-variable/</id>
     <published>2020-01-26T05:12:40.000Z</published>
-    <updated>2020-01-26T12:30:37.857Z</updated>
+    <updated>2020-01-26T12:34:49.321Z</updated>
     
     <summary type="html">
     
