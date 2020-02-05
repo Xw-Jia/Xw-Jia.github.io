@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://xw-jia.github.io/"/>
-  <updated>2020-02-03T14:27:01.221Z</updated>
+  <updated>2020-02-05T03:37:37.598Z</updated>
   <id>http://xw-jia.github.io/</id>
   
   <author>
@@ -17,11 +17,40 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>5.1_Neural_Networks_Learning</title>
+    <link href="http://xw-jia.github.io/2020/02/05/5-1-neural-networks-learning/"/>
+    <id>http://xw-jia.github.io/2020/02/05/5-1-neural-networks-learning/</id>
+    <published>2020-02-05T03:20:53.000Z</published>
+    <updated>2020-02-05T03:37:37.598Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;img
+        
+      
+    
+    </summary>
+    
+    
+      <category term="机器学习" scheme="http://Xw-Jia.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="Machine Learning" scheme="http://Xw-Jia.github.io/tags/Machine-Learning/"/>
+    
+      <category term="吴恩达" scheme="http://Xw-Jia.github.io/tags/%E5%90%B4%E6%81%A9%E8%BE%BE/"/>
+    
+  </entry>
+  
+  <entry>
     <title>4.1_Neural_Networks_Representation</title>
     <link href="http://xw-jia.github.io/2020/02/03/4-1-neural-networks-representation/"/>
     <id>http://xw-jia.github.io/2020/02/03/4-1-neural-networks-representation/</id>
     <published>2020-02-03T14:19:27.000Z</published>
-    <updated>2020-02-03T14:27:01.221Z</updated>
+    <updated>2020-02-03T14:31:54.111Z</updated>
     
     <summary type="html">
     
