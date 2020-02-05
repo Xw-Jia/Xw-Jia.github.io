@@ -478,14 +478,14 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><img src="https://upload-images.jianshu.io/upload_images/1194012-756b3fa02ecf03db.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+                <p><img src="https://upload-images.jianshu.io/upload_images/1194012-756b3fa02ecf03db.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <h1 id="3-2-Regularization"><a href="#3-2-Regularization" class="headerlink" title="3.2_Regularization"></a>3.2_Regularization</h1><h2 id="一-Solving-the-Problem-of-Overfitting"><a href="#一-Solving-the-Problem-of-Overfitting" class="headerlink" title="一. Solving the Problem of Overfitting"></a>一. Solving the Problem of Overfitting</h2><p>考虑从 $x \in \mathbb{R}$ 预测 y 的问题。下面最左边的图显示了将 $y =\theta_{0}+\theta_{1}x$ 拟合到数据集的结果。我们看到这些数据并不是直线的，所以这个数据并不是很好。</p>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/70_2.png" alt=""></p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/70_2.png" alt></p>
 <p>相反，如果我们添加了一个额外的特征 x2，并且拟合 $y =\theta_{0}+\theta_{1}x+\theta_{2}x^{2}$，那么我们获得的数据稍微更适合,如上图。</p>
 <p>但是并不是添加的多项式越多越好。但是，添加太多特征也是一个危险：最右边的数字是拟合五阶多项式 $y =\theta_{0}+\theta_{1}x+\theta_{2}x^{2}+\theta_{3}x^{3}+\theta_{4}x^{4}+\theta_{5}x^{5} $ 的结果。我们看到即使拟合曲线完美地传递了数据，我们也不会认为这是一个很好的预测，上图最右边的图就是过度拟合的例子。</p>
 <p>上图最右边的图也称有<strong>高方差</strong>。如果我们拟合一个高阶多项式，有过度的特征，并且这个假设函数能拟合几乎所有的数据，这就面临可能的函数太过于庞大，变量太多的问题。我们没有足够的数据去约束它，来获得一个好的假设函数，这就是过度拟合。</p>
 <p>欠拟合或高偏倚是当我们的假设函数h的形式很难与数据的趋势作图时。它通常是由一个功能太简单或功能太少造成的。另一方面，过度拟合或高度方差是由适合现有数据的假设函数引起的，但不能很好地预测新数据。它通常是由一个复杂的函数造成的，它会产生大量与数据无关的不必要的曲线和角度。</p>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/70_3.png" alt=""></p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/70_3.png" alt></p>
 <p>这个术语适用于线性和逻辑回归。解决过度配合问题有两个主要选项：</p>
 <h3 id="1-减少特征的数量："><a href="#1-减少特征的数量：" class="headerlink" title="1. 减少特征的数量："></a>1. 减少特征的数量：</h3><ul>
 <li>手动选择要保留的特征，哪些变量更为重要，哪些变量应该保留，哪些应该舍弃。 </li>
@@ -497,7 +497,7 @@
 <li>当有很多个特征的时候，并且每个特征都会对最终预测值产生影响，正则化可以保证运作良好。</li>
 </ul>
 <p>正则化目的是尽量去简化这个假设模型。因为这些参数都接近0的时候，越简单的模型也被证明越不容易出现过拟合的问题。</p>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/70_4.png" alt=""></p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/70_4.png" alt></p>
 <p>减少一些数量级的特征，加一些“惩罚”项(为了使代价函数最小，乘以 1000 就是惩罚)。</p>
 <p>代价函数：</p>
 
@@ -540,7 +540,7 @@ $$\Theta = \left( X^{T}X +\lambda \begin{bmatrix}
  &amp;  &amp;  &amp;  &amp; 1
 \end{bmatrix} \right)$ 这一项一定是可逆的，因为它一定不是奇异矩阵。所以<strong>正则化还能解决不可逆的情况</strong>。</p>
 <hr>
-<h2 id="三-Regularized-Logistic-Regression-逻辑回归正则化"><a href="#三-Regularized-Logistic-Regression-逻辑回归正则化" class="headerlink" title="三. Regularized Logistic Regression 逻辑回归正则化"></a>三. Regularized Logistic Regression 逻辑回归正则化</h2><p><img src="https://img.halfrost.com/Blog/ArticleImage/70_5.png" alt=""></p>
+<h2 id="三-Regularized-Logistic-Regression-逻辑回归正则化"><a href="#三-Regularized-Logistic-Regression-逻辑回归正则化" class="headerlink" title="三. Regularized Logistic Regression 逻辑回归正则化"></a>三. Regularized Logistic Regression 逻辑回归正则化</h2><p><img src="https://img.halfrost.com/Blog/ArticleImage/70_5.png" alt></p>
 <p>之前讨论过的代价函数是：</p>
 
 $$
@@ -1149,7 +1149,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">26.8k</span>&nbsp;字
+                class="white-color">30.7k</span>&nbsp;字
             
             
             

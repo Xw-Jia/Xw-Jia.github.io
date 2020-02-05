@@ -478,8 +478,8 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><img src="https://upload-images.jianshu.io/upload_images/1194012-03b47f040418215a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<h1 id="5-1-Neural-Networks-Learning"><a href="#5-1-Neural-Networks-Learning" class="headerlink" title="5.1_Neural_Networks_Learning"></a>5.1_Neural_Networks_Learning</h1><h2 id="一-Cost-Function-and-Backpropagation"><a href="#一-Cost-Function-and-Backpropagation" class="headerlink" title="一. Cost Function and Backpropagation"></a>一. Cost Function and Backpropagation</h2><h3 id="1-Cost-Function"><a href="#1-Cost-Function" class="headerlink" title="1. Cost Function"></a>1. Cost Function</h3><p><img src="https://img.halfrost.com/Blog/ArticleImage/72_3.png" alt=""></p>
+                <p><img src="https://upload-images.jianshu.io/upload_images/1194012-03b47f040418215a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h1 id="5-1-Neural-Networks-Learning"><a href="#5-1-Neural-Networks-Learning" class="headerlink" title="5.1_Neural_Networks_Learning"></a>5.1_Neural_Networks_Learning</h1><h2 id="一-Cost-Function-and-Backpropagation"><a href="#一-Cost-Function-and-Backpropagation" class="headerlink" title="一. Cost Function and Backpropagation"></a>一. Cost Function and Backpropagation</h2><h3 id="1-Cost-Function"><a href="#1-Cost-Function" class="headerlink" title="1. Cost Function"></a>1. Cost Function</h3><p><img src="https://img.halfrost.com/Blog/ArticleImage/72_3.png" alt></p>
 <p>假设训练集中有 m 个训练样本，$\begin{Bmatrix} (x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}), \cdots ,(x^{(m)},y^{(m)}) \end{Bmatrix}$，L 表示神经网络的总层数 Layer，用 $S_{l}$ 表示第 L 层的单元数(神经元的数量)，但是不包括第 L 层的偏差单元(常数项)。令 K 为输出层的单元数目，即 最后一层的单元数。</p>
 <p><strong>符号约定</strong>：</p>
 <p>$z_i^{(j)}$ =  第 $j$ 层的第 $i$ 个节点（神经元）的“计算值”<br>$a_i^{(j)}$ = 第 $j$ 层的第 $i$ 个节点（神经元）的“激活值”;</p>
@@ -535,12 +535,12 @@ $$
 $$
 
 <p>可以算出 $g^{‘}(z^{(3)}) = a^{(3)} . * (1-a^{(3)})$ ， $g^{‘}(z^{(2)}) = a^{(2)} . * (1-a^{(2)})$。</p>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/72_4.png" alt=""></p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/72_4.png" alt></p>
 <p>于是可以给出反向传播的算法步骤：</p>
 <p>首先有一个训练集 $\begin{Bmatrix} (x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}), \cdots ,(x^{(m)},y^{(m)}) \end{Bmatrix}$，初始值对每一个 $(l,i,j)$ 都设置 $\Delta^{(l)}_{i,j} := 0$ ，即初始矩阵是全零矩阵。</p>
 <p>针对 $1-m$ 训练集开始以下步骤的训练：</p>
 <h3 id="1-前向传播"><a href="#1-前向传播" class="headerlink" title="(1) 前向传播"></a>(1) 前向传播</h3><p>设置 $ a^{(1)} := x^{(t)} $，并按照前向传播的方法，计算出每一层的激励 $a^{(l)}$ 。</p>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/72_5.png" alt=""></p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/72_5.png" alt></p>
 <h3 id="2-计算误差"><a href="#2-计算误差" class="headerlink" title="(2) 计算误差"></a>(2) 计算误差</h3><p>利用 $y^{(t)}$，计算 $\delta^{(L)} = a^{(L)} - y^{t}$</p>
 <p>其中 $L$ 是我们的总层数，$a^{(L)}$ 是最后一层激活单元输出的向量。所以我们最后一层的“误差值”仅仅是我们在最后一层的实际结果和 y 中的正确输出的差异。为了获得最后一层之前的图层的增量值，我们可以使用下面步骤中的方程，让我们从右向左前进：</p>
 <h3 id="3-反向传播"><a href="#3-反向传播" class="headerlink" title="(3) 反向传播"></a>(3) 反向传播</h3><p>通过 $\delta^{(l)} = ((\Theta^{(l)})^{(T)}\delta^{(l+1)}).* a^{(l)} .*(1-a^{(l)})$，计算 $\delta^{(L-1)},\delta^{(L-2)},\cdots,\delta^{(2)}$ 计算出每一层神经节点的误差。</p>
@@ -694,7 +694,7 @@ $$\delta^{(l)}_i = \sum_{k=1}^{s_{(l+1)}} \Big[\delta^{(l+1)}_k \Theta_{k,i}^{(l
 </ul>
 <p>$$\dfrac{\partial}{\partial \Theta_{i,j}^{(l)}}F(\Theta) = \delta^{(l)}_i a_j^{(l-1)}$$</p>
 <hr>
-<h2 id="三-Backpropagation-Algorithm-反向传播算法过程"><a href="#三-Backpropagation-Algorithm-反向传播算法过程" class="headerlink" title="三. Backpropagation Algorithm 反向传播算法过程"></a>三. Backpropagation Algorithm 反向传播算法过程</h2><p><img src="https://img.halfrost.com/Blog/ArticleImage/72_2_.png" alt=""></p>
+<h2 id="三-Backpropagation-Algorithm-反向传播算法过程"><a href="#三-Backpropagation-Algorithm-反向传播算法过程" class="headerlink" title="三. Backpropagation Algorithm 反向传播算法过程"></a>三. Backpropagation Algorithm 反向传播算法过程</h2><p><img src="https://img.halfrost.com/Blog/ArticleImage/72_2_.png" alt></p>
 <p>有了上述推导，我们描述一下算法具体的操作流程：</p>
 <ul>
 <li>输入：输入样本数据，初始化权值参数（建议随机生成较小的数）。</li>
@@ -1304,7 +1304,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">26.8k</span>&nbsp;字
+                class="white-color">30.7k</span>&nbsp;字
             
             
             
