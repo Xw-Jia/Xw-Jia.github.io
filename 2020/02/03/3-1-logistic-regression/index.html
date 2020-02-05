@@ -478,7 +478,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><img src="https://img.halfrost.com/Blog/ArticleImage/69_6.png" alt></p>
+                <p><img src="https://img.halfrost.com/Blog/ArticleImage/69_6.png" alt=""></p>
 <h1 id="3-1-Logistic-Regression"><a href="#3-1-Logistic-Regression" class="headerlink" title="3.1_Logistic_Regression"></a>3.1_Logistic_Regression</h1><h2 id="一-Classification-and-Representation"><a href="#一-Classification-and-Representation" class="headerlink" title="一. Classification and Representation"></a>一. Classification and Representation</h2><p>要尝试分类，一种方法是使用线性回归，并将所有大于0.5的预测值映射为1，将小于0.5的所有预测值映射为0.但是，此方法效果不佳，因为分类实际上不是线性函数。 分类问题就像回归问题一样，除了我们现在想要预测的值只有少数离散值。</p>
 <p><strong>线性回归用来解决分类问题，通常不是一个好主意</strong>。</p>
 <p>我们解决分类问题，忽略y是离散值，并使用我们的旧线性回归算法来尝试预测给定的x。但是，构建这种方法性能很差的示例很容易。直观地说，当知道$y\in \begin{Bmatrix}<br>0,1<br>\end{Bmatrix}$时，$h_{\theta}(x)$ 取大于1或小于0的值也是没有意义的。为了解决这个问题，让我们改变我们的假设 $h_{\theta}(x)$ 的形式以满足 $0\leqslant h_{\theta}(x)\leqslant 1$。这是通过将 $\theta^{T}x$ 插入 Logistic 函数来完成的：</p>
@@ -486,7 +486,7 @@
 <p>上式称为 Sigmoid Function 或者 Logistic Function</p>
 <p>令 $h_{\theta}(x) = g(\theta^{T}x)$,$z = \theta^{T}x$,则:</p>
 <p>$$g(x) = \frac{1}{1+e^{-\theta^{T}x}}$$</p>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/69_8.png" alt></p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/69_8.png" alt=""></p>
 <p>这里显示的函数$g(x)$将任何实数映射到（0,1）区间，使得它可用于将任意值函数转换为更适合分类的函数。</p>
 <p><strong>决策边界不是训练集的属性，而是假设本身及其参数的属性</strong>。</p>
 <hr>
@@ -603,7 +603,7 @@ x <span class="token operator">=</span><span class="token function">fminunc</spa
 </code></pre>
 <hr>
 <h2 id="三-Multiclass-Classification"><a href="#三-Multiclass-Classification" class="headerlink" title="三. Multiclass Classification"></a>三. Multiclass Classification</h2><p>这一章节我们来讨论一下如何利用逻辑回归来解决多类别分类问题。介绍一个一对多的分类算法。</p>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/69_7.png" alt></p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/69_7.png" alt=""></p>
 <p>现在，当我们有两个以上的类别时，我们将处理数据的分类。我们将扩展我们的定义，使得y = {0,1 … n}，而不是y = {0,1}。 由于y = {0,1 … n}，我们将问题分成n + 1（+1，因为索引从0开始）二元分类问题;在每一个中，我们都预测’y’是我们其中一个类的成员的概率。</p>
 <p>最终在 n + 1 个分类器中分别输入 x ，然后取这 n + 1 个分类器概率的最大值,即是对应 $y=i$ 的概率值。</p>
 <hr>
@@ -1180,7 +1180,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">30.7k</span>&nbsp;字
+                class="white-color">33.5k</span>&nbsp;字
             
             
             

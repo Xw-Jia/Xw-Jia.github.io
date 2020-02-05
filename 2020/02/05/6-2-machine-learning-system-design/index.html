@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="5.2_Backpropagation_in_Practice, DustOfStars">
-    <meta name="description" content="吴恩达Machine_Learning入门课Week5第一节">
+    <meta name="keywords" content="6.2_Machine_Learning_System_Design, DustOfStars">
+    <meta name="description" content="吴恩达Machine_Learning入门课Week6第二节">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>5.2_Backpropagation_in_Practice | DustOfStars</title>
+    <title>6.2_Machine_Learning_System_Design | DustOfStars</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -295,12 +295,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/cover_pics/5-2-Backpropagation-in-Practice/1.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/cover_pics/6-2-Machine-Learning-System-Design/1.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">5.2_Backpropagation_in_Practice</h1>
+                    <h1 class="description center-align post-title">6.2_Machine_Learning_System_Design</h1>
                 </div>
             </div>
         </div>
@@ -460,7 +460,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3k
+                    2.7k
                 </div>
                 
 
@@ -478,148 +478,97 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><img src="https://upload-images.jianshu.io/upload_images/1194012-da4ab697bff80db9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<h1 id="5-2-Backpropagation-in-Practice"><a href="#5-2-Backpropagation-in-Practice" class="headerlink" title="5.2 Backpropagation_in_Practice"></a>5.2 Backpropagation_in_Practice</h1><h2 id="一-Backpropagation-in-Practice"><a href="#一-Backpropagation-in-Practice" class="headerlink" title="一. Backpropagation in Practice"></a>一. Backpropagation in Practice</h2><p>为了利用梯度下降的优化算法，需要用到 fminunc 函数。其输入的参数是 $\theta$ ，函数的返回值是代价函数 jVal 和导数值 gradient。然后将返回值传递给高级优化算法 fminunc，然后输出为输入值 @costFunction，以及 $\theta$ 值的初始值。</p>
-<p>其中参数 $\Theta_1,\Theta_2,\Theta_3,\cdots$ 和 $D^{(1)},D^{(2)},D^{(3)},\cdots$ 都为矩阵，那么为了能调用 fminunc 函数，我们要将其变成向量，</p>
-<p>假如我们 $\Theta_1,\Theta_2,\Theta_3$ 参数和 $D^{(1)},D^{(2)},D^{(3)}$ 参数，Theta1 是 $10 * 11$，Theta2 是 $10 * 11$，Theta3 是 $1 * 11$。</p>
-<pre class=" language-c"><code class="language-c"><span class="token operator">%</span> 打包成一个向量
-thetaVector <span class="token operator">=</span> <span class="token punctuation">[</span> <span class="token function">Theta1</span><span class="token punctuation">(</span><span class="token punctuation">:</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token function">Theta2</span><span class="token punctuation">(</span><span class="token punctuation">:</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token function">Theta3</span><span class="token punctuation">(</span><span class="token punctuation">:</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">]</span>
-deltaVector <span class="token operator">=</span> <span class="token punctuation">[</span> <span class="token function">D1</span><span class="token punctuation">(</span><span class="token punctuation">:</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token function">D2</span><span class="token punctuation">(</span><span class="token punctuation">:</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token function">D3</span><span class="token punctuation">(</span><span class="token punctuation">:</span><span class="token punctuation">)</span> <span class="token punctuation">]</span>
-
-<span class="token operator">%</span> 解包还原
-Theta1 <span class="token operator">=</span> <span class="token function">reshape</span><span class="token punctuation">(</span><span class="token function">thetaVector</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token number">110</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">11</span><span class="token punctuation">)</span>
-Theta2 <span class="token operator">=</span> <span class="token function">reshape</span><span class="token punctuation">(</span><span class="token function">thetaVector</span><span class="token punctuation">(</span><span class="token number">111</span><span class="token punctuation">:</span><span class="token number">220</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">11</span><span class="token punctuation">)</span>
-Theta3 <span class="token operator">=</span> <span class="token function">reshape</span><span class="token punctuation">(</span><span class="token function">thetaVector</span><span class="token punctuation">(</span><span class="token number">221</span><span class="token punctuation">:</span><span class="token number">231</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">11</span><span class="token punctuation">)</span>
-
-</code></pre>
-<p>所以<strong>套路</strong>是：</p>
-<ol>
-<li>先将 $\Theta_1,\Theta_2,\Theta_3$ ,这些矩阵展开为一个长向量赋值给 initialTheta，然后作为theta参数的初始设置传入优化函数 fminunc。</li>
-<li>再实现代价函数 costFunction。costFunction 函数将传入参数 thetaVec（就是刚才包含所有 $\Theta$ 参数的向量），然后通过 reshape 函数得到初始的矩阵，这样可以更方便地通过前向传播和反向传播以求得导数 $D^{(1)},D^{(2)},D^{(3)}$ 和代价函数 $F(\Theta)$ 。</li>
-<li>最后按顺序展开得到 gradientVec，让它们保持和之前展开的 $\theta$ 值同样的顺序。以一个向量的形式返回这些导数值。</li>
-</ol>
-<hr>
-<h2 id="二-Gradient-Checking"><a href="#二-Gradient-Checking" class="headerlink" title="二. Gradient Checking"></a>二. Gradient Checking</h2><p>在计算导数的时候，习惯将其等于在该点的导数，在我们使用梯度下降计算导数的时候，虽然可能 $F(\Theta)$ 每次迭代都在下降，但是因为反向传播的复杂性，可能导致我们的代码存在 BUG。有一个办法叫做梯度检验（Gradient Checking），它能减少这种错误的概率（出现这个问题的原因都和反向传播的错误实现有关）。</p>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/73_1.png" alt=""></p>
-<p>在我们求该点的斜率的时候，我们不直接使用其导数，而是用 $$\frac{d}{d\Theta}F(\Theta)\approx\frac{F(\Theta+\epsilon)-F(\Theta-\epsilon)}{2\epsilon}$$ 代替。通常 $\epsilon$ 取较小的一个数。（其实就是使用导数的定义）</p>
-<p>上面这种算法是双侧差分算法，与之相对的是单侧差分算法</p>
-<p>$$\frac{d}{d\Theta}F(\Theta)\approx\frac{F(\Theta+\epsilon)-F(\Theta)}{\epsilon}$$</p>
-<p>单侧差分和双侧差分相比，双侧差分可以得到更加准确的结果。</p>
-<p>推广一下双侧差分：</p>
-<p>$$\frac{d}{d\Theta_j}J(\Theta)\approx\frac{J(\Theta_1,…,+\Theta_j+\epsilon,…,\Theta_n)-J(\Theta_1,…,+\Theta_j-\epsilon,…,\Theta_n)}{2\epsilon}$$</p>
-<p>对应代码实现如下：</p>
-<pre class=" language-c"><code class="language-c">epsilon <span class="token operator">=</span> <span class="token number">1e-4</span><span class="token punctuation">;</span>
-<span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">:</span>n<span class="token punctuation">,</span>
-  thetaPlus <span class="token operator">=</span> theta<span class="token punctuation">;</span>
-  <span class="token function">thetaPlus</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">+</span><span class="token operator">=</span> epsilon<span class="token punctuation">;</span>
-  thetaMinus <span class="token operator">=</span> theta<span class="token punctuation">;</span>
-  <span class="token function">thetaMinus</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">=</span> epsilon<span class="token punctuation">;</span>
-  <span class="token function">gradApprox</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token function">J</span><span class="token punctuation">(</span>thetaPlus<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token function">J</span><span class="token punctuation">(</span>thetaMinus<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token operator">*</span>epsilon<span class="token punctuation">)</span>
-end<span class="token punctuation">;</span>
-
-</code></pre>
-<p>检查反向传播计算出来的导数 DVec 和 上面程序计算出来的 gradApprox 相比较，如果 $gradApprox \approx DVec$ 代表反向传播的实现是正确的。</p>
-<p>最后在使用算法学习的时候关闭梯度检验。因为梯度检验主要是为了让我们知道我们写的程序算法是否存在错误，而不是用来计算导数的，因为这种方法计算导数相比于之前的会非常慢。</p>
-<p>总结一下：</p>
-<ol>
-<li>通过反向传播来计算 DVec，DVec 是每个矩阵打包展开的形式。</li>
-<li>实现数值上的梯度检测，计算出 gradApprox。</li>
-<li>比较 $gradApprox \approx DVec$ 是否相等或者约等于。</li>
-<li>使用算法学习的时候记得要关闭这个梯度检验，梯度检验只在代码测试阶段进行。</li>
-</ol>
-<hr>
-<h2 id="三-Random-Initialization"><a href="#三-Random-Initialization" class="headerlink" title="三. Random Initialization"></a>三. Random Initialization</h2><p>使用梯度下降算法的时候，需要设置 $\Theta$ 初始值。</p>
-<pre class=" language-c"><code class="language-c">optTheta <span class="token operator">=</span> <span class="token function">fminunc</span><span class="token punctuation">(</span>@costFunction<span class="token punctuation">,</span> initialTheta<span class="token punctuation">,</span> options<span class="token punctuation">)</span>
-</code></pre>
-<p>调用 fminunc 函数的时候，initialTheta 如果全部初始化为0，</p>
-<pre class=" language-c"><code class="language-c">initialTheta <span class="token operator">=</span> <span class="token function">zeros</span><span class="token punctuation">(</span>n<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span>
-</code></pre>
-<p>在之前的线性回归和逻辑回归中，使用梯度函数，初始值设置为0是没有问题的，但是到了神经网络里面，如果还这么设置，会出现高度冗余现象。</p>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/73_2.png" alt=""></p>
-<p>假设我们有这样一个网络，其初始参数都设为0。那么我们会发现其激励 $a_1^{(2)}=a_2^{(2)}$ ,且误差 $\delta_1^{(2)}=\delta_2^{(2)}$ ,且导数 $\frac{d}{d\Theta^{(1)}_{01}}J(\Theta)=\frac{d}{d\Theta^{(1)}_{02}}J(\Theta)$ 。这就导致了在参数更新的情况下，两个参数是一样的。无论怎么重复计算其两边的激励还是一样的。</p>
-<p>上述问题被称为，对称权重问题，也就是所有权重都是一样的。所以随机初始化是解决这个问题的方法。</p>
-<p>我们将初始化权值 $\Theta_{ij}^{(l)}$ 的范围限定在 $[-\Phi ,\Phi ]$ 。</p>
-<p>其代码表示如下：</p>
-<pre class=" language-c"><code class="language-c"><span class="token operator">%</span>If the dimensions of Theta1 is 10x11<span class="token punctuation">,</span> Theta2 is 10x11 and Theta3 is 1x11<span class="token punctuation">.</span>
-
-Theta1 <span class="token operator">=</span> <span class="token function">rand</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">11</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token number">2</span> <span class="token operator">*</span> INIT_EPSILON<span class="token punctuation">)</span> <span class="token operator">-</span> INIT_EPSILON<span class="token punctuation">;</span>
-Theta2 <span class="token operator">=</span> <span class="token function">rand</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">11</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token number">2</span> <span class="token operator">*</span> INIT_EPSILON<span class="token punctuation">)</span> <span class="token operator">-</span> INIT_EPSILON<span class="token punctuation">;</span>
-Theta3 <span class="token operator">=</span> <span class="token function">rand</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">11</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token number">2</span> <span class="token operator">*</span> INIT_EPSILON<span class="token punctuation">)</span> <span class="token operator">-</span> INIT_EPSILON<span class="token punctuation">;</span>
-</code></pre>
-<p>rand(x，y)是随机函数，它将初始化一个0到1之间的随机实数矩阵。</p>
-<hr>
-<h2 id="四-总结"><a href="#四-总结" class="headerlink" title="四. 总结"></a>四. 总结</h2><p><img src="https://img.halfrost.com/Blog/ArticleImage/73_3.png" alt=""></p>
-<h3 id="1-准备"><a href="#1-准备" class="headerlink" title="1. 准备"></a>1. 准备</h3><p>首先，我们需要确定神经网络有多少输入单元，有多少隐藏层，每一层隐藏层又有多少个单元，还有多少输出单元。那我们怎么去选择呢？</p>
+                <p><img src="https://upload-images.jianshu.io/upload_images/1194012-9f4d6b21aaf9f39f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="一-Building-a-Spam-Classifier"><a href="#一-Building-a-Spam-Classifier" class="headerlink" title="一. Building a Spam Classifier"></a>一. Building a Spam Classifier</h2><p>垃圾邮件分类就是一个 0/1 分类问题，可以用逻辑回归完成，这里不再重复介绍逻辑回归的过程了，我们考虑如何降低分类错误率：</p>
 <ul>
-<li>输入单元是特征向量 $x^{(i)}$ 的维度</li>
-<li>输出单元是分类的个数</li>
-<li>每个隐藏层的单元数通常是越多越好（必须与计算成本平衡，因为随着更多隐藏单元的增加而增加）</li>
-<li>默认值：1个隐藏层。如果有多个隐藏层，那么建议您在每个隐藏层中都有相同数量的单元。</li>
+<li>尽可能的扩大数据样本：Honypot 做了这样一件事，把自己包装成一个对黑客极具吸引力的机器，来诱使黑客进行攻击，就像蜜罐（honey pot）吸引密封那样，从而记录攻击行为和手段。</li>
+<li>添加更多特征：例如我们可以增加邮件的发送者邮箱作为特征，可以增加标点符号作为特征（垃圾邮件总会充斥了？，！等吸引眼球的标点）。</li>
+<li>预处理样本：正如我们在垃圾邮件看到的，道高一尺，魔高一丈，垃圾邮件的制造者也会升级自己的攻击手段，如在单词拼写上做手脚来防止邮件内容被看出问题，例如把 medicine 拼写为 med1cinie 等。因此，我们就要有手段来识别这些错误拼写，从而优化我们输入到逻辑回归中的样本。</li>
 </ul>
-<p>输出单元如果是多元分类问题，输出单元需要写成矩阵的形式：</p>
-<p>例如有3个分类， 输出单元应该写成</p>
- 
-$$
-\begin{align*}
-y = \begin{bmatrix} 1\\ 0\\ 0 \\ \end{bmatrix} 
-or
-\begin{bmatrix} 0\\ 1\\ 0 \\ \end{bmatrix} 
-or
-\begin{bmatrix} 0\\ 0\\ 1\\ \end{bmatrix}
-\end{align*}
-$$
-
-
-
-<h3 id="2-训练"><a href="#2-训练" class="headerlink" title="2. 训练"></a>2. 训练</h3><p>第一步：随机初始化权重。初始化的值是随机的，值很小，接近于零。</p>
-<p>第二步：执行前向传播算法，对于每一个 $x^{(i)}$ 计算出假设函数 $h_\Theta(x^{(i)})$ 。</p>
-<p>第三步：计算出代价函数 $F(\Theta)$ 。</p>
-<p>第四步：执行反向传播算法，计算出偏导数 $\frac{\partial}{\partial\Theta_{jk}^{(l)}}F(\Theta)$ 。</p>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/73_4.png" alt=""></p>
-<p>具体操作就是使用一个for循环，先将 $(x^{(1)},y^{(1)})$ 进行一次前向传播和后向传播的操作，然后再对 $(x^{(2)},y^{(2)})$ 进行相同的操作一直到 $(x^{(n)},y^{(n)})$ ，这样就能得到神经网络中每一层中每个单元对应的激励值，和每一层激励的误差 $\delta^{(l)}$ 。</p>
-<p>第五步：利用梯度检查，对比反向传播算法计算得到的偏导数项是否与梯度检验算法计算出的导数项基本相等。<strong>检查完记得删除掉这段检查的代码</strong>。</p>
-<p>第六步：最后我们利用梯度下降算法或者更高级的算法例如 LBFGS、共轭梯度法等，结合之前算出的偏导数项，最小化代价函数 $F(\Theta)$ 算出权值的大小 $\Theta$ 。</p>
-<p>理想情况下，只要满足了 $h_{\Theta}(x^{(i)})\approx y^{(i)}$，就能使我们的代价函数最小。但是，代价函数 $F(\Theta)$ 不是凸的，因此我们最终可以用局部最小值代替全局最小值。</p>
+<p>假如我们要用机器学习解决一个问题，那么最好的实践方法就是：</p>
+<p>1.建立一个简单的机器学习系统，用简单的算法快速实现它。</p>
+<p>2.通过画出学习曲线，以及检验误差，来找出我们的算法是否存在高偏差或者高方差的问题，然后再通过假如更多的训练数据、特征变量等等来完善算法。</p>
+<p>3.误差分析。例如在构建垃圾邮件分类器，我们检查哪一类型的邮件或者那些特征值总是导致邮件被错误分类，从而去纠正它。当然，误差的度量值也是很重要的，例如我们可以将错误率表示出来，用来判断算法的优劣。</p>
 <hr>
-<h2 id="五-Neural-Networks-Learning-测试"><a href="#五-Neural-Networks-Learning-测试" class="headerlink" title="五. Neural Networks: Learning 测试"></a>五. Neural Networks: Learning 测试</h2><h3 id="1-Question-1"><a href="#1-Question-1" class="headerlink" title="1. Question 1"></a>1. Question 1</h3><p>You are training a three layer neural network and would like to use backpropagation to compute the gradient of the cost function. In the backpropagation algorithm, one of the steps is to update</p>
-$\Delta^{(2)}_{ij}:=\Delta^{(2)}_{ij}+\delta^{(3)}_{i}*(a^{(2)})_{j}$  
-
-<p>for every i,j. Which of the following is a correct vectorization of this step?</p>
-<p>A. $\Delta^{(2)}:=\Delta^{(2)}+(a^{(3)})^T * \delta^{(2)} $<br>B. $\Delta^{(2)}:=\Delta^{(2)}+(a^{(2)})^T * \delta^{(3)} $<br>C. $\Delta^{(2)}:=\Delta^{(2)}+\delta^{(3)}*(a^{(3)})^T $</p>
-<p>D. $\Delta^{(2)}:=\Delta^{(2)}+\delta^{(3)}*(a^{(2)})^T $    </p>
-<p>解答： D</p>
-<h3 id="2-Question-2"><a href="#2-Question-2" class="headerlink" title="2. Question 2"></a>2. Question 2</h3><p>Suppose 𝚃𝚑𝚎𝚝𝚊𝟷 is a 5x3 matrix, and 𝚃𝚑𝚎𝚝𝚊𝟸 is a 4x6 matrix. You set 𝚝𝚑𝚎𝚝𝚊𝚅𝚎𝚌=[𝚃𝚑𝚎𝚝𝚊𝟷(:);𝚃𝚑𝚎𝚝𝚊𝟸(:)]. Which of the following correctly recovers 𝚃𝚑𝚎𝚝𝚊𝟸?</p>
-<p>A. 𝚛𝚎𝚜𝚑𝚊𝚙𝚎(𝚝𝚑𝚎𝚝𝚊𝚅𝚎𝚌(𝟷𝟼:𝟹𝟿),𝟺,𝟼)<br>B. 𝚛𝚎𝚜𝚑𝚊𝚙𝚎(𝚝𝚑𝚎𝚝𝚊𝚅𝚎𝚌(𝟷𝟻:𝟹𝟾),𝟺,𝟼)<br>C. 𝚛𝚎𝚜𝚑𝚊𝚙𝚎(𝚝𝚑𝚎𝚝𝚊𝚅𝚎𝚌(𝟷𝟼:𝟸𝟺),𝟺,𝟼)<br>D. 𝚛𝚎𝚜𝚑𝚊𝚙𝚎(𝚝𝚑𝚎𝚝𝚊𝚅𝚎𝚌(𝟷𝟻:𝟹𝟿),𝟺,𝟼)<br>E. 𝚛𝚎𝚜𝚑𝚊𝚙𝚎(𝚝𝚑𝚎𝚝𝚊𝚅𝚎𝚌(𝟷𝟼:𝟹𝟿),𝟼,𝟺)  </p>
-<p>解答：A</p>
-<h3 id="3-Question-3"><a href="#3-Question-3" class="headerlink" title="3. Question 3"></a>3. Question 3</h3><p>Let $J(\theta)=2\theta^3+2$ . Let $\theta=1$ , and  $\epsilon=0.01$ . Use the formula $\frac{J(\theta+\epsilon)-J(\theta-\epsilon)}{2\epsilon}$ to numerically compute an approximation to the derivative at $\theta=1$ . What value do you get? (When $\theta=1$ , the true/exact derivati ve is $\frac{dJ(\theta)}{d\theta}=6$ .)</p>
-<p>A.6<br>B.8<br>C.5.9998<br>D.6.0002  </p>
-<p>解答： D</p>
-<h3 id="4-Question-4"><a href="#4-Question-4" class="headerlink" title="4. Question 4"></a>4. Question 4</h3><p>Which of the following statements are true? Check all that apply.</p>
-<p>A. Gradient checking is useful if we are using gradient descent as our optimization algorithm. However, it serves little purpose if we are using one of the advanced optimization methods (such as in fminunc).  </p>
-<p>B. If our neural network overfits the training set, one reasonable step to take is to increase the regularization parameter λ .  </p>
-<p>C. Using gradient checking can help verify if one’s implementation of backpropagation is bug-free.  </p>
-<p>D. Using a large value of λ cannot hurt the performance of your neural network; the only reason we do not set λ to be too large is to avoid numerical problems.  </p>
-<p>E. For computational efficiency, after we have performed gradient checking to verify that our backpropagation code is correct, we usually disable gradient checking before using backpropagation to train the network.  </p>
-<p>F. Computing the gradient of the cost function in a neural network has the same efficiency when we use backpropagation or when we numerically compute it using the method of gradient checking.  </p>
-<p>解答：B、C、E</p>
-<p>A.梯度检验只是用来检验我们算偏导数的算法是否正确，而不是用来计算的。<br>B.过拟合增大正则化参数 λ 正确。<br>C.梯度检验能检验反向传播算法是否正确。<br>D.正则化参数 λ 太大会导致欠拟合。<br>E.还是在说梯度检验能验证反向传播算法的正确性。<br>F.还是在说梯度检验可以用来在算法里算偏导数。  </p>
+<h2 id="二-Handling-Skewed-Data"><a href="#二-Handling-Skewed-Data" class="headerlink" title="二. Handling Skewed Data"></a>二. Handling Skewed Data</h2><p>评估一个模型的好坏，通常使用误差分析可视化，即把预测的准确率（Accuracy）显示出来，其实这样是有缺陷的。这种误差度量又被称为偏斜类（Skewed Classes）问题。</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/75_1.png" alt=""></p>
+<p>举个例子：假如我们做癌症分析，最后得出该算法只有1%的误差，也就是说准确率达到了99% 。这样看起来99%算是非常高的了，但是我们发现在训练集里面只有0.5%的患者患有癌症，那么这1%的错误率就变得那么准确了。我们再举个极端一点的例子，无论输入是什么，所有预测输出的数据都为0（也就是非癌症），那么我们这里的正确率是99.5%，但是这样的判断标准显然不能体现分类器的性能。</p>
+<p>这是因为两者的数据相差非常大，在这里因为癌症的样本非常少，所以导致了预测的结果就会偏向一个极端，我们把这类的情况叫做偏斜类（Skewed Classes）问题。</p>
+<p>所以我们需要另一种的评估方法，其中一种评估度量值叫做查准率（Precision）和召回率（Recall）。</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/75_2.png" alt=""></p>
+<p>建立一个2 x 2的表格，横坐标为真实值，纵坐标为预测值，表格单元1-4分别代表：预测准确的正样本（True positive）、预测错误的正样本（False positive）、预测错误的负样本（False negative）、预测正确的负样本（True negative）。</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/75_3.png" alt=""></p>
+<p>查准率（Precision）= 预测准确的正样本（True positive）/预测的正样本（predicted positive）,而其中预测的正样本自然就包括了 预测准确的正样本+ 预测错误的正样本。</p>
+<p>$$Precision=\frac{True;positive}{Predicated;as;positive }=\frac{True;positive}{True;positive+False;positive}$$</p>
+<p>召回率（Recall）= 预测准确的正样本（True positive）/实际的正样本（actual positive）,而其中实际的正样本自然就包括了 预测准确的正样本+ 预测错误的负样本。</p>
+<p>$$Recall=\frac{True;positive}{Actual;positive}=\frac{True;positive}{True;positive+False;negative}$$</p>
+<p>假如像之前的y一直为0，虽然其准确率为99%，但是其召回率是0%。所以这对于评估算法的正确性是非常有帮助的。</p>
+<p>那么查准率（Precision）和召回率（Recall）应该如何评估呢？</p>
+<p>假如我们选用两者的平均值，这样看起来可行，但是对于之前的极端例子还是不适用。假如我们预测的y一直为1，那么其召回率就100%了，而查准率非常低，但是平均下来还是相对不错。所以我们采用下面一种评估方法，叫做 F 值：</p>
+<p>$$F_1;Score = 2\frac{PR}{P+R}$$</p>
+<p>P 指的是 Precision，R 指的是 Recall。</p>
+<hr>
+<h2 id="三-Using-Large-Data-Sets"><a href="#三-Using-Large-Data-Sets" class="headerlink" title="三. Using Large Data Sets"></a>三. Using Large Data Sets</h2><p><img src="https://img.halfrost.com/Blog/ArticleImage/75_4.png" alt=""></p>
+<p>在机器学习领域，流传着这样一句话：</p>
+<blockquote>
+<p>It’s not who has the best algorithm that wins. It’s who has the most data.</p>
+</blockquote>
+<p>取得成功的人不是拥有最好算法的人，而是拥有最多数据的人。</p>
+<p>这是为什么呢？</p>
+<p>首先我们因为有大量的特征量，去训练数据，这样就导致了我们的训练集误差非常小，也就是 $J_{train}(\theta)$ 非常小。然后我们提供了大量的训练数据，这样有利于防止过拟合，可以使得 $J_{train}(\theta)\approx J_{test}(\theta)$ 。这样，我们的假设函数既不会存在高偏差，也不会存在高方差，所以相对而言，大数据训练出来会更加准确。</p>
+<p>注意了，这里不仅是由大量的训练数据，而且还要有更多的特征量。因为假如只有一些特征量，例如只有房子的大小，去预测房子的价格，那么就连世界最好的销售员也不能只凭房子大小就能告诉你房子的价格是多少。</p>
+<p>什么时候采用大规模的数据集呢，一定要保证模型拥有足够的参数（线索），对于线性回归/逻辑回归来说，就是具备足够多的特征，而对于神经网络来说，就是更多的隐层单元。这样，足够多的特征避免了高偏差（欠拟合）问题，而足够大数据集避免了多特征容易引起的高方差（过拟合）问题。</p>
+<hr>
+<h2 id="四-Machine-Learning-System-Design-测试"><a href="#四-Machine-Learning-System-Design-测试" class="headerlink" title="四. Machine Learning System Design 测试"></a>四. Machine Learning System Design 测试</h2><h3 id="1-Question-1"><a href="#1-Question-1" class="headerlink" title="1. Question 1"></a>1. Question 1</h3><p>You are working on a spam classification system using regularized logistic regression. “Spam” is a positive class (y = 1) and “not spam” is the negative class (y = 0). You have trained your classifier and there are m = 1000 examples in the cross-validation set. The chart of predicted class vs. actual class is:</p>
+<p>Actual Class: 1    Actual Class: 0<br>Predicted Class: 1    85    890<br>Predicted Class: 0    15    10</p>
+<p>For reference:</p>
+<ul>
+<li>Accuracy = (true positives + true negatives) / (total examples)</li>
+<li>Precision = (true positives) / (true positives + false positives)</li>
+<li>Recall = (true positives) / (true positives + false negatives)</li>
+<li>F1 score = (2 * precision * recall) / (precision + recall)</li>
+</ul>
+<p>What is the classifier’s F1 score (as a value from 0 to 1)?</p>
+<p>Enter your answer in the box below. If necessary, provide at least two values after the decimal point.</p>
+<p>解答：0.158</p>
+<p>代入公式 $2\frac{PR}{P+R}$ 计算即可。</p>
+<h3 id="2-Question-2"><a href="#2-Question-2" class="headerlink" title="2. Question 2"></a>2. Question 2</h3><p>Suppose a massive dataset is available for training a learning algorithm. Training on a lot of data is likely to give good performance when two of the following conditions hold true.</p>
+<p>Which are the two?</p>
+<p>A. When we are willing to include high order polynomial features of x (such as $x_{1}^{2}$, $x_{2}^{2}$,$x_{1}$,$x_{2}$, etc.).</p>
+<p>B. The features x contain sufficient information to predict y accurately. (For example, one way to verify this is if a human expert on the domain can confidently predict y when given only x).</p>
+<p>C. We train a learning algorithm with a small number of parameters (that is thus unlikely to overfit).</p>
+<p>D. We train a learning algorithm with a large number of parameters (that is able to learn/represent fairly complex functions).</p>
+<p>解答：B、D</p>
+<p>A. 需要的是足够的特征量而不是高阶。<br>B. 特征量有足够的信息来准确预测。<br>C. 少量的特征量显然是不行的。<br>D. 要有足够多的变量（特征量）。  </p>
+<h3 id="3-Question-3"><a href="#3-Question-3" class="headerlink" title="3. Question 3"></a>3. Question 3</h3><p>Suppose you have trained a logistic regression classifier which is outputing hθ(x).</p>
+<p>Currently, you predict 1 if $h_{\theta}(x)\geqslant threshold$, and predict 0 if $h_{\theta}(x)&lt;threshold$, where currently the threshold is set to 0.5.</p>
+<p>Suppose you decrease the threshold to 0.3. Which of the following are true? Check all that apply.</p>
+<p>A. The classifier is likely to have unchanged precision and recall, but higher accuracy.</p>
+<p>B. The classifier is likely to now have higher precision.</p>
+<p>C. The classifier is likely to now have higher recall.</p>
+<p>D. The classifier is likely to have unchanged precision and recall, but lower accuracy.</p>
+<p>解答：C</p>
+<p>将阈值调低的结果只会导致召回率增大，查准率降低。</p>
+<h3 id="4-Question-4"><a href="#4-Question-4" class="headerlink" title="4. Question 4"></a>4. Question 4</h3><p>Suppose you are working on a spam classifier, where spam emails are positive examples (y=1) and non-spam emails are negative examples (y=0). You have a training set of emails in which 99% of the emails are non-spam and the other 1% is spam. Which of the following statements are true? Check all that apply.</p>
+<p>A. If you always predict non-spam (output y=0), your classifier will have 99% accuracy on the training set, but it will do much worse on the cross validation set because it has overfit the training data.</p>
+<p>B. If you always predict non-spam (output y=0), your classifier will have 99% accuracy on the training set, and it will likely perform similarly on the cross validation set.</p>
+<p>C. A good classifier should have both a high precision and high recall on the cross validation set.</p>
+<p>D. If you always predict non-spam (output y=0), your classifier will have an accuracy of 99%.</p>
+<p>解答：B、C、D</p>
+<p>A. 在交叉验证集因为过拟合的问题会使准确率下降，这不是过拟合的问题，是偏斜类的问题。<br>B. 假如训练集有99%准确率，那么交叉验证集也有很大可能有99%的准确率，这是正确的，因为数据是随机分布的，训练集的数据分布跟交叉验证集的数据分布相似。<br>C. 一个好的分类器应该查准率和召回率都比较高，正确。<br>D. 假如我们都把结果设为全为非垃圾邮件，那么准确率将达到99%，正确。  </p>
 <h3 id="5-Question-5"><a href="#5-Question-5" class="headerlink" title="5. Question 5"></a>5. Question 5</h3><p>Which of the following statements are true? Check all that apply.</p>
-<p>A. Suppose you have a three layer network with parameters  $\Theta^{(1)}$ (controlling the function mapping from the inputs to the hidden units) and  $\Theta^{(2)}$ (controlling the mapping from the hidden units to the outputs). If we set all the elements of  $\Theta^{(1)}$ to be 0, and all the elements of  $\Theta^{(2)}$ to be 1, then this suffices for symmetry breaking, since the neurons are no longer all computing the same function of the input.</p>
-<p>B. If we are training a neural network using gradient descent, one reasonable “debugging” step to make sure it is working is to plot $J(\Theta)$ as a function of the number of iterations, and make sure it is decreasing (or at least non-increasing) after each iteration.</p>
-<p>C. Suppose you are training a neural network using gradient descent. Depending on your random initialization, your algorithm may converge to different local optima (i.e., if you run the algorithm twice with different random initializations, gradient descent may converge to two different solutions).</p>
-<p>D. If we initialize all the parameters of a neural network to ones instead of zeros, this will suffice for the purpose of “symmetry breaking” because the parameters are no longer symmetrically equal to zero.</p>
-<p>E. If we are training a neural network using gradient descent, one reasonable “debugging” step to make sure it is working is to plot $J(\Theta)$ as a function of the number of iterations, and make sure it is decreasing (or at least non-increasing) after each iteration.</p>
-<p>F. Suppose we have a correct implementation of backpropagation, and are training a neural network using gradient descent. Suppose we plot $J(\Theta)$ as a function of the number of iterations, and find that it is increasing rather than decreasing. One possible cause of this is that the learning rate $\alpha$ is too large.</p>
-<p>G. Suppose that the parameter $\Theta^{(1)}$ is a square matrix (meaning the number of rows equals the number of columns). If we replace $\Theta^{(1)}$ with its transpose $(\Theta^{(1)})^T$ , then we have not changed the function that the network is computing.</p>
-<p>H. Suppose we are using gradient descent with learning rate $\alpha$ . For logistic regression and linear regression, $J(\Theta)$ was a convex optimization problem and thus we did not want to choose a learning rate $\alpha$ that is too large. For a neural network however, $J(\Theta)$ may not be convex, and thus choosing a very large value of $\alpha$ can only speed up convergence.</p>
-<p>解答：B、C、F</p>
-<p>A.一层的权重都是一样的数字不能打破对称。<br>B.迭代次数的越多，代价函数 $J(\Theta)$ 下降正确。<br>C.学习速率 $\alpha$ 太大会导致代价函数随着迭代次数的增加也增加正确。<br>D.权重全部为1也不能打破对称的。<br>E.保证 $J(\Theta)$ 随着迭代次数的增加而下降用以验证算法的正确。<br>F.同B。<br>G.矩阵的倒置一般不相等。<br>H.选择大的学习速率 $\alpha$ 会导致 $J(\Theta)$ 不收敛的。  </p>
-<hr>
+<p>A. On skewed datasets (e.g., when there are more positive examples than negative examples), accuracy is not a good measure of performance and you should instead use F1 score based on the precision and recall.</p>
+<p>B. If your model is underfitting the training set, then obtaining more data is likely to help.</p>
+<p>C. After training a logistic regression classifier, you must use 0.5 as your threshold for predicting whether an example is positive or negative.</p>
+<p>D. It is a good idea to spend a lot of time collecting a large amount of data before building your first version of a learning algorithm.</p>
+<p>E. Using a very large training set makes it unlikely for model to overfit the training data.</p>
+<p>解答：A、E</p>
+<p>A.利用 F1 score 去衡量准确性，正确。<br>B.模型不适合训练集，是欠拟合，欠拟合增大数据样本没用。<br>C.阈值不一定是0.5。<br>D.在建立第一个学习算法前花大量时间收集数据显然有可能走向浪费时间的不归路。<br>E.用更多的数据样本可以解决过拟合的现象，正确。  </p>
 <hr>
 <blockquote>
 <p>GitHub Repo：<a href="https://github.com/halfrost/Halfrost-Field" target="_blank" rel="noopener">Halfrost-Field</a></p>
 <p>Follow: <a href="https://github.com/halfrost" target="_blank" rel="noopener">halfrost · GitHub</a></p>
-<p>Source: <a href="https://github.com/halfrost/Halfrost-Field/blob/master/contents/Machine_Learning/Backpropagation_in_Practice.ipynb" target="_blank" rel="noopener">https://github.com/halfrost/Halfrost-Field/blob/master/contents/Machine_Learning/Backpropagation_in_Practice.ipynb</a></p>
+<p>Source: <a href="https://github.com/halfrost/Halfrost-Field/blob/master/contents/Machine_Learning/Machine_Learning_System_Design.ipynb" target="_blank" rel="noopener">https://github.com/halfrost/Halfrost-Field/blob/master/contents/Machine_Learning/Machine_Learning_System_Design.ipynb</a></p>
 </blockquote>
 <script>
         document.querySelectorAll('.github-emoji')
@@ -664,7 +613,7 @@ $\Delta^{(2)}_{ij}:=\Delta^{(2)}_{ij}+\delta^{(3)}_{i}*(a^{(2)})_{j}$
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://Xw-Jia.github.io/2020/02/05/5-2-backpropagation-in-practice/">http://Xw-Jia.github.io/2020/02/05/5-2-backpropagation-in-practice/</a>
+                    <a href="http://Xw-Jia.github.io/2020/02/05/6-2-machine-learning-system-design/">http://Xw-Jia.github.io/2020/02/05/6-2-machine-learning-system-design/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -873,28 +822,29 @@ $\Delta^{(2)}_{ij}:=\Delta^{(2)}_{ij}+\delta^{(3)}_{i}*(a^{(2)})_{j}$
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/02/05/6-1-advice-for-applying-machine-learning/">
+                <a href="/2020/02/05/6-2-machine-learning-system-design/">
                     <div class="card-image">
                         
-                        <img src="/medias/cover_pics/6-1-Advice-for-Applying-Machine-Learning/1.png" class="responsive-img" alt="6.1_Advice_for_Applying_Machine_Learning">
+                        <img src="/medias/cover_pics/6-2-Machine-Learning-System-Design/1.png" class="responsive-img" alt="6.2_Machine_Learning_System_Design">
                         
-                        <span class="card-title">6.1_Advice_for_Applying_Machine_Learning</span>
+                        <span class="card-title">6.2_Machine_Learning_System_Design</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            吴恩达Machine_Learning入门课Week6第一节
+                            吴恩达Machine_Learning入门课Week6第二节
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-02-05
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-05
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -907,6 +857,7 @@ $\Delta^{(2)}_{ij}:=\Delta^{(2)}_{ij}+\delta^{(3)}_{i}*(a^{(2)})_{j}$
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -929,18 +880,18 @@ $\Delta^{(2)}_{ij}:=\Delta^{(2)}_{ij}+\delta^{(3)}_{i}*(a^{(2)})_{j}$
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/02/05/5-1-neural-networks-learning/">
+                <a href="/2020/02/05/6-1-advice-for-applying-machine-learning/">
                     <div class="card-image">
                         
-                        <img src="/medias/cover_pics/5-1-Neural-Networks-Learning/1.png" class="responsive-img" alt="5.1_Neural_Networks_Learning">
+                        <img src="/medias/cover_pics/6-1-Advice-for-Applying-Machine-Learning/1.png" class="responsive-img" alt="6.1_Advice_for_Applying_Machine_Learning">
                         
-                        <span class="card-title">5.1_Neural_Networks_Learning</span>
+                        <span class="card-title">6.1_Advice_for_Applying_Machine_Learning</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            吴恩达Machine_Learning入门课Week5第一节
+                            吴恩达Machine_Learning入门课Week6第一节
                         
                     </div>
                     <div class="publish-info">

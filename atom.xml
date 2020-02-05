@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://xw-jia.github.io/"/>
-  <updated>2020-02-05T12:39:14.472Z</updated>
+  <updated>2020-02-05T13:14:37.535Z</updated>
   <id>http://xw-jia.github.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>6.2_Machine_Learning_System_Design</title>
+    <link href="http://xw-jia.github.io/2020/02/05/6-2-machine-learning-system-design/"/>
+    <id>http://xw-jia.github.io/2020/02/05/6-2-machine-learning-system-design/</id>
+    <published>2020-02-05T13:11:04.000Z</published>
+    <updated>2020-02-05T13:14:37.535Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;img
+        
+      
+    
+    </summary>
+    
+    
+      <category term="机器学习" scheme="http://Xw-Jia.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="Machine Learning" scheme="http://Xw-Jia.github.io/tags/Machine-Learning/"/>
+    
+      <category term="吴恩达" scheme="http://Xw-Jia.github.io/tags/%E5%90%B4%E6%81%A9%E8%BE%BE/"/>
+    
+  </entry>
   
   <entry>
     <title>6.1_Advice_for_Applying_Machine_Learning</title>
@@ -116,7 +145,7 @@
       
         
         
-          &lt;p&gt;&lt;img src=&quot;https://img.halfrost.com/Blog/ArticleImage/71_1.png&quot; alt&gt;&lt;/p&gt;
+          &lt;p&gt;&lt;img src=&quot;https://img.halfrost.com/Blog/ArticleImage/71_1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;h1 id=&quot;4-1-Neural-Networks-Representation&quot;&gt;&lt;a
         
       
@@ -175,7 +204,7 @@
       
         
         
-          &lt;p&gt;&lt;img src=&quot;https://img.halfrost.com/Blog/ArticleImage/69_6.png&quot; alt&gt;&lt;/p&gt;
+          &lt;p&gt;&lt;img src=&quot;https://img.halfrost.com/Blog/ArticleImage/69_6.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;h1 id=&quot;3-1-Logistic-Regression&quot;&gt;&lt;a
         
       
