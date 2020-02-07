@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="2.2_Computing_Parameters_Analytically, DustOfStars">
-    <meta name="description" content="吴恩达Machine_Learning入门课Week2第二节">
+    <meta name="keywords" content="7.1_Support_Vector_Machines, DustOfStars">
+    <meta name="description" content="吴恩达Machine_Learning入门课Week7第一节">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>2.2_Computing_Parameters_Analytically | DustOfStars</title>
+    <title>7.1_Support_Vector_Machines | DustOfStars</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -295,12 +295,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/cover_pics/2-2-Computing-Parameters-Analytically/1240.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/cover_pics/7-1-Support-Vector-Machines/1.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">2.2_Computing_Parameters_Analytically</h1>
+                    <h1 class="description center-align post-title">7.1_Support_Vector_Machines</h1>
                 </div>
             </div>
         </div>
@@ -446,21 +446,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-01-27
+                    2020-02-07
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-01-27
+                    2020-02-07
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.4k
+                    4k
                 </div>
                 
 
@@ -478,230 +478,232 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="2-2-Computing-Parameters-Analytically"><a href="#2-2-Computing-Parameters-Analytically" class="headerlink" title="2.2_Computing_Parameters_Analytically"></a>2.2_Computing_Parameters_Analytically</h1><h2 id="一-Normal-Equation"><a href="#一-Normal-Equation" class="headerlink" title="一. Normal Equation"></a>一. Normal Equation</h2><h3 id="1-正规方程"><a href="#1-正规方程" class="headerlink" title="1. 正规方程"></a>1. 正规方程</h3><p>正规方程法相对梯度下降法，它可以一步找到最小值。而且它也不需要进行特征值的缩放。</p>
-<p>样本集是 $ m * n $ 的矩阵，每行样本表示为 $ \vec{x^{(i)}} $ ,第 i 行第 n 列分别表示为 $ x^{(i)}_{0} , x^{(i)}_{1} , x^{(i)}_{2} , x^{(i)}_{3} \cdots x^{(i)}_{n} $, m 行向量分别表示为 $ \vec{x^{(1)}} , \vec{x^{(2)}} , \vec{x^{(3)}} , \cdots \vec{x^{(m)}} $
-</p>
-<p>令 </p>
-
-$$ \vec{x^{(i)}} = \begin{bmatrix} x^{(i)}_{0}\\ x^{(i)}_{1}\\ \vdots \\ x^{(i)}_{n}\\ \end{bmatrix} $$
-
-
-<p>$ \vec{x^{(i)}} $ 是这样一个 $(n+1)*1$ 维向量。每行都对应着 i 行 0-n 个变量。</p>
-<p>再构造几个矩阵：</p>
-
-$$ X = \begin{bmatrix} (\vec{x^{(1)}})^{T}\\  \vdots \\  (\vec{x^{(m)}})^{T} \end{bmatrix} \;\;\;\;
-\Theta = \begin{bmatrix} \theta_{0}\\ \theta_{1}\\ \vdots \\ \theta_{n}\\ \end{bmatrix} \;\;\;\;
-Y = \begin{bmatrix} y^{(1)}\\ y^{(2)}\\ \vdots \\ y^{(m)}\\ \end{bmatrix} 
-$$
-
-<p>X 是一个 $ m * (n+1)$ 的矩阵，$ \Theta $ 是一个 $ (n+1) * 1$ 的向量，Y 是一个 $ m * 1$的矩阵。</p>
-<p>对比之前代价函数中，$$ \rm{CostFunction} = \rm{F}({\theta_{0}},{\theta_{1}}) = \frac{1}{2m}\sum_{i = 1}^{m} (h_{\theta}(x^{(i)})-y^{(i)})^2 $$</p>
-  
+                <p><img src="https://upload-images.jianshu.io/upload_images/1194012-db5ca3ef83a4cc2e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="一-引子"><a href="#一-引子" class="headerlink" title="一. 引子"></a>一. 引子</h2><p>在逻辑回归中，我们的预测函数为：</p>
+<p>$$h_\theta(x)=\frac{1}{1+e^{-\theta^Tx}}$$</p>
+<p>对于每一个样本 (x,y) 而言（注意是每一个），其代价函数为：</p>
+ 
 $$
 \begin{align*}
-X \cdot \Theta - Y = 
-\begin{bmatrix}
-(\vec{x^{(1)}})^{T}\\ 
+J(\theta)&amp;=-(ylogh_\theta(x)+(1-y)log(1-h_\theta((x)))\\
+&amp;=-ylog\frac{1}{1+e^{-\theta^Tx}}-(1-y)log(1-\frac{1}{1+e^{-\theta^Tx}})
+\end{align*}\\
+$$
+
+<p>那么当 y=1 的时候， $J(\theta)=-ylog\frac{1}{1+e^{-\theta^Tx}}$ ，其代价函数的图像入左下图所示。</p>
+<p>当 y=0 的时候， $J(\theta)=-(1-y)log(1-\frac{1}{1+e^{-\theta^Tx}})$ ，其代价函数的图像入右下图所示。</p>
+<p>对于支持向量机而言，</p>
+<p>$y=1$ 的时候：</p>
+<p>$$cost_1(\theta^Tx^{(i)})=(-logh_\theta(x^{(i)}))$$</p>
+<p>$y=0$ 的时候：</p>
+<p>$$cost_0((\theta^Tx^{(i)})=((-log(1-h_\theta(x^{(i)})))$$ </p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/76_1.png" alt=""></p>
+<p>当 y=1 时，随着 z 取值变大，预测代价变小，因此，逻辑回归想要在面对正样本  y=1  时，获得足够高的预测精度，就希望  $z= \theta^Tx\gg 0 $ 。而 SVM 则将上图的曲线拉直为下图中的折线，构成了 y=1 时的代价函数曲线  $cost_1(z)$ ：</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/76_2.png" alt=""></p>
+<p>当 y=1 时，为了预测精度足够高，SVM 希望 $\theta^Tx\geqslant 1$ 。</p>
+<p>同样，在 y=0 时，SVM 定义了代价函数 $cost_0(z)$ ，为了预测精度足够高，SVM 希望  $\theta^Tx \leqslant -1$ ：</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/76_3.png" alt=""></p>
+<p>在逻辑回归中，其代价函数是： </p>
+
+$$J(\theta)=min_{\theta} \frac{1}{m}[\sum_{i=1}^{m}{y^{(i)}}(-logh_\theta(x^{(i)}))+(1-y^{(i)})((-log(1-h_\theta(x^{(i)})))]+\frac{\lambda}{2m}\sum_{j=1}^{n}{\theta_j^2}$$
+
+
+<p>对于逻辑回归而言，其代价函数是有两项决定的，第一项是来自训练样本的代价函数，第二项是正则化项，这就相当于我们用最小化 A 加上正则化参数 $\lambda$ 乘以参数平方项 B，其形式大概是： $A+\lambda B$ 。这里我们是通过设置不同的正则参数 $\lambda$ 来达到优化的目的。但是在支持向量机这里，把参数提到前面，用参数 C 作为 A 的参数，以 A 作为权重。所以其形式是这样的： $CA+B$ 。</p>
+<p>在逻辑回归中，我们通过正规化参数 $\lambda$ 调节 A、B 所占的权重，且 A 的权重与$\lambda$ 取值成反比。而在 SVM 中，则通过参数 C 调节 A、B 所占的权重，且 A 的权重与  C 的取值成反比。亦即，参数 C 可以被认为是扮演了 $\frac{1}{\lambda}$ 的角色。</p>
+<p>所以 $\frac{1}{ m}$ 这一项仅仅是相当于一个常量，对于最小化参数 $\theta$ 是没有完全任何影响的，所以这里我们将其去掉。</p>
+<p>支持向量机的代价函数为：</p>
+
+$$min_{\theta} C[\sum_{i=1}^{m}{y^{(i)}}cost_1(\theta^Tx^{(i)})+(1-y^{(i)})cost_0(\theta^Tx^{(i)})]+\frac{1}{2}\sum_{j=1}^{n}{\theta_j^2}$$
+
+
+<p>有别于逻辑回归假设函数输出的是概率，支持向量机它是直接预测 y 的值是0还是1。也就是说其假设函数是这样子的：</p>
+
+$$h_{\theta}(x)=\left\{\begin{matrix}
+1,\;\;if\; \theta^{T}x\geqslant 0\\ 
+0,\;\;otherwise
+\end{matrix}\right.$$
+
+
+
+
+
+
+<h2 id="二-Large-Margin-Classification-大间距分类器"><a href="#二-Large-Margin-Classification-大间距分类器" class="headerlink" title="二. Large Margin Classification 大间距分类器"></a>二. Large Margin Classification 大间距分类器</h2><p>支持向量机是最后一个监督学习算法，与前面我们所学的逻辑回归和神经网络相比，支持向量机在学习复杂的非线性方程时，提供了一种更为清晰、更加强大的方式。</p>
+<p>支持向量机也叫做大间距分类器(large margin classifiers)。</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/76_4.png" alt=""></p>
+<p>假如我们有一个数据集是这样的，可以看出，这是线性可分的。但是有时候我们的决策边界就好像图中绿色线或者粉红色线一样，这样的决策边界看起来都不是特别好的选择。支持向量机就会选择黑色这一条决策边界。黑色这条边界相比之前跟正负样本有更大的距离，而这个距离就叫做间距（margin）。这也是为什么我们将支持向量机叫做大间距分类器的原因。</p>
+<p>支持向量机模型的做法是，即努力将正样本和负样本用最大的间距分开。</p>
+<p>$$min_{\theta} C[\sum_{i=1}^{m}{y^{(i)}}cost_1(\theta^Tx^{(i)})+(1-y^{(i)})cost_0(\theta^Tx^{(i)})]+\frac{1}{2}\sum_{j=1}^{n}{\theta_j^2}$$</p>
+<p>当 y=1 时，SVM 希望 $\theta^Tx\geqslant 1$ 。在 y=0 时，SVM 希望  $\theta^Tx \leqslant -1$，对于前面的那一项 A 最小化代价函数，那么最理想当然是为0。所以这就变成了：</p>
+
+$$min_{\theta}\frac{1}{2}\sum_{i=1}^{n}{\theta_j^2}\;\;\;\;\;\; \left\{\begin{matrix}
+\theta^Tx\geqslant 1,if \;y^{(i)}=1 \\
+\theta^Tx\leqslant 1 ,if \;y^{(i)}=0
+\end{matrix}\right.
+$$
+
+
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/76_12.png" alt=""></p>
+<p><strong>参数 C 其实是支持向量机对异常点的敏感程度，C 越大就越敏感，任何异常点都会影响最终结果。 C 越小，对异常点就越不敏感，普通的一两个异常点都会被忽略。</strong></p>
+<hr>
+<h3 id="推导"><a href="#推导" class="headerlink" title="推导"></a>推导</h3><p><img src="https://img.halfrost.com/Blog/ArticleImage/76_5.png" alt=""></p>
+<p>以两个二维向量为例，我们把向量 v 投影到向量 u 上，其投影的长度为 p，$\left | u \right |$ 为向量 u 的模，那么向量的内积就等于$p*\left | u \right |$。在代数定义向量内积可表示为： $u_1v_1+u_2v_2$ ，根据此定义可以得出： $u^Tv=u_1v_1+u_2v_2$ 。</p>
+<p>$\left | u \right |$为 $\overrightarrow{u}$ 的范数，也就是向量 $\overrightarrow{u}$ 的欧几里得长度。</p>
+<p>最小化函数为： $$min_{\theta}\frac{1}{2}\sum_{i=1}^{n}{\theta_j^2}$$ </p>
+<p>这里以简单的二维为例：</p>
+
+$$min_{\theta}\frac{1}{2}\sum_{i=1}^{n}{\theta_j^2}=\frac{1}{2}(\theta_1^2+\theta_2^2)=\frac{1}{2}(\sqrt{\theta_1^2+\theta_2^2})^2=\frac{1}{2}\left \| \theta \right \|^2$$
+
+
+
+
+<p>毕达哥拉斯定理：</p>
+<p>$$ \left | u \right | = \sqrt{u_{1}^{2} + u_{2}^{2}}$$</p>
+<p><strong>只要 $\theta$ 能最小，最小化函数就能取到最小</strong>。</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/76_11.png" alt=""></p>
+<p>当垂直的时候 $\theta$ 取最小值(垂直的时候，两个向量的夹角 cos $\theta$ 最小)。这就解释了为什么支持向量机的决策边界不会选择左图绿色那条。因为方便理解所以 $\theta_0=0$ ，这就意味着决策边界要经过原点。然后我们可以看到在垂直于决策边界的 $\theta $和 $x^{(i)}$ 的关系（红色投影和粉红色投影），可以看到其投影 $p^{(i)}$ 的值都比较小，这也就意味着要 $||\theta||^2$ 的值很大。这显然是与最小化公式 $\frac{1}{2}||\theta||^2$ 矛盾的。所以支持向量机的决策边界会使 $p^{(i)}$ 在 $\theta$ 的投影尽量大。</p>
+<p>这就是为什么决策边界会是右图的原因，也就是为什么支持向量机能有效地产生最大间距分类的原因。</p>
+<p>(<strong>因为只有最大间距才能使 $p^{(i)}$ 大，从而 $||\theta||^2$ 值小</strong>)</p>
+<hr>
+<h2 id="三-Kernels"><a href="#三-Kernels" class="headerlink" title="三. Kernels"></a>三. Kernels</h2><h3 id="1-定义"><a href="#1-定义" class="headerlink" title="1. 定义"></a>1. 定义</h3><p><img src="https://img.halfrost.com/Blog/ArticleImage/76_6.png" alt=""></p>
+<p>在我们之前拟合一个非线性的判断边界来区别正负样本，是构造多项式特征变量。</p>
+<p>我们先用一种新的写法来表示决策边界： $\theta_0+\theta_1f_1+\theta_2f_2+\theta_3f_3+\cdots $。我们这里用 $f_i$ 表达新的特征变量。</p>
+<p>假如是之前我们所学的决策边界，那么就是： $f_1=x_1 , f_2=x_2 , f_3=x_1x_2 , f_4=x_1^2 ， f_5=x_2^2$ ，等等。但是这样的高阶项作为特征变量并不是我们确定所需要的，而且运算量非常巨大，那么有没有其他更高的特征变量呢？</p>
+<p>下面是构造新特征量的一种想法：</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/76_7.png" alt=""></p>
+<p>为了简单理解，我们这里只建立三个特征变量。首先我们在 $x_1,x_2$ 坐标轴上手动选择3个不同的点： $l^{(1)},l^{(2)},l^{(3)}$ 。</p>
+<p>然后我们将第一个特征量定义为： $f_1=similarity(x,l^{(1)})$ ，可以看做是样本 x 和第一个标记 $l^{(1)}$ 的相似度。其中可以用这个公式表达这种关系： $f_1=similarity(x,l^{(1)})=exp(-\frac{||x-l^{(1)}||^2}{2\sigma^2})$ (exp：自然常数e为底的指数函数)</p>
+<p>类似的有： $f_2=similarity(x,l^{(2)})=exp(-\frac{||x-l^{(2)}||^2}{2\sigma^2})$ ，</p>
+
+$f_3=similarity(x,l^{(3)})=exp(-\frac{||x-l^{(3)}||^2}{2\sigma^2})$
+ 。
+<p>这个表达式我们称之为核函数（Kernels），在这里我们选用的核函数是高斯核函数（Gaussian Kernels）。</p>
+<p>那么高斯核函数与相似性又有什么关系呢？</p>
+<p>先来看第一个特征量 $f_1$ ，<br>$f_1=similarity(x,l^{(1)})=exp(-\frac{||x-l^{(1)}||^2}{2\sigma^2})=exp(\frac{\sum_{j=1}^{n}{(x_j-l_j^{(1)})^2}}{2\sigma^2})$</p>
+<p>假如样本 x 非常接近 $l^{(1)}$ ，即$x\approx l^{(1)}$ ，那么：$ f_1\approx exp(-\frac{0^2}{2\sigma^2})\approx 1$ 。</p>
+<p>假如样本 x 离 $l^{(1)}$ 非常远，即 $x\gg l^{(1)}$ ，那么：$ f_1\approx exp(-\frac{\infty^2}{2\sigma^2})\approx 0$ 。</p>
+<p>可视化如下：</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/76_8.png" alt=""></p>
+<p>从图中可以看到越接近 $l^{(1)} , f_1$ 的值越大。</p>
+<p>这里顺带说一下 $\sigma^2$ 这个高斯核函数的参数对函数的影响。从图中可以看到，减小或者增加只会对图像的肥瘦产生影响，也就是影响增加或者减小的速度而已。</p>
+<h3 id="2-标记点选取"><a href="#2-标记点选取" class="headerlink" title="2. 标记点选取"></a>2. 标记点选取</h3><p>通过标记点以及核函数，训练出非常复杂的非线性判别边界。那标记点 $l^{(1)},l^{(2)},l^{(3)}$ 这些点是怎么来的？</p>
+<p>假定我们有如下的数据集：</p>
+<p>$$(x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}),(x^{(3)},y^{(3)})\cdots(x^{(m)},y^{(m)})$$</p>
+<p>我们就将每个样本作为一个标记点：</p>
+<p>$$l^{(1)}=x^{(1)},l^{(2)}=x^{(2)},l^{(3)}=x^{(3)}\cdots l^{(m)}=x^{(m)}$$</p>
+<p>则对于样本 $(x^{(i)},y^{(i)})$ ，我们计算其与各个标记点的距离：</p>
+
+$$
+\begin{matrix}
+f^{(i)}_1=sim(x^{(i)},l^{(1)})\\
+f^{(i)}_2=sim(x^{(i)},l^{(2)})\\
+\vdots \\
+f^{(i)}_m=sim(x^{(i)},l^{(3)})\\
+\end{matrix}
+$$
+
+<p>得到新的特征向量： $f \in \mathbb{R}^{m+1} $</p>
+
+$$f = \begin{bmatrix}
+f_0\\ 
+f_1\\ 
+f_2\\ 
 \vdots \\ 
-(\vec{x^{(m)}})^{T}
-\end{bmatrix} \cdot 
-\begin{bmatrix} 
-\theta_{0}\\ 
-\theta_{1}\\ 
-\vdots \\ 
-\theta_{n}\\ 
-\end{bmatrix} - 
-\begin{bmatrix} 
-y^{(1)}\\ 
-y^{(2)}\\ 
-\vdots \\ 
-y^{(m)}\\ 
-\end{bmatrix} = 
-\begin{bmatrix} 
-h_{\theta}(x^{(1)})-y^{(1)}\\ 
-h_{\theta}(x^{(2)})-y^{(2)}\\ 
-\vdots \\ 
-h_{\theta}(x^{(m)})-y^{(m)}\\ 
+f_m
 \end{bmatrix}
-\end{align*}$$
-
-
-<p>代入到之前代价函数中，</p>
-
-$$
-\begin{align*}
-\rm{CostFunction} = \rm{F}({\theta_{0}},{\theta_{1}}) &amp;= \frac{1}{2m}\sum_{i = 1}^{m} (h_{\theta}(x^{(i)})-y^{(i)})^2\\
-&amp; = \frac{1}{2m} (X \cdot \Theta - Y)^{T}(X \cdot \Theta - Y)\\
-\end{align*}
 $$
 
-
-
+<p>其中 $f_0=1$</p>
+<p>则具备核函数的 SVM 的训练过程如下：</p>
+<p>$$min_{\theta} C[\sum_{i=1}^{m}{y^{(i)}}cost_1(\theta^Tf^{(i)})+(1-y^{(i)})cost_0(\theta^Tf^{(i)})]+\frac{1}{2}\sum_{j=1}^{n}{\theta_j^2}$$</p>
 <hr>
-<h3 id="2-矩阵的微分和矩阵的迹"><a href="#2-矩阵的微分和矩阵的迹" class="headerlink" title="2. 矩阵的微分和矩阵的迹"></a>2. 矩阵的微分和矩阵的迹</h3><p>接下来在进行推导之前，需要引入矩阵迹的概念，因为迹是求解一阶矩阵微分的工具。</p>
-<p>矩阵迹的定义是 </p>
-<p>$$ \rm{tr} A =  \sum_{i=1}^{n}A_{ii}$$ </p>
-<p>简单的说就是左上角到右下角对角线上元素的和。</p>
-<p>接下来有几个性质在下面推导过程中需要用到：</p>
+<h2 id="四-SVMs-in-Practice"><a href="#四-SVMs-in-Practice" class="headerlink" title="四. SVMs in Practice"></a>四. SVMs in Practice</h2><h3 id="1-使用流行库"><a href="#1-使用流行库" class="headerlink" title="1. 使用流行库"></a>1. 使用流行库</h3><p>作为当今最为流行的分类算法之一，SVM 已经拥有了不少优秀的实现库，如 libsvm 等，因此，我们不再需要自己手动实现 SVM（要知道，一个能用于生产环境的 SVM 模型并非课程中介绍的那么简单）。</p>
+<p>在使用这些库时，我们通常需要声明 SVM 需要的两个关键部分：</p>
+<ul>
+<li>参数  C </li>
+<li>核函数（Kernel）</li>
+</ul>
+<p>由于 C 可以看做与正规化参数 $\lambda $ 作用相反，则对于 C 的调节：</p>
+<p><strong>低偏差</strong>，<strong>高方差</strong>，即遇到了过拟合时：减小 C 值。<br><strong>高偏差</strong>，<strong>低方差</strong>，即遇到了欠拟合时：增大 C 值。  </p>
+<p>而对于核函数的选择有这么一些 tips：</p>
+<ul>
+<li>当特征维度 n 较高，而样本规模 m 较小时，不宜使用核函数，否则容易引起过拟合。</li>
+<li>当特征维度 n 较低，而样本规模 m 足够大时，考虑使用高斯核函数。不过在使用高斯核函数前，需要进行特征缩放（feature scaling）。</li>
+<li>当核函数的参数 $\sigma^2$ 较大时，特征 $f_i$ 较为平缓，即各个样本的特征差异变小，此时会造成欠拟合（高偏差，低方差），如下图上边的图，</li>
+<li>当 $\sigma^2$ 较小时，特征 $f_i$ 曲线变化剧烈，即各个样本的特征差异变大，此时会造成过拟合（低偏差，高方差），如下图下边的图：</li>
+</ul>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/76_9.png" alt=""></p>
+<h3 id="2-多分类问题"><a href="#2-多分类问题" class="headerlink" title="2. 多分类问题"></a>2. 多分类问题</h3><p>通常，流行的SVM库已经内置了多分类相关的 api，如果其不支持多分类，则与逻辑回归一样，使用 One-vs-All 策略来进行多分类：</p>
 <ol>
-<li><p>$ \rm{tr};a = a $ ， a 是标量 ( $ a \in \mathbb{R} $)  </p>
-</li>
-<li><p>$ \rm{tr};AB = \rm{tr};BA $ 更近一步 $ \rm{tr};ABC = \rm{tr};CAB = \rm{tr};BCA $<br>证明：假设 A 是 $n * m$ 矩阵， B 是 $m * n$ 矩阵，则有<br>$$ \rm{tr};AB = \sum_{i=1}^{n}\sum_{j=1}^{m}A_{ij}B_{ji} = \sum_{j=1}^{n} \sum_{i=1}^{m}B_{ji}A_{ij}= \rm{tr};BA $$<br>同理：$$ \rm{tr};ABC = \rm{tr};(AB)C = \rm{tr};C(AB) = \rm{tr};CAB$$<br>$$ \rm{tr};ABC = \rm{tr};A(BC) = \rm{tr};(BC)A = \rm{tr};BCA$$<br>连起来，即 $$ \rm{tr};ABC = \rm{tr};CAB = \rm{tr};BCA $$</p>
-</li>
-<li><p>$ \triangledown_{A}\rm{tr};AB = \triangledown_{A}\rm{tr};BA = B^{T}$<br>证明：按照矩阵梯度的定义：</p>
-
-   $$\triangledown_{X}f(X) = \begin{bmatrix}
-   \frac{\partial f(X) }{\partial x_{11}} &amp; \cdots &amp; \frac{\partial f(X) }{\partial x_{1n}}\\ 
-   \vdots &amp; \ddots  &amp; \vdots \\ 
-   \frac{\partial f(X) }{\partial x_{m1}} &amp; \cdots &amp; \frac{\partial f(X) }{\partial x_{mn}}
-   \end{bmatrix} = \frac{\partial f(X) }{\partial X}$$
-   
-<p>假设 A 是 $n * m$ 矩阵， B 是 $m * n$ 矩阵，则有</p>
-
-   $$\begin{align*}\triangledown_{A}\rm{tr}\;AB &amp;= \triangledown_{A} \sum_{i=1}^{n}\sum_{j=1}^{m}A_{ij}B_{ji}  = \frac{\partial}{\partial A}(\sum_{i=1}^{n}\sum_{j=1}^{m}A_{ij}B_{ji})\\ &amp; = \begin{bmatrix}
-   \frac{\partial}{\partial A_{11}}(\sum_{i=1}^{n}\sum_{j=1}^{m}A_{ij}B_{ji}) &amp; \cdots &amp; \frac{\partial}{\partial A_{1m}}(\sum_{i=1}^{n}\sum_{j=1}^{m}A_{ij}B_{ji})\\ 
-   \vdots &amp; \ddots  &amp; \vdots \\ 
-   \frac{\partial}{\partial A_{n1}}(\sum_{i=1}^{n}\sum_{j=1}^{m}A_{ij}B_{ji}) &amp; \cdots &amp; \frac{\partial}{\partial A_{nm}}(\sum_{i=1}^{n}\sum_{j=1}^{m}A_{ij}B_{ji})
-   \end{bmatrix} \\ &amp; = \begin{bmatrix}
-   B_{11} &amp; \cdots &amp; B_{m1} \\ 
-   \vdots &amp; \ddots  &amp; \vdots \\ 
-   B_{1n} &amp; \cdots &amp; B_{mn}
-   \end{bmatrix} = B^{T}\\ \end{align*}$$
-   
-
-
-</li>
+<li>轮流选中某一类型 i ，将其视为正样本，即 “1” 分类，剩下样本都看做是负样本，即 “0” 分类。</li>
+<li>训练 SVM 得到参数 $\theta^{(1)},\theta^{(2)},\cdots,\theta^{(K)}$  ，即总共获得了 K−1 个决策边界。</li>
 </ol>
-   
-   $$\begin{align*}\triangledown_{A}\rm{tr}\;BA &amp;= \triangledown_{A} \sum_{i=1}^{m}\sum_{j=1}^{n}B_{ij}A_{ji}  = \frac{\partial}{\partial A}(\sum_{i=1}^{m}\sum_{j=1}^{n}B_{ij}A_{ji})\\ &amp; = \begin{bmatrix}
-   \frac{\partial}{\partial A_{11}}(\sum_{i=1}^{m}\sum_{j=1}^{n}B_{ij}A_{ji}) &amp; \cdots &amp; \frac{\partial}{\partial A_{1m}}(\sum_{i=1}^{m}\sum_{j=1}^{n}B_{ij}A_{ji})\\ 
-   \vdots &amp; \ddots  &amp; \vdots \\ 
-   \frac{\partial}{\partial A_{n1}}(\sum_{i=1}^{m}\sum_{j=1}^{n}B_{ij}A_{ji}) &amp; \cdots &amp; \frac{\partial}{\partial A_{nm}}(\sum_{i=1}^{m}\sum_{j=1}^{n}B_{ij}A_{ji})
-   \end{bmatrix} \\ &amp; = \begin{bmatrix}
-   B_{11} &amp; \cdots &amp; B_{m1} \\ 
-   \vdots &amp; \ddots  &amp; \vdots \\ 
-   B_{1n} &amp; \cdots &amp; B_{mn}
-   \end{bmatrix} = B^{T}\\ \end{align*}$$
-   
-
-<p>   所以有 $ \triangledown_{A}\rm{tr};AB = \triangledown_{A}\rm{tr};BA = B^{T}$</p>
-<ol start="4">
-<li><p>$\triangledown_{A^{T}}a = (\triangledown_{A}a)^{T};;;; (a \in \mathbb{R})$<br>证明：假设 A 是 $n * m$ 矩阵</p>
-
-   $$\begin{align*}\triangledown_{A^{T}}a &amp; = \begin{bmatrix}
-   \frac{\partial}{\partial A_{11}}a &amp; \cdots &amp; \frac{\partial}{\partial A_{1n}}a\\ 
-   \vdots &amp; \ddots  &amp; \vdots \\ 
-   \frac{\partial}{\partial A_{m1}}a &amp; \cdots &amp; \frac{\partial}{\partial A_{mn}}a
-   \end{bmatrix}  = (\begin{bmatrix}
-   \frac{\partial}{\partial A_{11}}a &amp; \cdots &amp; \frac{\partial}{\partial A_{1m}}a\\ 
-   \vdots &amp; \ddots  &amp; \vdots \\ 
-   \frac{\partial}{\partial A_{n1}}a &amp; \cdots &amp; \frac{\partial}{\partial A_{nm}}a
-   \end{bmatrix})^{T} \\ &amp; = (\triangledown_{A}a)^{T}\\ \end{align*}$$
-   
-</li>
-<li><p>$\mathrm{d}(\rm{tr};A) = \rm{tr}(\mathrm{d}A)$<br>证明：<br>$$\mathrm{d}(\rm{tr};A) = \mathrm{d}(\sum_{i=1}^{n}a_{ii}) = \sum_{i=1}^{n}\mathrm{d}a_{ii} = \rm{tr}(\mathrm{d}A)$$<br>矩阵的迹的微分等于矩阵的微分的迹。</p>
-</li>
-<li><p>$\triangledown_{A}\rm{tr};ABA^{T}C = CAB + C^{T}AB^{T}$<br>证明：<br>根据实标量函数梯度的乘法法则：<br>若 f(A)、g(A)、h(A) 分别是矩阵 A 的实标量函数，则有
-   $$\begin{align*}\frac{\partial f(A)g(A)}{\partial A} &amp;= g(A)\frac{\partial f(A)}{\partial A} + f(A)\frac{\partial g(A)}{\partial A}\\ \frac{\partial f(A)g(A)h(A)}{\partial A} &amp;= g(A)h(A)\frac{\partial f(A)}{\partial A} + f(A)h(A)\frac{\partial g(A)}{\partial A}+ f(A)g(A)\frac{\partial h(A)}{\partial A}\\ \end{align*}$$<br>令 $f(A) = AB,g(A) = A^{T}C$，由性质5，矩阵的迹的微分等于矩阵的微分的迹，那么则有：</p>
-
-   $$\begin{align*} \triangledown_{A}\rm{tr}\;ABA^{T}C &amp; = \rm{tr}(\triangledown_{A}ABA^{T}C) = \rm{tr}(\triangledown_{A}f(A)g(A)) = \rm{tr}\triangledown_{A_{1}}(A_{1}BA^{T}C) + \rm{tr}\triangledown_{A_{2}}(ABA_{2}^{T}C)  \\ &amp; = (BA^{T}C)^{T} + \rm{tr}\triangledown_{A_{2}}(ABA_{2}^{T}C) = C^{T}AB^{T} + \triangledown_{A_{2}}\rm{tr}(ABA_{2}^{T}C)\\ &amp; = C^{T}AB^{T} + \triangledown_{A_{2}}\rm{tr}(A_{2}^{T}CAB) = C^{T}AB^{T} + (\triangledown_{{A_{2}}^{T}}\;\rm{tr}\;A_{2}^{T}CAB)^{T} \\ &amp; = C^{T}AB^{T} + ((CAB)^{T})^{T}  \\ &amp; = C^{T}AB^{T} + CAB  \\ \end{align*}$$
-   
-
-
-
-</li>
-</ol>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/76_10.png" alt=""></p>
+<h3 id="3-分类模型的选择"><a href="#3-分类模型的选择" class="headerlink" title="3. 分类模型的选择"></a>3. 分类模型的选择</h3><p>目前，我们学到的分类模型有：</p>
+<p>（1）逻辑回归；<br>（2）神经网络；<br>（3）SVM  </p>
+<p>怎么选择在这三者中做出选择呢？我们考虑特征维度 n 及样本规模 m ：</p>
+<p>如果 n 相对于 m 非常大，例如 n=10000 ，而 $m\in(10,1000)$ ：此时选用逻辑回归或者无核的 SVM。  </p>
+<p>如果 n 较小，m 适中，如  $n\in(1,1000)$ ，而  $m\in(10,10000)$ ：此时选用核函数为高斯核函数的 SVM。  </p>
+<p>如果 n 较小，m 较大，如  $n\in(1,1000)$ ，而  m&gt;50000 ：此时，需要创建更多的特征（比如通过多项式扩展），再使用逻辑回归或者无核的 SVM。<br>神经网络对于上述情形都有不错的适应性，但是计算性能上较慢。  </p>
 <hr>
-<h3 id="3-推导"><a href="#3-推导" class="headerlink" title="3. 推导"></a>3. 推导</h3><p>回到之前的代价函数中：<br>$$<br>\rm{CostFunction} = \rm{F}({\theta_{0}},{\theta_{1}}) = \frac{1}{2m} (X \cdot \Theta - Y)^{T}(X \cdot \Theta - Y)<br>$$<br>求导：</p>
+<h2 id="四-Support-Vector-Machines-测试"><a href="#四-Support-Vector-Machines-测试" class="headerlink" title="四. Support_Vector_Machines 测试"></a>四. Support_Vector_Machines 测试</h2><h3 id="1-Question-1"><a href="#1-Question-1" class="headerlink" title="1. Question 1"></a>1. Question 1</h3><p>Suppose you have trained an SVM classifier with a Gaussian kernel, and it learned the following decision boundary on the training set:</p>
+<p><img src="http://spark-public.s3.amazonaws.com/ml/images/12.1-b.jpg" alt=""></p>
+<p>When you measure the SVM’s performance on a cross validation set, it does poorly. Should you try increasing or decreasing C? Increasing or decreasing $\sigma^{2}$?</p>
+<p>A. It would be reasonable to try <strong>decreasing</strong> C. It would also be reasonable to try <strong>increasing</strong> $\sigma^{2}$.</p>
+<p>B. It would be reasonable to try <strong>increasing</strong> C. It would also be reasonable to try <strong>increasing</strong> $\sigma^{2}$.</p>
+<p>C. It would be reasonable to try <strong>increasing</strong> C. It would also be reasonable to try <strong>decreasing</strong> $\sigma^{2}$.</p>
+<p>D. It would be reasonable to try <strong>decreasing</strong> C. It would also be reasonable to try <strong>decreasing</strong> $\sigma^{2}$.</p>
+<p>解答：A</p>
+<p>过拟合应该减小 C 和增大 $\sigma^2$</p>
+<h3 id="2-Question-2"><a href="#2-Question-2" class="headerlink" title="2. Question 2"></a>2. Question 2</h3><p>The formula for the Gaussian kernel is given by similarity $(x,l^{(1)})=exp(-\frac{\left \| x-l^{(1)} \right \|^{2}}{2\sigma^{2} })$ .</p>
+<p>The figure below shows a plot of f1=similarity $(x,l^{(1)})$ when $\sigma^{2} = 1$.</p>
+<p><img src="http://spark-public.s3.amazonaws.com/ml/images/12.2-question.jpg" alt=""></p>
+<p>Which of the following is a plot of f1 when $\sigma^{2} = 0.25$?</p>
+<p>A. <img src="http://spark-public.s3.amazonaws.com/ml/images/12.2-b.jpg" alt=""></p>
+<p>B. <img src="http://spark-public.s3.amazonaws.com/ml/images/12.2-a.jpg" alt=""></p>
+<p>C. <img src="http://spark-public.s3.amazonaws.com/ml/images/12.2-d.jpg" alt=""></p>
+<p>D. <img src="http://spark-public.s3.amazonaws.com/ml/images/12.2-c.jpg" alt=""></p>
+<p>解答：A</p>
+<p> $\sigma^{2} $ 变小图像变瘦高。</p>
+<h3 id="3-Question-3"><a href="#3-Question-3" class="headerlink" title="3. Question 3"></a>3. Question 3</h3><p>The SVM solves</p>
 
-$$
-\begin{align*}
-\triangledown_{\theta}\rm{F}(\theta) &amp; = \frac{1}{2m} \triangledown_{\theta}(X \cdot \Theta - Y)^{T}(X \cdot \Theta - Y) = \frac{1}{2m}\triangledown_{\theta}(\Theta^{T}X^{T}-Y^{T})(X\Theta-Y)\\
-&amp; = \frac{1}{2m}\triangledown_{\theta}(\Theta^{T}X^{T}X\Theta-Y^{T}X\Theta-\Theta^{T}X^{T}Y+Y^{T}Y) \\ \end{align*}
-$$
+$$min_{\theta} C \sum^{m}_{i=1}y^{(i)}cost_{1}(\theta^{T}x^{(i)})+(1-y^{(i)})cost_{0}(\theta^{T}x^{(i)})+\sum^{n}_{j=1}\theta^{2}_{j}$$
 
-<p>上式中，对 $\Theta $矩阵求导，$ Y^{T}Y $ 与 $\Theta $ 无关，所以这一项为 0 。 $Y^{T}X\Theta$ 是标量，由性质4可以知道，$Y^{T}X\Theta = (Y^{T}X\Theta)^{T} = \Theta^{T}X^{T}Y$，因为 $\Theta^{T}X^{T}X\Theta , Y^{T}X\Theta $都是标量，所以它们的也等于它们的迹，（处理矩阵微分的问题常常引入矩阵的迹），于是有</p>
 
-$$
-\begin{align*}
-\triangledown_{\theta}\rm{F}(\theta) &amp; = \frac{1}{2m}\triangledown_{\theta}(\Theta^{T}X^{T}X\Theta-2Y^{T}X\Theta) \\ 
-&amp; = \frac{1}{2m}\triangledown_{\theta}\rm{tr}\;(\Theta^{T}X^{T}X\Theta-2Y^{T}X\Theta) \\ &amp; = \frac{1}{2m}\triangledown_{\theta}\rm{tr}\;(\Theta\Theta^{T}X^{T}X-2Y^{T}X\Theta) \\ &amp; = \frac{1}{m}(\frac{1}{2}\triangledown_{\theta}\rm{tr}\;\Theta\Theta^{T}X^{T}X -\triangledown_{\theta}\rm{tr}\;Y^{T}X\Theta) \\ &amp; = \frac{1}{m}(\frac{1}{2}\triangledown_{\theta}\rm{tr}\;\Theta\Theta^{T}X^{T}X -(Y^{T}X)^{T}) = \frac{1}{m}(\frac{1}{2}\triangledown_{\theta}\rm{tr}\;\Theta\Theta^{T}X^{T}X -X^{T}Y)\\ \end{align*}
-$$
+<p>where the functions $cost_0(z)$ and $cost_1(z)$ look like this:</p>
+<p>The first term in the objective is:</p>
 
-<p>上面第三步用的性质2矩阵迹的交换律，第五步用的性质3。</p>
-<p>为了能进一步化简矩阵的微分，我们在矩阵的迹上面乘以一个单位矩阵，不影响结果。于是：</p>
+$$C \sum^{m}_{i=1}y^{(i)}cost_{1}(\theta^{T} x^{(i)})+(1-y^{(i)})cost_{0}(\theta^{T}x^{(i)})$$
 
-$$
-\begin{align*}
-\triangledown_{\theta}\rm{F}(\theta) &amp; = \frac{1}{m}(\frac{1}{2}\triangledown_{\theta}\rm{tr}\;\Theta\Theta^{T}X^{T}X -X^{T}Y) \\ &amp;= \frac{1}{m}(\frac{1}{2}\triangledown_{\theta}\rm{tr}\;\Theta I \Theta^{T}X^{T}X -X^{T}Y) \end{align*}
-$$
-<p>利用性质6 展开上面的式子，令 $ A = \Theta , B = I , C = X^{T}X $。</p>
 
-$$
-\begin{align*}
-\triangledown_{\theta}\rm{F}(\theta) &amp;= \frac{1}{m}(\frac{1}{2}\triangledown_{\theta}\rm{tr}\;\Theta I \Theta^{T}X^{T}X -X^{T}Y) \\ &amp; = \frac{1}{m}(\frac{1}{2}(X^{T}X\Theta I + (X^{T}X)^{T}\Theta I^{T}) -X^{T}Y) \\ &amp; = \frac{1}{m}(\frac{1}{2}(X^{T}X\Theta I + (X^{T}X)^{T}\Theta I^{T}) -X^{T}Y) \\ &amp; = \frac{1}{m}(\frac{1}{2}(X^{T}X\Theta + X^{T}X\Theta) -X^{T}Y)  = \frac{1}{m}(X^{T}X\Theta -X^{T}Y) \\ \end{align*}
-$$
-
-<p>令 $\triangledown_{\theta}\rm{F}(\theta) = 0$，即 $X^{T}X\Theta -X^{T}Y = 0$, 于是 $ X^{T}X\Theta = X^{T}Y $ ，这里假设 $ X^{T}X$ 这个矩阵是可逆的，等号两边同时左乘$ X^{T}X$的逆矩阵，得到 $\Theta = (X^{T}X)^{-1}X^{T}Y$</p>
-<p>最终结果也就推导出来了，$$\Theta = (X^{T}X)^{-1}X^{T}Y$$</p>
-<p>但是这里有一个<strong>前提条件是 $X^{T}X$ 是非奇异(非退化)矩阵， 即 $ \left | X^{T}X \right | \neq 0 $</strong></p>
-<hr>
-<h3 id="4-梯度下降和正规方程法比较："><a href="#4-梯度下降和正规方程法比较：" class="headerlink" title="4. 梯度下降和正规方程法比较："></a>4. 梯度下降和正规方程法比较：</h3><p>优点：<br>梯度下降在超大数据集面前也能运行的很良好。<br>正规方程在超大数据集合面前性能会变得很差，因为需要计算 $(x^{T}x)^{-1}$,时间复杂度在 $O(n^{3})$ 这个级别。  </p>
-<p>缺点：<br>梯度下降需要合理的选择学习速率 $\alpha$ , 需要很多次迭代的操作去选择合理的 $\alpha$，寻找最小值的时候也需要迭代很多次才能收敛。<br>正规方程的优势相比而言，不需要选择学习速率 $\alpha$，也不需要多次的迭代或者画图检测是否收敛。</p>
-<hr>
-<h2 id="二-Normal-Equation-Noninvertibility"><a href="#二-Normal-Equation-Noninvertibility" class="headerlink" title="二. Normal Equation Noninvertibility"></a>二. Normal Equation Noninvertibility</h2><p>上一章谈到了如何利用正规方程法求解 $\Theta $,但是在线性代数中存在这样一个问题，如果是奇异(退化)矩阵，是不存在逆矩阵的。也就是说用上面正规方程的公式是不一定能求解出正确结果的。</p>
-<p>在 Octave 软件中，存在2个求解逆矩阵的函数，一个是 pinv 和 inv。pinv (pseudo-inverse)求解的是<strong>伪逆矩阵</strong>，inv 求解的是逆矩阵，所以用 pinv 求解问题，就算是 $ X^{T}X $ 不存在逆矩阵，也一样可以得到最后的结果。</p>
-<p>导致$ X^{T}X $ 不存在逆矩阵有2种情况：</p>
-<ol>
-<li>多余的特征。特征之间呈倍数关系，线性依赖。</li>
-<li>过多的特征。当 $ m \leqslant n $ 的时候，会导致过多的特征。解决办法是删除一些特征，或者进行正则化。</li>
-</ol>
-<p>所以解决$ X^{T}X $ 不存在逆矩阵的办法也就是对应上面2种情况：</p>
-<ol>
-<li>删掉多余的特征，线性相关的，倍数关系的。直到没有多余的特征</li>
-<li>再删除一些不影响结果的特征，或者进行正则化。</li>
-</ol>
-<hr>
-<h2 id="三-Linear-Regression-with-Multiple-Variables-测试"><a href="#三-Linear-Regression-with-Multiple-Variables-测试" class="headerlink" title="三. Linear Regression with Multiple Variables 测试"></a>三. Linear Regression with Multiple Variables 测试</h2><h3 id="1-Question-1"><a href="#1-Question-1" class="headerlink" title="1. Question 1"></a>1. Question 1</h3><p>Suppose m=4 students have taken some class, and the class had a midterm exam and a final exam. You have collected a dataset of their scores on the two exams, which is as follows:</p>
-<p>midterm exam    (midterm exam)2    final exam<br>89    7921    96<br>72    5184    74<br>94    8836    87<br>69    4761    78<br>You’d like to use polynomial regression to predict a student’s final exam score from their midterm exam score. Concretely, suppose you want to fit a model of the form hθ(x)=θ0+θ1x1+θ2x2, where x1 is the midterm score and x2 is (midterm score)2. Further, you plan to use both feature scaling (dividing by the “max-min”, or range, of a feature) and mean normalization.</p>
-<p>What is the normalized feature x(2)2? (Hint: midterm = 72, final = 74 is training example 2.) Please round off your answer to two decimal places and enter in the text box below.</p>
-<p>解答：<br>标准化 $$x = \frac{x_{2}^{2}-\frac{(7921+5184+8836+4761)}{4}}{\max - \min } = \frac{5184 - 6675.5}{8836-4761} = -0.37$$</p>
-<h3 id="2-Question-2"><a href="#2-Question-2" class="headerlink" title="2. Question 2"></a>2. Question 2</h3><p>You run gradient descent for 15 iterations</p>
-<p>with α=0.3 and compute J(θ) after each</p>
-<p>iteration. You find that the value of J(θ) increases over</p>
-<p>time. Based on this, which of the following conclusions seems</p>
-<p>most plausible?</p>
-<p>A. Rather than use the current value of α, it’d be more promising to try a smaller value of α (say α=0.1).</p>
-<p>B. α=0.3 is an effective choice of learning rate.</p>
-<p>C. Rather than use the current value of α, it’d be more promising to try a larger value of α (say α=1.0).</p>
-<p>解答：  A </p>
-<p>下降太快所以a下降速率过大，a越大下降越快，a小下降慢，在本题中，代价函数快速收敛到最小值，代表此时a最合适。</p>
-<h3 id="3-Question-3"><a href="#3-Question-3" class="headerlink" title="3. Question 3"></a>3. Question 3</h3><p>Suppose you have m=28 training examples with n=4 features (excluding the additional all-ones feature for the intercept term, which you should add). The normal equation is θ=(XTX)−1XTy. For the given values of m and n, what are the dimensions of θ, X, and y in this equation?</p>
-<p>A. X is 28×4, y is 28×1, θ is 4×4</p>
-<p>B. X is 28×5, y is 28×5, θ is 5×5</p>
-<p>C. X is 28×5, y is 28×1, θ is 5×1</p>
-<p>D. X is 28×4, y is 28×1, θ is4×1</p>
-<p>解答：  C </p>
-<p>这里需要注意的是，题目中说了额外添加一列全部为1的，所以列数是5 。</p>
-<h3 id="4-Question-4"><a href="#4-Question-4" class="headerlink" title="4. Question 4"></a>4. Question 4</h3><p>Suppose you have a dataset with m=50 examples and n=15 features for each example. You want to use multivariate linear regression to fit the parameters θ to our data. Should you prefer gradient descent or the normal equation?</p>
-<p>A. Gradient descent, since it will always converge to the optimal θ.</p>
-<p>B. Gradient descent, since (XTX)−1 will be very slow to compute in the normal equation.</p>
-<p>C. The normal equation, since it provides an efficient way to directly find the solution.</p>
-<p>D. The normal equation, since gradient descent might be unable to find the optimal θ.</p>
-<p>解答：  C </p>
-<p>数据量少，选择正规方程法更加高效</p>
-<h3 id="5-Question-5"><a href="#5-Question-5" class="headerlink" title="5. Question 5"></a>5. Question 5</h3><p>Which of the following are reasons for using feature scaling?</p>
-<p>A. It prevents the matrix XTX (used in the normal equation) from being non-invertable (singular/degenerate).</p>
-<p>B. It is necessary to prevent the normal equation from getting stuck in local optima.</p>
-<p>C. It speeds up gradient descent by making it require fewer iterations to get to a good solution.</p>
-<p>D. It speeds up gradient descent by making each iteration of gradient descent less expensive to compute.</p>
-<p>解答：  C </p>
-<p>normal equation 不需要 Feature Scaling，排除AB， 特征缩放减少迭代数量，加快梯度下降，然而不能防止梯度下降陷入局部最优。</p>
+<p>This first term will be zero if two of the following four conditions hold true. Which are the two conditions that would guarantee that this term equals zero?</p>
+<p>A. For every example with $y^{(i)}=0$, we have that $\theta^{T}x(i) \leqslant 0$.</p>
+<p>B. For every example with $y^{(i)}=1$, we have that $\theta^{T}x(i) \geqslant 0$.</p>
+<p>C. For every example with $y^{(i)}=0$, we have that $\theta^{T}x(i)\leqslant-1$.</p>
+<p>D. For every example with $y^{(i)}=1$, we have that $\theta^{T}x(i)\geqslant 1$.</p>
+<p>解答：C、D</p>
+<h3 id="4-Question-4"><a href="#4-Question-4" class="headerlink" title="4. Question 4"></a>4. Question 4</h3><p>Suppose you have a dataset with n = 10 features and m = 5000 examples.</p>
+<p>After training your logistic regression classifier with gradient descent, you find that it has underfit the training set and does not achieve the desired performance on the training or cross validation sets.</p>
+<p>Which of the following might be promising steps to take? Check all that apply.</p>
+<p>A. Try using a neural network with a large number of hidden units.</p>
+<p>B. Create / add new polynomial features.</p>
+<p>C. Reduce the number of examples in the training set.</p>
+<p>D. Use a different optimization method since using gradient descent to train logistic regression might result in a local minimum.</p>
+<p>解答： A、B</p>
+<p>题干中要求解决欠拟合的问题。</p>
+<p>A.增多神经网络的隐藏层可以解决欠拟合问题。<br>B.增加特征量可以解决欠拟合问题。<br>C.减少训练集样本，不行。<br>D.不是梯度下降函数到达最低值是代价函数。  </p>
+<h3 id="5-Question-5"><a href="#5-Question-5" class="headerlink" title="5. Question 5"></a>5. Question 5</h3><p>Which of the following statements are true? Check all that apply.</p>
+<p>A. Suppose you have 2D input examples (ie, $x^{(i)} \in \mathbb{R}^2$). The decision boundary of the SVM (with the linear kernel) is a straight line.</p>
+<p>B. If the data are linearly separable, an SVM using a linear kernel will return the same parameters $\theta$ regardless of the chosen value of C (i.e., the resulting value of $\theta$ does not depend on C).</p>
+<p>C. If you are training multi-class SVMs with the one-vs-all method, it is not possible to use a kernel.</p>
+<p>D. The maximum value of the Gaussian kernel (i.e., $sim(x,l^{(1)})$) is 1.</p>
+<p>解答：A、D</p>
+<p>A. 线性是一条直线。<br>B. $min_{\theta} C[\sum_{i=1}^{m}{y^{(i)}}cost_1(\theta^Tx^{(i)})+(1-y^{(i)})cost_0(\theta^Tx^{(i)})]+\frac{1}{2}\sum_{j=1}^{n}{\theta_j^2}$， $\theta$正是由 C 的大小决定的。<br>C. 解决多分类问题可以用 SVM 。<br>D. 高斯核函数范围：[0,1]。  </p>
 <hr>
 <blockquote>
 <p>GitHub Repo：<a href="https://github.com/halfrost/Halfrost-Field" target="_blank" rel="noopener">Halfrost-Field</a></p>
 <p>Follow: <a href="https://github.com/halfrost" target="_blank" rel="noopener">halfrost · GitHub</a></p>
-<p>Source: <a href="https://github.com/halfrost/Halfrost-Field/blob/master/contents/Machine_Learning/Computing_Parameters_Analytically.ipynb" target="_blank" rel="noopener">https://github.com/halfrost/Halfrost-Field/blob/master/contents/Machine_Learning/Computing_Parameters_Analytically.ipynb</a></p>
+<p>Source: <a href="https://github.com/halfrost/Halfrost-Field/blob/master/contents/Machine_Learning/Support_Vector_Machines.ipynb" target="_blank" rel="noopener">https://github.com/halfrost/Halfrost-Field/blob/master/contents/Machine_Learning/Support_Vector_Machines.ipynb</a></p>
 </blockquote>
 <script>
         document.querySelectorAll('.github-emoji')
@@ -746,7 +748,7 @@ $$
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://Xw-Jia.github.io/2020/01/27/2-2-computing-parameters-analytically/">http://Xw-Jia.github.io/2020/01/27/2-2-computing-parameters-analytically/</a>
+                    <a href="http://Xw-Jia.github.io/2020/02/07/7-1-support-vector-machines/">http://Xw-Jia.github.io/2020/02/07/7-1-support-vector-machines/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -955,28 +957,29 @@ $$
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/02/03/3-1-logistic-regression/">
+                <a href="/2020/02/07/7-1-support-vector-machines/">
                     <div class="card-image">
                         
-                        <img src="/medias/cover_pics/3-1-Logistic-Regression/69_6.png" class="responsive-img" alt="3.1_Logistic_Regression">
+                        <img src="/medias/cover_pics/7-1-Support-Vector-Machines/1.png" class="responsive-img" alt="7.1_Support_Vector_Machines">
                         
-                        <span class="card-title">3.1_Logistic_Regression</span>
+                        <span class="card-title">7.1_Support_Vector_Machines</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            吴恩达Machine_Learning入门课Week3第一节
+                            吴恩达Machine_Learning入门课Week7第一节
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-02-03
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-07
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -989,6 +992,7 @@ $$
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -1011,23 +1015,23 @@ $$
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/01/27/2-1-multivariate-linear-regression/">
+                <a href="/2020/02/05/6-2-machine-learning-system-design/">
                     <div class="card-image">
                         
-                        <img src="/medias/cover_pics/2-1-Multivariate-Linear-Regression/69_4.png" class="responsive-img" alt="2.1_Multivariate_Linear_Regression">
+                        <img src="/medias/cover_pics/6-2-Machine-Learning-System-Design/1.png" class="responsive-img" alt="6.2_Machine_Learning_System_Design">
                         
-                        <span class="card-title">2.1_Multivariate_Linear_Regression</span>
+                        <span class="card-title">6.2_Machine_Learning_System_Design</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            吴恩达Machine_Learning入门课Week2第一节
+                            吴恩达Machine_Learning入门课Week6第二节
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-01-27
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-05
                             </span>
                         <span class="publish-author">
                             
