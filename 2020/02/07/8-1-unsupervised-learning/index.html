@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="4.1_Neural_Networks_Representation, DustOfStars">
-    <meta name="description" content="吴恩达Machine_Learning入门课Week4第一节">
+    <meta name="keywords" content="8.1_Unsupervised_Learning, DustOfStars">
+    <meta name="description" content="吴恩达Machine_Learning入门课Week8第一节">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>4.1_Neural_Networks_Representation | DustOfStars</title>
+    <title>8.1_Unsupervised_Learning | DustOfStars</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -295,12 +295,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/cover_pics/4-1-Neural-Networks-Representation/1.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/cover_pics/8-1-Unsupervised-Learning/1.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">4.1_Neural_Networks_Representation</h1>
+                    <h1 class="description center-align post-title">8.1_Unsupervised_Learning</h1>
                 </div>
             </div>
         </div>
@@ -446,14 +446,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-02-03
+                    2020-02-07
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-02-05
+                    2020-02-07
                 </div>
                 
 
@@ -478,153 +478,115 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><img src="https://img.halfrost.com/Blog/ArticleImage/71_1.png" alt=""></p>
-<h1 id="4-1-Neural-Networks-Representation"><a href="#4-1-Neural-Networks-Representation" class="headerlink" title="4.1_Neural_Networks_Representation"></a>4.1_Neural_Networks_Representation</h1><h2 id="一-Motivations"><a href="#一-Motivations" class="headerlink" title="一. Motivations"></a>一. Motivations</h2><p>假如我们用之前的逻辑回归解决以下分类问题：</p>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/71_1_1.png" alt=""></p>
-<p>我们需要构造一个有很多项的非线性的逻辑回归函数。当只有两个特征量的时候，这还算比较简单的，但是假如我们有100个特征量呢？我们只考虑二阶项的话，其二阶项的个数大约是 $\frac{n^2}{2}$ 。假如我们要包含所有的二阶项的话这样看起来不是一个好办法，因为项数实在太多运算量也很多，而且最后结果往往容易造成过拟合。当然我们只是考虑了二阶项，考虑二阶项以上的就更多了。</p>
-<p>当初始特征个数 n 增大时，这些高阶多项式项数将以几何级数上升，特征空间也会随之急剧膨胀 。所以当特征个数 n比较大的时候，用这个方法建立分类器并不是一个好的做法。</p>
-<p>而对于大多数的机器学习问题， n  一般是比较大的。</p>
-<p>对一个拥有很多特征的复杂数据集进行线性回归是代价很高的。比如我们对 50 * 50 像素的黑白图分类，我们就拥有了 2500 个特征。如果我们还要包含所有二次特征，复杂度为 $O(n^{2}/2)$，也就是说一共要有 $2500^{2}/2=3125000$ 个特征。这样计算的代价是高昂的。</p>
-<p>人工神经网络是对具有很多特征的复杂问题进行机器学习的一种方法。</p>
+                <p><img src="https://upload-images.jianshu.io/upload_images/1194012-7c48451bfdd10339.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="一-Clustering"><a href="#一-Clustering" class="headerlink" title="一. Clustering"></a>一. Clustering</h2><h3 id="1-定义"><a href="#1-定义" class="headerlink" title="1. 定义"></a>1. 定义</h3><p>从本节开始，将正式进入到无监督学习（Unsupervised Learning）部分。无监督学习，顾名思义，就是不受监督的学习，一种自由的学习方式。该学习方式不需要先验知识进行指导，而是不断地自我认知，自我巩固，最后进行自我归纳，在机器学习中，无监督学习可以被简单理解为不为训练集提供对应的类别标识（label），其与有监督学习的对比如下：</p>
+<p>有监督学习（Supervised Learning）下的训练集：</p>
+
+$$\left\{ (x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}),\cdots,(x^{(m)},y^{(m)}) \right\}$$
+
+
+<p>无监督学习（Unsupervised Learning）下的训练集：</p>
+
+$$\left\{ (x^{(1)}),(x^{(2)}),(x^{(3)}),\cdots,(x^{(m)}) \right\}$$
+
+
+
+
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/77_1.png" alt=""></p>
+<p>在有监督学习中，我们把对样本进行分类的过程称之为分类（Classification），而在无监督学习中，我们将物体被划分到不同集合的过程称之为聚类（Clustering）。聚这个动词十分精确，他传神地描绘了各个物体自主地想属于自己的集合靠拢的过程。</p>
+<p>在聚类中，我们把物体所在的集合称之为簇（cluster）。</p>
+<h3 id="2-K-Means"><a href="#2-K-Means" class="headerlink" title="2. K-Means"></a>2. K-Means</h3><p>在聚类问题中，我们需要将未加标签的数据通过算法自动分成有紧密关系的子集。那么K均值聚类算法（K-mean）是现在最为广泛使用的聚类方法。</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/77_2.png" alt=""></p>
+<p>我们执行K均值聚类算法是这样的。首先随机选择两个点，这两个点叫做聚类中心（cluster centroids），也就是图中红色和蓝色的交叉。K均值聚类 一个迭代的方法，它要做两件事，一件是簇分配，另一件是移动聚类中心。</p>
+<p>在K均值聚类算法的每次循环里面，第一步要进行的是簇分配。首先要历遍所有的样本，也就是上图中每一个绿色的点，然后根据每一个点是更接近红色的这个中心还是蓝色的这个中心，将每一个数据点分配到两个不同的聚类中心。</p>
+<p>例如第一次我们随机定的两个中心点和其簇分配如下图所示：</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/77_3.png" alt=""></p>
+<p>第二步要做的自然是要移动聚类中心。我们需要将两个中心点移动到刚才我们分成两类的数据各自的均值处。那么所要做的就是找出所有红色的点计算出他们的均值，然后把红色叉叉移动到该均值处，蓝色叉叉亦然。</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/77_4.png" alt=""></p>
+<p>然后通过不断重复上述两个步骤，通过不断迭代直到其聚类中心不变，那么也就是说K均值聚类已经收敛了，我们就可以从该数据中找到两个最有关联的簇了。其过程大概如下图所示：</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/77_5.png" alt=""></p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/77_6.png" alt=""></p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/77_7.png" alt=""></p>
+<p>K均值聚类算法有两个输入：一个是参数K，也就是你想从数据中聚类出簇的个数。另一个就是只有x没有y的训练集。</p>
+<p>以下是 K 均值聚类算法的过程。</p>
+<p>第一步是随机初始化K个聚类中心，记做：  $\mu_1, \mu_2,\cdots,\mu_k$ 。</p>
+<p>第二个大部分就是进行迭代。其中第一个循环是：对于每个训练样本 ，我们用变量 $c^{(i)}$ 表示在 K 个聚类中心里面最接近 $x^{(i)}$ 那个中心的下标。我们可以通过 $min_k||x^{(i)}-\mu_k||$ 进行计算。第二个循环是：移动聚类中心。将  $\mu_k$ 也就是中心点的值 = 刚才我们分好的簇的均值。</p>
+<p>例如：  $\mu_2$ 被分配到一些样本值： $x^{(1)},x^{(5)},x^{(6)},x^{(10)}$ 。这也就意味着： $c^{(1)}=2,c^{(5)}=2,c^{(6)}=2,c^{(10)}=2$ 。那么  $\mu_2$ 的新值应该为： $\frac{1}{4}[ x^{(1)}+x^{(5)}+x^{(6)}+x^{(10)}]$ 。</p>
+<h3 id="3-优化"><a href="#3-优化" class="headerlink" title="3. 优化"></a>3. 优化</h3><p>和其他机器学习算法一样，K-Means 也要评估并且最小化聚类代价，在引入 K-Means 的代价函数之前，先引入如下定义：</p>
+<p>$\mu^{(i)}_c$=样本 $x^{(i)}$ 被分配到的聚类中心</p>
+<p>引入代价函数：</p>
+<p>$$J(c^{(1)},c^{(2)},\cdots,c^{(m)};\mu_1,\mu_2,\cdots,\mu_k)=\frac{1}{m}\sum_{i=1}^m\left | x^{(i)}-\mu_c(i) \right |^2$$</p>
+<p>J 也被称为失真代价函数(Distortion Cost Function),可以在调试K均值聚类计算的时候可以看其是否收敛来判断算法是否正常工作。</p>
+<p>实际上，K-Means 的两步已经完成了最小化代价函数的过程：</p>
+<ol>
+<li>样本分配时(簇分配)：<br>我们固定住了  $(\mu_1,\mu_2,\cdots,\mu_k)$ ，而关于  $(c^{(1)},c^{(2)},\cdots,c^{(m)})$  最小化了 J 。</li>
+<li>中心移动时(移动类聚中心)：<br>我们再关于 $(\mu_1,\mu_2,\cdots,\mu_k)$ 最小化了 J 。</li>
+</ol>
+<p>由于 K-Means 每次迭代过程都在最小化 J ，所以下面的代价函数变化曲线不会出现：</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/77_8.png" alt=""></p>
+<h3 id="4-如何初始化聚类中心"><a href="#4-如何初始化聚类中心" class="headerlink" title="4. 如何初始化聚类中心"></a>4. 如何初始化聚类中心</h3><p>当我们运行K均值算法的时候，其聚类中心K的值要少于样本总数m。</p>
+<p>然后我们随便选K个训练样本作为聚类中心。例如K=2的时候，如右图，随便选取那两个训练样本作为两个不同的聚类中心。</p>
+<p>但是这样随便选的话，会造成K均值落在局部最优不好的结果。</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/77_9.png" alt=""></p>
+<p>例如，我们给出左图的数据，很容易看出可以分成3个聚类，但是因为随机初始化不好的时候，会落入到局部最优而不是全局最优。也就是右下图的两种情况。</p>
+<p>所以我们随机初始化的操作如下：</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/77_10.png" alt=""></p>
+<p>通常，我们会随机选  K 个样本作为 K 个聚类中心 ( K&lt;m )。但是，如下图所示，不同的初始化有可能引起不同的聚类结果，能达到全局最优（global optimal）固然是好的，但是，往往得到的是局部最优（local optimal）。</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/77_12.png" alt=""></p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/77_13.png" alt=""></p>
+<p>现在，想要提前避免不好的聚类结果仍是困难的，我们只能尝试不同的初始化：</p>
+<p>for  i=1  to  100 (一般循环选择在 50 - 1000 之间)：</p>
+<ol>
+<li>随机初始化，执行 K-Means，得到每个所属的簇 $c^{(i)}$ ，以及各聚类的中心位置 $\mu$ :<br>$$c^{(1)},c^{(2)},\cdots,c^{(m)};\mu_1,\mu_2,\cdots,\mu_k$$</li>
+<li>计算失真函数  J </li>
+</ol>
+<p>选择这 100 次中， J  最小的作为最终的聚类结果。</p>
+<p>随机选取 K 值，但是要循环不重复取100次，取其 $J(c^{(1)},c^{(2)},\cdots,c^{(m)};\mu_1,\mu_2,\cdots,\mu_k)$ 最低的那个结果。</p>
+<p>一般 K 的经验值在 2 - 10 之间。</p>
+<h3 id="5-如何确定聚类数"><a href="#5-如何确定聚类数" class="headerlink" title="5. 如何确定聚类数"></a>5. 如何确定聚类数</h3><p>肘部法则（Elbow Method）:</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/77_11.png" alt=""></p>
+<p>我们通过观察增加聚类中心的个数，其代价函数是如何变化的。有时候我们可以得到如左边的图像，可以看到在K=3的时候，有一个肘点（Elbow）。因为从1-3，代价函数迅速下降，但是随后下降比较缓慢，所以K=3，也就是分为3个类是一个好的选择。</p>
+<p>然而，现实往往是残酷的，我们也会得到右边的代价函数，根本没有肘点，这就让我们难以选则了。</p>
 <hr>
-<h2 id="二-Neural-Networks"><a href="#二-Neural-Networks" class="headerlink" title="二. Neural Networks"></a>二. Neural Networks</h2><p>人工神经网络是对生物神经网络的一种简化的模拟。那么，我们先从生物中的神经元入手，进而了解神经网络的工作方式。</p>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/71_6.svg" alt=""></p>
-<p>用一个简单的模型来模拟神经元的工作，我们将神经元模拟成一个逻辑单元：</p>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/71_1_2.png" alt=""></p>
-<p>$x_{1},x_{2},x_{3}$ 可以将其看成输入神经树突，黄色的圆圈则可以看成中心处理器细胞核， $h_\theta(x)$ 则可看成输出神经轴突。因为这里是逻辑单元，所以我们的输出函数为： $h_\theta(x)=\frac{1}{1+e^{-\theta^Tx}}$ 。一般我们把这称为一个有 s 型函数（逻辑函数）作为激励的人工神经元。</p>
-<p>那么神经网络其实就是这些神经元组合在一起的集合，如下图：</p>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/71_2.png" alt=""></p>
-<p>左边第一层 Layer1 被称为<strong>输入层</strong>。在输入层我们输入我们的特征项 $x_{1},x_{2},x_{3}$ 。</p>
-<p>右边最后一层被称为<strong>输出层</strong>。输出函数为： $h_\Theta(x)$ 。</p>
-<p>中间这层被称为<strong>隐藏层</strong>。</p>
-<p>我们现在要计算当前神经元的值，在当前神经元所在层的前一层，有很多个突触前神经元（当前神经元也是相对于他们的突触后神经元）。</p>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/71_7.png" alt=""></p>
-<p>对于前一层的每一个突触前神经元，都有一个输出值，作为当前神经元的输入值，经过轴突传递到当前神经元。当然，如果是第一层神经元，则直接从输入样本数据中接受刺激（对应图中的 $x_{i}$）。</p>
-<p>轴突具有权值（对应图中的权值 weights 列：$w_{ij}$），对每一个输出值加权求和，得到该神经元的输入值。这个加权求和对应图中的transfer function（转移函数），但这个函数的名称并不明确，有人把它称作激活函数（activation function），不同的人可能有不同的叫法，这里仅供参考。</p>
-<p>得到了该神经元的值，就要判定该神经元是否激活兴奋。这对应于图中的activation function（激活函数），但也有人将这个函数叫做输出函数（output function），而把前面说的那一部分叫做激活函数（activation function），并把这两部分合称为转移函数（transfer function）。</p>
-<p>有几种函数可以作为激活函数：</p>
-<ul>
-<li>阶跃函数。这是最简单直接的形式，也是人工神经网络定义时一般采用的。</li>
-<li>逻辑函数。就是S型函数（Sigmoid函数），具有可无限微分的优势。</li>
-<li>斜坡函数</li>
-<li>高斯函数</li>
-<li>…</li>
-</ul>
-<p>可以注意到图中的threshold（阈值），$\theta_{j}$，即激活阈值。也就是说，仅当神经元的值大于这个阈值时，该神经元激活兴奋，输出1；否则无法激活，输出0。</p>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/71_3.png" alt=""></p>
-<p>其中隐藏层中的元素我们用 $a_i^{(j)}$ 表示。上标 j 表示的是第几层（有时候我们并不只有简单一层），下标 i 表示第几个，<strong>第j层的第i个节点（神经元）的“激活值”</strong>。</p>
-<p>上面的神经网络可以简单的表示为：</p>
-<p>$$\begin{bmatrix} x_{0}\ x_{1}\ x_{2}\ x_{3} \end{bmatrix} \rightarrow \begin{bmatrix} a_{1}^{(2)}\ a_{2}^{(2)}\ a_{3}^{(2)} \end{bmatrix} \rightarrow h_{\theta}(x) $$</p>
-<p>左边输入层多增加了一个偏置单元(偏置神经元)，$x_{0}$</p>
-<p>用 $\Theta^{(j)}$ 表示特征量前的参数，是一个有权重的矩阵控制着一层参数的大小，<strong>映射第j层到第j+1层的权值矩阵</strong>。</p>
-<p>上述的神经网络可用数学表达，如下：</p>
-
-$$
-\begin{align*}
-a_{1}^{(2)} &amp;= g(\Theta_{10}^{(1)}x_{0}+\Theta_{11}^{(1)}x_{1}+\Theta_{12}^{(1)}x_{2}+\Theta_{13}^{(1)}x_{3}) \\
-a_{2}^{(2)} &amp;= g(\Theta_{20}^{(1)}x_{0}+\Theta_{21}^{(1)}x_{1}+\Theta_{22}^{(1)}x_{2}+\Theta_{23}^{(1)}x_{3}) \\
-a_{3}^{(2)} &amp;= g(\Theta_{30}^{(1)}x_{0}+\Theta_{31}^{(1)}x_{1}+\Theta_{32}^{(1)}x_{2}+\Theta_{33}^{(1)}x_{3}) \\
-h_{\Theta}(x) &amp;= a_{1}^{(3)} = g(\Theta_{10}^{(2)}a_{0}^{(2)}+\Theta_{11}^{(2)}a_{1}^{(2)}+\Theta_{12}^{(2)}a_{2}^{(2)}+\Theta_{13}^{(2)}a_{3}^{(2)}) \\
-\end{align*}
-$$
-
-
-
-<p>$\Theta$ 矩阵也被称作为模型的权重。这里的 $g(x)$ 都是 sigmoid 激活函数，即 $g(x) = \frac{1}{1+e^{-x}}$</p>
-<p>对上面的神经网络数学表达方式进行向量化推导，令：</p>
-
-$$
-\begin{align*}
-z_{1}^{(2)} &amp;= \Theta_{10}^{(1)}x_{0}+\Theta_{11}^{(1)}x_{1}+\Theta_{12}^{(1)}x_{2}+\Theta_{13}^{(1)}x_{3} \\
-z_{2}^{(2)} &amp;= \Theta_{20}^{(1)}x_{0}+\Theta_{21}^{(1)}x_{1}+\Theta_{22}^{(1)}x_{2}+\Theta_{23}^{(1)}x_{3} \\
-z_{3}^{(2)} &amp;= \Theta_{30}^{(1)}x_{0}+\Theta_{31}^{(1)}x_{1}+\Theta_{32}^{(1)}x_{2}+\Theta_{33}^{(1)}x_{3} \\
-\vdots \\
-z_{k}^{(2)} &amp;= \Theta_{k,0}^{(1)}x_{0}+\Theta_{k,1}^{(1)}x_{1}+\Theta_{k,2}^{(1)}x_{2}+\Theta_{k,3}^{(1)}x_{3} \\
-\end{align*}
-$$
-
-<p>于是可以得到：</p>
-
-$$
-\begin{align*}
-a_{1}^{(2)} &amp;= g(z_{1}^{(2)}) \\
-a_{2}^{(2)} &amp;= g(z_{2}^{(2)}) \\
-a_{3}^{(2)} &amp;= g(z_{3}^{(2)}) \\
-\end{align*}
-$$
-
-<p>用向量即可表示为：</p>
-
-$$x = \begin{bmatrix}
-x_{0}\\ 
-x_{1}\\ 
-x_{2}\\ 
-x_{3}
-\end{bmatrix},z^{(2)} = \begin{bmatrix}
-z_{1}^{(2)}\\ 
-z_{2}^{(2)}\\ 
-z_{3}^{(2)}\\ 
-\end{bmatrix} = \Theta^{(1)}x$$
-{% raw %}
-
-统一一下前后两层的输入输出关系，将 $x=a^{(1)}$，即可得到：
-{% raw %}
-$$
-\begin{align*}
-x &amp;= \begin{bmatrix}
-x_{0}\\ 
-x_{1}\\ 
-\vdots \\ 
-x_{n}
-\end{bmatrix},z^{(j)} = \begin{bmatrix}
-z_{1}^{(j)}\\ 
-z_{2}^{(j)}\\
-\vdots \\ 
-z_{3}^{(j)}\\ 
-\end{bmatrix}, \\ 
-\Rightarrow  z^{(j)} &amp;=\Theta^{(j-1)}a^{(j-1)}\\
-\end{align*}
-$$
-{% endraw %}
-<p>这里也可以得到一个结论：</p>
-<p>假如一个网络里面在第 j  层有 $s_j$ 个单元，在第 j+1 层有 $s_{j+1}$ 个单元，那么 $\Theta^{(j)}$ 则控制着第 j 层到第 j+1 层的映射矩阵，矩阵的维度是： $s_{j+1} * (s_j + 1)$ 。(例如： j=1 , $s_j=1$， $s_{j+1}$=1 ，也就是说第一层只有一个单元，第二层也只有一个单元，那么 $\Theta^{(1)}$ 矩阵维度就是 1 * 2 ,因为要算上偏置单元)</p>
-<p>因为我们通常有 $a_0^{(j)}=1$ ，所以：</p>
-{% raw %}
-$$
-\begin{align*}
-a^{(j)}&amp;=g(z^{(j)})\\
-z^{(j+1)}&amp;=\Theta^{(j)}a^{(j)}\\
-h_\Theta(x)&amp;=a^{(j+1)}=g(z^{(j+1)})\\
-\end{align*}
-$$
-{% endraw %}
-
-<p>由这个关系其实可以看出，神经网络跟之前所学的逻辑回归根本区别在于，它是将上一层的输出当做下一层的输入，这个从输入层到隐藏层再到输出层一次计算激励的过程叫做 <strong>forward propagation（前向传播）</strong>。</p>
-<hr>
-<h2 id="三-Applications"><a href="#三-Applications" class="headerlink" title="三. Applications"></a>三. Applications</h2><h3 id="1-逻辑运算"><a href="#1-逻辑运算" class="headerlink" title="1. 逻辑运算"></a>1. 逻辑运算</h3><p>利用神经网络进行 逻辑与运算</p>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/71_4.png" alt=""></p>
-<p>利用神经网络进行 逻辑非运算</p>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/71_1_3.png" alt=""></p>
-<p>但是单一一层无法完成异或运算。</p>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/71_1_4.png" alt=""></p>
-<p>异或在几何上的问题其实是将红叉和蓝圈分开，但是我们的输出函数是： $h_\Theta(x)=g(\Theta_{10}^{(1)}x_0+\Theta_{11}^{(1)}x_1+\Theta_{12}^{(1)}x_2)$ ,这是线性的，那么在图上无论怎么画一条直线，也没有办法将两个不同的训练集分开。既然一条直线不行，那么神经网络增加一层。</p>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/71_5.png" alt=""></p>
-<p>如上图，将第二层第一个元素 $a_1^{(2)}$ 作为与运算的结果，第二个元素 $a_2^{(2)}$ 作为或非运算的结果， $a_1^{(2)}$ 和 $a_2^{(2)}$ 再作为输入，进行或运算，作为第三层输出的结果，最后得到的结果与输入的关系正是异或运算的关系。</p>
-<h3 id="2-本质"><a href="#2-本质" class="headerlink" title="2. 本质"></a>2. 本质</h3><p><img src="https://img.halfrost.com/Blog/ArticleImage/71_1_5.png" alt=""></p>
-<p>神经网络正是这样解决比较复杂的函数，当层数很多的时候，我们有一个相对简单的输入量，通过加以权重和不同的运算送到第二层，而第三层在第二层作为输入的基础上再来进行一些更复杂的运算，一层一层下去解决问题。</p>
-<hr>
-<h2 id="四-Neural-Networks-Representation-测试"><a href="#四-Neural-Networks-Representation-测试" class="headerlink" title="四. Neural Networks: Representation 测试"></a>四. Neural Networks: Representation 测试</h2><h3 id="1-Question-1"><a href="#1-Question-1" class="headerlink" title="1. Question 1"></a>1. Question 1</h3><p>Which of the following statements are true? Check all that apply.</p>
-<p>A. Suppose you have a multi-class classification problem with three classes, trained with a 3 layer network. Let a(3)1=(hΘ(x))1 be the activation of the first output unit, and similarly a(3)2=(hΘ(x))2 and a(3)3=(hΘ(x))3. Then for any input x, it must be the case that a(3)1+a(3)2+a(3)3=1.</p>
-<p>B. The activation values of the hidden units in a neural network, with the sigmoid activation function applied at every layer, are always in the range (0, 1).</p>
-<p>C. A two layer (one input layer, one output layer; no hidden layer) neural network can represent the XOR function.</p>
-<p>D. Any logical function over binary-valued (0 or 1) inputs x1 and x2 can be (approximately) represented using some neural network.</p>
-<p>解答： B、D</p>
-<p>B.S型函数作为判断函数运用到每一层，其范围是[0,1]，正确。<br>D.任何二进制输入的逻辑运算都可以神经网络解决，正确。<br>C.异或不可以用一层神经网络解决。<br>A.不一定，决策函数不是S型函数的话最后结果相加就不是1了。   </p>
+<h2 id="二-Unsupervised-Learning-测试"><a href="#二-Unsupervised-Learning-测试" class="headerlink" title="二. Unsupervised Learning 测试"></a>二. Unsupervised Learning 测试</h2><h3 id="1-Question-1"><a href="#1-Question-1" class="headerlink" title="1. Question 1"></a>1. Question 1</h3><p>For which of the following tasks might K-means clustering be a suitable algorithm? Select all that apply.</p>
+<p>A. Given a database of information about your users, automatically group them into different market segments.</p>
+<p>B. Given sales data from a large number of products in a supermarket, figure out which products tend to form coherent groups (say are frequently purchased together) and thus should be put on the same shelf.</p>
+<p>C. Given historical weather records, predict the amount of rainfall tomorrow (this would be a real-valued output)</p>
+<p>D. Given sales data from a large number of products in a supermarket, estimate future sales for each of these products.</p>
+<p>解答：A、B</p>
+<p>A.前面的细分市场例子。<br>B.细分市场的实例。<br>C.给出历史的天气记录，那也就是说明确知道了真实值。属于监督学习。<br>D.同C。  </p>
+<h3 id="2-Question-2"><a href="#2-Question-2" class="headerlink" title="2. Question 2"></a>2. Question 2</h3><p>Suppose we have three cluster centroids $\mu_{1}  = \begin{bmatrix}<br>1\<br>2<br>\end{bmatrix}$, $\mu_{2}  = \begin{bmatrix}<br>-3\<br>0<br>\end{bmatrix}$ and $\mu_{3}  = \begin{bmatrix}<br>4\<br>2<br>\end{bmatrix}$. Furthermore, we have a training example $x^{(i)}  = \begin{bmatrix}<br>3\<br>1<br>\end{bmatrix}$. After a cluster assignment step, what will $c^{(i)}$ be?</p>
+<p>A. $c^{(i)} = 1$  </p>
+<p>B. $c^{(i)} = 3$  </p>
+<p>C. $c^{(i)} = 2$  </p>
+<p>D. $c^{(i)} $ is not assigned  </p>
+<p>解答：B</p>
+<p>计算 $\frac{1}{m}\sum^{m}_{i=1}\left \| x^{(i)} - \mu_{c}^{(i)} \right \|^{2}$ 最小值，代入计算即可，B 选项是最小的。</p>
+<h3 id="3-Question-3"><a href="#3-Question-3" class="headerlink" title="3. Question 3"></a>3. Question 3</h3><p>K-means is an iterative algorithm, and two of the following steps are repeatedly carried out in its inner-loop. Which two?</p>
+<p>A. Using the elbow method to choose K.</p>
+<p>B. The cluster assignment step, where the parameters $c^{(i)} $ are updated.</p>
+<p>C. Feature scaling, to ensure each feature is on a comparable scale to the others.</p>
+<p>D. Move the cluster centroids, where the centroids $\mu_{k}$ are updated.</p>
+<p>解答：B、D</p>
+<h3 id="4-Question-4"><a href="#4-Question-4" class="headerlink" title="4. Question 4"></a>4. Question 4</h3><p>Suppose you have an unlabeled dataset $\begin{Bmatrix}<br>x^{(1)},\cdots,x^{(m)}<br>\end{Bmatrix}$. You run K-means with 50 different random initializations, and obtain 50 different clusterings of the data. What is the recommended way for choosing which one of these 50 clusterings to use?</p>
+<p>A. The only way to do so is if we also have labels y(i) for our data.</p>
+<p>B. For each of the clusterings, compute $\frac{1}{m}\sum^{m}<em>{i=1}\left | x^{(i)} - \mu</em>{c}^{(i)} \right |^{2}$, and pick the one that minimizes this.</p>
+<p>C. Always pick the final (50th) clustering found, since by that time it is more likely to have converged to a good solution.</p>
+<p>D. The answer is ambiguous, and there is no good way of choosing.</p>
+<p>解答： C</p>
+<p>初始化选代价函数最小的。</p>
+<h3 id="5-Question-5"><a href="#5-Question-5" class="headerlink" title="5. Question 5"></a>5. Question 5</h3><p>Which of the following statements are true? Select all that apply.</p>
+<p>A. If we are worried about K-means getting stuck in bad local optima, one way to ameliorate (reduce) this problem is if we try using multiple random initializations.</p>
+<p>B. Since K-Means is an unsupervised learning algorithm, it cannot overfit the data, and thus it is always better to have as large a number of clusters as is computationally feasible.</p>
+<p>C. The standard way of initializing K-means is setting $\mu_{1},\cdots,\mu_{k}$ to be equal to a vector of zeros.</p>
+<p>D. For some datasets, the “right” or “correct” value of K (the number of clusters) can be ambiguous, and hard even for a human expert looking carefully at the data to decide.</p>
+<p>解答：A、D</p>
+<p>A. 为了减少陷入局部最优的结果，可以多次选取随机初始参数。<br>B. 因为非监督学习没有过拟合所以可以选取更多的簇，那显然是不对的，不是越多的簇越好，而是看我们的要求的。<br>C. 初始化聚类中心应该是让其随机等于训练样本的值。<br>D. K值很难确定，正确。  </p>
 <hr>
 <blockquote>
 <p>GitHub Repo：<a href="https://github.com/halfrost/Halfrost-Field" target="_blank" rel="noopener">Halfrost-Field</a></p>
 <p>Follow: <a href="https://github.com/halfrost" target="_blank" rel="noopener">halfrost · GitHub</a></p>
-<p>Source: <a href="https://github.com/halfrost/Halfrost-Field/blob/master/contents/Machine_Learning/Neural_Networks_Representation.ipynb" target="_blank" rel="noopener">https://github.com/halfrost/Halfrost-Field/blob/master/contents/Machine_Learning/Neural_Networks_Representation.ipynb</a></p>
+<p>Source: <a href="https://github.com/halfrost/Halfrost-Field/blob/master/contents/Machine_Learning/Unsupervised_Learning.ipynb" target="_blank" rel="noopener">https://github.com/halfrost/Halfrost-Field/blob/master/contents/Machine_Learning/Unsupervised_Learning.ipynb</a></p>
 </blockquote>
 <script>
         document.querySelectorAll('.github-emoji')
@@ -669,7 +631,7 @@ $$
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://Xw-Jia.github.io/2020/02/03/4-1-neural-networks-representation/">http://Xw-Jia.github.io/2020/02/03/4-1-neural-networks-representation/</a>
+                    <a href="http://Xw-Jia.github.io/2020/02/07/8-1-unsupervised-learning/">http://Xw-Jia.github.io/2020/02/07/8-1-unsupervised-learning/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -878,28 +840,29 @@ $$
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/02/05/5-1-neural-networks-learning/">
+                <a href="/2020/02/07/8-1-unsupervised-learning/">
                     <div class="card-image">
                         
-                        <img src="/medias/cover_pics/5-1-Neural-Networks-Learning/1.png" class="responsive-img" alt="5.1_Neural_Networks_Learning">
+                        <img src="/medias/cover_pics/8-1-Unsupervised-Learning/1.png" class="responsive-img" alt="8.1_Unsupervised_Learning">
                         
-                        <span class="card-title">5.1_Neural_Networks_Learning</span>
+                        <span class="card-title">8.1_Unsupervised_Learning</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            吴恩达Machine_Learning入门课Week5第一节
+                            吴恩达Machine_Learning入门课Week8第一节
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-02-05
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-07
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -912,6 +875,7 @@ $$
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -934,23 +898,23 @@ $$
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/02/03/3-2-regularization/">
+                <a href="/2020/02/07/7-1-support-vector-machines/">
                     <div class="card-image">
                         
-                        <img src="/medias/cover_pics/3-2-Regularization/1.png" class="responsive-img" alt="3.2_Regularization">
+                        <img src="/medias/cover_pics/7-1-Support-Vector-Machines/1.png" class="responsive-img" alt="7.1_Support_Vector_Machines">
                         
-                        <span class="card-title">3.2_Regularization</span>
+                        <span class="card-title">7.1_Support_Vector_Machines</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            吴恩达Machine_Learning入门课Week3第二节
+                            吴恩达Machine_Learning入门课Week7第一节
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-03
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-07
                             </span>
                         <span class="publish-author">
                             
