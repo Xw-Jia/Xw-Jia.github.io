@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="1.1_What_is_Machine_Learning, DustOfStars">
-    <meta name="description" content="吴恩达Machine_Learning入门课Week1第一节">
+    <meta name="keywords" content="11.1_Application_Photo_OCR, DustOfStars">
+    <meta name="description" content="吴恩达Machine_Learning入门课Week11第一节">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>1.1_What_is_Machine_Learning | DustOfStars</title>
+    <title>11.1_Application_Photo_OCR | DustOfStars</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -295,12 +295,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/cover_pics/11-1-Application-Photo-OCR/1.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">1.1_What_is_Machine_Learning</h1>
+                    <h1 class="description center-align post-title">11.1_Application_Photo_OCR</h1>
                 </div>
             </div>
         </div>
@@ -446,21 +446,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-01-19
+                    2020-02-07
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-02-05
+                    2020-02-07
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    444
+                    2.1k
                 </div>
                 
 
@@ -478,43 +478,106 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="What-is-Machine-Learning"><a href="#What-is-Machine-Learning" class="headerlink" title="What is Machine Learning"></a>What is Machine Learning</h1><p><img src="/2020/01/19/1-1-what-is-machine-learning/machine-learning.png" alt="Machine_Learning"></p>
-<h2 id="一、-Definition"><a href="#一、-Definition" class="headerlink" title="一、 Definition"></a>一、 Definition</h2><p>定义：</p>
-<p>1997年，<code>Tom Mitchell</code> 给出机器学习的定义：</p>
-<pre><code>程序利用经验E改善了在任务T中的性能P，就可以说：关于任务T和测量性能P，该程序对经验E进行了学习。</code></pre><h2 id="二、-Classify"><a href="#二、-Classify" class="headerlink" title="二、 Classify"></a>二、 Classify</h2><p>分类：</p>
-<ul>
-<li>有监督学习<code>supervised learning</code> :已知的Data Set中明确了输入/输出，且输入和输出存在关系。 <ul>
-<li><code>Supervised Learning</code>可以分为：分类(Classification)和回归(Regression)问题。</li>
-<li><ol>
-<li>Classification： 预测离散的结果。将输入映射到离散的类别中。</li>
-</ol>
-</li>
-<li><ol start="2">
-<li>Regression： 预测连续输出中的结果。 从输入映射到某个连续的函数的输出中。</li>
-</ol>
-</li>
-</ul>
-</li>
-</ul>
+                <p><img src="https://upload-images.jianshu.io/upload_images/1194012-5b4aadbdbf91ae00.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="一-Photo-OCR"><a href="#一-Photo-OCR" class="headerlink" title="一. Photo OCR"></a>一. Photo OCR</h2><h3 id="1-Problem-Description-and-Pipeline-问题描述"><a href="#1-Problem-Description-and-Pipeline-问题描述" class="headerlink" title="1. Problem Description and Pipeline 问题描述"></a>1. Problem Description and Pipeline 问题描述</h3><p>图像文字识别应用所作的事是，从一张给定的图片中识别文字。这比从一份扫描文档中识别文字要复杂的多。</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/82_1.png" alt=""></p>
+<p>为了完成这样的工作，需要采取如下步骤：</p>
+<p>文字侦测（Text detection）——将图片上的文字与其他环境对象分离开来<br>字符切分（Character segmentation）——将文字分割成一个个单一的字符<br>字符分类（Character classification）——确定每一个字符是什么<br>可以用任务流程图来表达这个问题，每一项任务可以由一个单独的小队来负责解决：</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/82_2.png" alt=""></p>
+<h3 id="2-Sliding-Windows-滑动窗口"><a href="#2-Sliding-Windows-滑动窗口" class="headerlink" title="2. Sliding Windows 滑动窗口"></a>2. Sliding Windows 滑动窗口</h3><p>滑动窗口是一项用来从图像中抽取对象的技术。假使我们需要在一张图片中识别行人，首先要做的是用许多固定尺寸的图片来训练一个能够准确识别行人的模型。然后我们用之前训练识别行人的模型时所采用的图片尺寸在我们要进行行人识别的图片上进行剪裁，然后将剪裁得到的切片交给模型，让模型判断是否为行人，然后在图片上滑动剪裁区域重新进行剪裁，将新剪裁的切片也交给模型进行判断，如此循环直至将图片全部检测完。</p>
+<p>一旦完成后，我们按比例放大剪裁的区域，再以新的尺寸对图片进行剪裁，将新剪裁的切片按比例缩小至模型所采纳的尺寸，交给模型进行判断，如此循环。</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/82_3.png" alt=""></p>
+<p>滑动窗口技术也被用于文字识别，首先训练模型能够区分字符与非字符，然后，运用滑动窗口技术识别字符，一旦完成了字符的识别，我们将识别得出的区域进行一些扩展，然后将重叠的区域进行合并。接着我们以宽高比作为过滤条件，过滤掉高度比宽度更大的区域（认为单词的长度通常比高度要大）。下图中绿色的区域是经过这些步骤后被认为是文字的区域，而红色的区域是被忽略的。</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/82_4.png" alt=""></p>
+<p>以上便是文字侦测阶段。 下一步是训练一个模型来完成将文字分割成一个个字符的任务，需要的训练集由单个字符的图片和两个相连字符之间的图片来训练模型。</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/82_5.png" alt=""></p>
+<p>模型训练完后，我们仍然是使用滑动窗口技术来进行字符识别。</p>
+<p>以上便是字符切分阶段。 最后一个阶段是字符分类阶段，利用神经网络、支持向量机或者逻辑回归算法训练一个分类器即可。</p>
+<h3 id="3-Getting-Lots-of-Data-and-Artificial-Data-人工合成数据"><a href="#3-Getting-Lots-of-Data-and-Artificial-Data-人工合成数据" class="headerlink" title="3. Getting Lots of Data and Artificial Data 人工合成数据"></a>3. Getting Lots of Data and Artificial Data 人工合成数据</h3><p>在字符识别阶段，为了更好的完成分类识别任务，我们就需要给系统提供尽可能多的训练图像，如果我们手头上拥有的图像不多，就需要人工合成更多的数据。例如，我们可以收集不同的字体，并为每种字体的每个字符加上随机背景，这样就可以人工扩展大量的字符图像：</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/82_6.png" alt=""></p>
+<p>另外，也可以通过扭曲字符形状来合成新数据，这也会帮助机器更好地处理发生过形态变化的图像：</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/82_7.png" alt=""></p>
+<p>但是，为数据加上随机噪声一般不会提升模型训练质量：</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/82_8.png" alt=""></p>
+<h3 id="4-ceiling-analysis-上限分析"><a href="#4-ceiling-analysis-上限分析" class="headerlink" title="4. ceiling analysis 上限分析"></a>4. ceiling analysis 上限分析</h3><p>在机器学习的应用中，我们通常需要通过几个步骤才能进行最终的预测，我们如何能够知道哪一部分最值得我们花时间和精力去改善呢？这个问题可以通过上限分析来回答。</p>
+<p>回到我们的文字识别应用中，我们的流程图如下：</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/82_2.png" alt=""></p>
+<p>所谓上限分析，就是我们假定某个组件及其前面组件的精度都达到了 100%，即该组件完美地完成了任务，达到了上限，那么此时整个系统的精度能提升多少 。例如，假定整个系统的精度是 72%，我们令文本检测的精度是 100%（比如人工利用 PS 来定位图片中的文本框），此时，整个系统的精度能提升到 89%。即，如果我们付出足够多的精力来优化文本检测，那么理想情况下，能将系统的精度提升 17%：</p>
+<table>
+<thead>
+<tr>
+<th align="left">组件</th>
+<th align="center">流水线精度</th>
+<th align="right">精度提升</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">整个系统</td>
+<td align="center">72%</td>
+<td align="right">–</td>
+</tr>
+<tr>
+<td align="left">文本检测</td>
+<td align="center">89%</td>
+<td align="right">17%</td>
+</tr>
+<tr>
+<td align="left">字符分割</td>
+<td align="center">90%</td>
+<td align="right">1%</td>
+</tr>
+<tr>
+<td align="left">字符识别</td>
+<td align="center">100%</td>
+<td align="right">10%</td>
+</tr>
+</tbody></table>
+<p>完成上限分析后，我们得到上面的表格，可以看出，最值得花费精力的步骤是文本检测，最不值得花费精力的是字符分割，即便我们完成了 100% 的分割，最多也就对系统提升 1%。</p>
+<hr>
+<h2 id="二-Application-Photo-OCR-测试"><a href="#二-Application-Photo-OCR-测试" class="headerlink" title="二. Application: Photo OCR 测试"></a>二. Application: Photo OCR 测试</h2><h3 id="1-Question-1"><a href="#1-Question-1" class="headerlink" title="1. Question 1"></a>1. Question 1</h3><p>Suppose you are running a sliding window detector to find text in images. Your input images are 1000x1000 pixels. You will run your sliding windows detector at two scales, 10x10 and 20x20 (i.e., you will run your classifier on lots of 10x10 patches to decide if they contain text or not; and also on lots of 20x20 patches), and you will “step” your detector by 2 pixels each time. About how many times will you end up running your classifier on a single 1000x1000 test set image?</p>
+<p>A. 500,000</p>
+<p>B. 100,000</p>
+<p>C. 250,000</p>
+<p>D. 1,000,000</p>
+<p>解答：A</p>
+<p>$2<em>500</em>500 = 500,000$</p>
+<h3 id="2-Question-2"><a href="#2-Question-2" class="headerlink" title="2. Question 2"></a>2. Question 2</h3><p>Suppose that you just joined a product team that has been developing a machine learning application, using m=1,000<br>training examples. You discover that you have the option of hiring additional personnel to help collect and label data. You estimate that you would have to pay each of the labellers ￥10 per hour, and that each labeller can label 4 examples per minute. About how much will it cost to hire labellers to label 10,000 new training examples?</p>
+<p>A. ￥600</p>
+<p>B. ￥400</p>
+<p>C. ￥10,000</p>
+<p>D. ￥250</p>
+<p>解答：B</p>
+<p>一个人一个小时可以贴$4<em>60 = 240 $个标签。所以需要 $10000 / 240 \approx  40$个小时，一个小时 ￥10 ，所以总共 $10</em>40 = 400$。</p>
+<h3 id="3-Question-3"><a href="#3-Question-3" class="headerlink" title="3. Question 3"></a>3. Question 3</h3><p>What are the benefits of performing a ceiling analysis? Check all that apply.</p>
+<p>A. It can help indicate that certain components of a system might not be worth a significant amount of work improving, because even if it had perfect performance its impact on the overall system may be small.</p>
+<p>B. If we have a low-performing component, the ceiling analysis can tell us if that component has a high bias problem or a high variance problem.</p>
+<p>C. A ceiling analysis helps us to decide what is the most promising learning algorithm (e.g., logistic regression vs. a neural network vs. an SVM) to apply to a specific component of a machine learning pipeline.</p>
+<p>D. It gives us information about which components, if improved, are most likely to have a significant impact on the performance of the final system.</p>
+<p>解答：A、D</p>
+<h3 id="4-Question-4"><a href="#4-Question-4" class="headerlink" title="4. Question 4"></a>4. Question 4</h3><p>Suppose you are building an object classifier, that takes as input an image, and recognizes that image as either containing a car (y=1) or not (y=0). For example, here are a positive example and a negative example:</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/7X_4_0.png" alt=""></p>
+<p>After carefully analyzing the performance of your algorithm, you conclude that you need more positive (y=1) training examples. Which of the following might be a good way to get additional positive examples?</p>
+<p>A. Apply translations, distortions, and rotations to the images already in your training set.</p>
+<p>B. Select two car images and average them to make a third example.</p>
+<p>C. Take a few images from your training set, and add random, gaussian noise to every pixel.</p>
+<p>D. Make two copies of each image in the training set; this immediately doubles your training set size.</p>
+<p>解答：A</p>
+<h3 id="5-Question-5"><a href="#5-Question-5" class="headerlink" title="5. Question 5"></a>5. Question 5</h3><p>Suppose you have a PhotoOCR system, where you have the following pipeline:</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/7X_5_1.png" alt=""></p>
+<p>You have decided to perform a ceiling analysis on this system, and find the following:</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/7X_5_2.png" alt=""></p>
+<p>Which of the following statements are true?</p>
+<p>A. The potential benefit to having a significantly improved text detection system is small, and thus it may not be worth significant effort trying to improve it.</p>
+<p>B. If we conclude that the character recognition’s errors are mostly due to the character recognition system having high variance, then it may be worth significant effort obtaining additional training data for character recognition.</p>
+<p>C. We should dedicate significant effort to collecting additional training data for the text detection system.</p>
+<p>D. The most promising component to work on is the text detection system, since it has the lowest performance (72%) and thus the biggest potential gain.</p>
+<p>解答： A、B</p>
+<p>文字识别提高的效果确实不明显，没必要给其提供大量的数据来源，反而是分类器回归处如果是高方差就需要大数据来喂养。故 C、D 错误</p>
+<hr>
 <blockquote>
-<p>无监督学习使我们能够很少或根本不知道我们的结果应该是什么样子。<strong>我们可以从数据中得出结构</strong>，我们不一定知道变量的影响。 我们可以通过基于数据中变量之间的关系对数据进行聚类来推导出这种结构。 在无监督学习的情况下，<strong>没有基于预测结果的反馈</strong>。无监督学习可以分为“聚类”和“非聚类”。</p>
-</blockquote>
-<ul>
-<li>无监督学习<code>unsupervised learning</code> : 没有预知的label，从变量的结构中寻找关系，而没有基于预测结果的反馈。<ul>
-<li><code>Unspervised Learning</code>可以分为<code>聚类</code>， 和 <code>非聚类</code>。</li>
-<li><ol>
-<li>聚类： 可以理解为对数据自动分组成不同变量的相似或者相关的簇。</li>
-</ol>
-</li>
-<li><ol start="2">
-<li>非聚类： 比如“鸡尾酒会算法”–&gt;从混乱的环境中识别和查找结果。</li>
-</ol>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>参考： GitHub Repo：<a href="https://github.com/halfrost/Halfrost-Field" target="_blank" rel="noopener">Halfrost-Field</a></p>
+<p>GitHub Repo：<a href="https://github.com/halfrost/Halfrost-Field" target="_blank" rel="noopener">Halfrost-Field</a></p>
+<p>Follow: <a href="https://github.com/halfrost" target="_blank" rel="noopener">halfrost · GitHub</a></p>
+<p>Source: <a href="https://github.com/halfrost/Halfrost-Field/blob/master/contents/Machine_Learning/Application_Photo_OCR.ipynb" target="_blank" rel="noopener">https://github.com/halfrost/Halfrost-Field/blob/master/contents/Machine_Learning/Application_Photo_OCR.ipynb</a></p>
 </blockquote>
 <script>
         document.querySelectorAll('.github-emoji')
@@ -559,7 +622,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://Xw-Jia.github.io/2020/01/19/1-1-what-is-machine-learning/">http://Xw-Jia.github.io/2020/01/19/1-1-what-is-machine-learning/</a>
+                    <a href="http://Xw-Jia.github.io/2020/02/07/11-1-application-photo-ocr/">http://Xw-Jia.github.io/2020/02/07/11-1-application-photo-ocr/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -768,28 +831,29 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/01/26/1-2-linear-regression-with-one-variable/">
+                <a href="/2020/02/07/11-1-application-photo-ocr/">
                     <div class="card-image">
                         
-                        <img src="/medias/cover_pics/24.png" class="responsive-img" alt="1.2_Linear_Regression_With_One_Variable(Gradient_Descent)">
+                        <img src="/medias/cover_pics/11-1-Application-Photo-OCR/1.png" class="responsive-img" alt="11.1_Application_Photo_OCR">
                         
-                        <span class="card-title">1.2_Linear_Regression_With_One_Variable(Gradient_Descent)</span>
+                        <span class="card-title">11.1_Application_Photo_OCR</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            吴恩达Machine_Learning入门课Week1第二节
+                            吴恩达Machine_Learning入门课Week11第一节
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-01-26
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-07
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -802,6 +866,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -824,30 +889,30 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/12/31/19-nian-sui-mo/">
+                <a href="/2020/02/07/10-1-large-scale-machine-learning/">
                     <div class="card-image">
                         
-                        <img src="/medias/cover_pics/20191231.jpg" class="responsive-img" alt="19年岁末">
+                        <img src="/medias/cover_pics/10-1-Large-Scale-Machine-Learning/1.png" class="responsive-img" alt="10.1_Large_Scale_Machine_Learning">
                         
-                        <span class="card-title">19年岁末</span>
+                        <span class="card-title">10.1_Large_Scale_Machine_Learning</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            写于19年最后一天的碎碎念...
+                            吴恩达Machine_Learning入门课Week10第一节
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2019-12-31
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-07
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E6%97%A5%E8%AE%B0/" class="post-category">
-                                    日记
+                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    机器学习
                                 </a>
                             
                             
@@ -857,8 +922,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/">
-                        <span class="chip bg-color">年终总结</span>
+                    <a href="/tags/Machine-Learning/">
+                        <span class="chip bg-color">Machine Learning</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%90%B4%E6%81%A9%E8%BE%BE/">
+                        <span class="chip bg-color">吴恩达</span>
                     </a>
                     
                 </div>
@@ -1032,6 +1101,13 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
 </main>
 
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
 
 
     <footer class="page-footer bg-color">
