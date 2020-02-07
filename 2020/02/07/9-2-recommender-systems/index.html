@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="7.1_Support_Vector_Machines, DustOfStars">
-    <meta name="description" content="吴恩达Machine_Learning入门课Week7第一节">
+    <meta name="keywords" content="9.2_Recommender_Systems, DustOfStars">
+    <meta name="description" content="吴恩达Machine_Learning入门课Week3第二节">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>7.1_Support_Vector_Machines | DustOfStars</title>
+    <title>9.2_Recommender_Systems | DustOfStars</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -295,12 +295,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/cover_pics/7-1-Support-Vector-Machines/1.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/cover_pics/9-2-Recommender-Systems/1.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">7.1_Support_Vector_Machines</h1>
+                    <h1 class="description center-align post-title">9.2_Recommender_Systems</h1>
                 </div>
             </div>
         </div>
@@ -460,7 +460,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4k
+                    2.8k
                 </div>
                 
 
@@ -478,232 +478,109 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><img src="https://upload-images.jianshu.io/upload_images/1194012-db5ca3ef83a4cc2e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<h2 id="一-引子"><a href="#一-引子" class="headerlink" title="一. 引子"></a>一. 引子</h2><p>在逻辑回归中，我们的预测函数为：</p>
-<p>$$h_\theta(x)=\frac{1}{1+e^{-\theta^Tx}}$$</p>
-<p>对于每一个样本 (x,y) 而言（注意是每一个），其代价函数为：</p>
- 
-$$
-\begin{align*}
-J(\theta)&amp;=-(ylogh_\theta(x)+(1-y)log(1-h_\theta((x)))\\
-&amp;=-ylog\frac{1}{1+e^{-\theta^Tx}}-(1-y)log(1-\frac{1}{1+e^{-\theta^Tx}})
-\end{align*}\\
-$$
+                <p><img src="https://upload-images.jianshu.io/upload_images/1194012-b1a09f95c4c0e4ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="一-Predicting-Movie-Ratings"><a href="#一-Predicting-Movie-Ratings" class="headerlink" title="一. Predicting Movie Ratings"></a>一. Predicting Movie Ratings</h2><p><img src="https://img.halfrost.com/Blog/ArticleImage/80_1.png" alt=""></p>
+<p>以预测第3部电影第1个用户可能评的分数为例子。</p>
+<p>首先我们用 $x_1$ 表示爱情浪漫电影类型， $x_2$ 表示动作片类型。上图左表右侧则为每部电影对于这两个分类的相关程度。我们默认 $x_0=1$ 。则第一部电影与两个类型的相关程度可以这样表示： </p>
+$x^{(3)}=\left[ \begin{array}{ccc}1 \\0.99 \\0 \end{array} \right]$ 。然后用 $\theta^{(j)}$ 表示第 j 个用户对于该种类电影的评分。这里我们假设已经知道（详情下面再讲） $\theta^{(1)}=\left[ \begin{array}{ccc}0 \\5 \\0 \end{array} \right]$ ，那么我们用 $(\theta^{(j)})^Tx^{(i)}$ 即可计算出测第3部电影第1个用户可能评的分数。这里计算出是4.95。
 
-<p>那么当 y=1 的时候， $J(\theta)=-ylog\frac{1}{1+e^{-\theta^Tx}}$ ，其代价函数的图像入左下图所示。</p>
-<p>当 y=0 的时候， $J(\theta)=-(1-y)log(1-\frac{1}{1+e^{-\theta^Tx}})$ ，其代价函数的图像入右下图所示。</p>
-<p>对于支持向量机而言，</p>
-<p>$y=1$ 的时候：</p>
-<p>$$cost_1(\theta^Tx^{(i)})=(-logh_\theta(x^{(i)}))$$</p>
-<p>$y=0$ 的时候：</p>
-<p>$$cost_0((\theta^Tx^{(i)})=((-log(1-h_\theta(x^{(i)})))$$ </p>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/76_1.png" alt=""></p>
-<p>当 y=1 时，随着 z 取值变大，预测代价变小，因此，逻辑回归想要在面对正样本  y=1  时，获得足够高的预测精度，就希望  $z= \theta^Tx\gg 0 $ 。而 SVM 则将上图的曲线拉直为下图中的折线，构成了 y=1 时的代价函数曲线  $cost_1(z)$ ：</p>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/76_2.png" alt=""></p>
-<p>当 y=1 时，为了预测精度足够高，SVM 希望 $\theta^Tx\geqslant 1$ 。</p>
-<p>同样，在 y=0 时，SVM 定义了代价函数 $cost_0(z)$ ，为了预测精度足够高，SVM 希望  $\theta^Tx \leqslant -1$ ：</p>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/76_3.png" alt=""></p>
-<p>在逻辑回归中，其代价函数是： </p>
+<h3 id="1-目标优化"><a href="#1-目标优化" class="headerlink" title="1. 目标优化"></a>1. 目标优化</h3><p>为了对用户 j 打分状况作出最精确的预测，我们需要：</p>
+<p>$$\min_{(\theta^{(j)})}=\frac{1}{2}\sum_{i:r(i,j)=1}^{}{((\theta^{(j)})^T(x^{(i)})-y^{(i,j)})^2}+\frac{\lambda}{2}\sum_{k=1}^{n}{(\theta_k^{(j)})^2}$$</p>
+<p>计算出所有的 $\theta$ 为： </p>
+<p>$$J(\theta^{(1)},\cdots,\theta^{(n_u)})=\min_{(\theta^{(1)},\cdots,\theta^{(n_u)})}=\frac{1}{2}\sum_{j=1}^{n_u}\sum_{i:r(i,j)=1}^{}{((\theta^{(j)})^T(x^{(i)})-y^{(i,j)})^2}+\frac{\lambda}{2}\sum_{j=1}^{n_u}\sum_{k=1}^{n}{(\theta_k^{(j)})^2}$$</p>
+<p>与前面所学线性回归内容的思路一致，为了计算出 $J(\theta^{(1)},\cdots,\theta^{(n_u)})$，使用梯度下降法来更新参数：</p>
+<p>更新偏置（插值）：</p>
 
-$$J(\theta)=min_{\theta} \frac{1}{m}[\sum_{i=1}^{m}{y^{(i)}}(-logh_\theta(x^{(i)}))+(1-y^{(i)})((-log(1-h_\theta(x^{(i)})))]+\frac{\lambda}{2m}\sum_{j=1}^{n}{\theta_j^2}$$
-
-
-<p>对于逻辑回归而言，其代价函数是有两项决定的，第一项是来自训练样本的代价函数，第二项是正则化项，这就相当于我们用最小化 A 加上正则化参数 $\lambda$ 乘以参数平方项 B，其形式大概是： $A+\lambda B$ 。这里我们是通过设置不同的正则参数 $\lambda$ 来达到优化的目的。但是在支持向量机这里，把参数提到前面，用参数 C 作为 A 的参数，以 A 作为权重。所以其形式是这样的： $CA+B$ 。</p>
-<p>在逻辑回归中，我们通过正规化参数 $\lambda$ 调节 A、B 所占的权重，且 A 的权重与$\lambda$ 取值成反比。而在 SVM 中，则通过参数 C 调节 A、B 所占的权重，且 A 的权重与  C 的取值成反比。亦即，参数 C 可以被认为是扮演了 $\frac{1}{\lambda}$ 的角色。</p>
-<p>所以 $\frac{1}{ m}$ 这一项仅仅是相当于一个常量，对于最小化参数 $\theta$ 是没有完全任何影响的，所以这里我们将其去掉。</p>
-<p>支持向量机的代价函数为：</p>
-
-$$min_{\theta} C[\sum_{i=1}^{m}{y^{(i)}}cost_1(\theta^Tx^{(i)})+(1-y^{(i)})cost_0(\theta^Tx^{(i)})]+\frac{1}{2}\sum_{j=1}^{n}{\theta_j^2}$$
-
-
-<p>有别于逻辑回归假设函数输出的是概率，支持向量机它是直接预测 y 的值是0还是1。也就是说其假设函数是这样子的：</p>
-
-$$h_{\theta}(x)=\left\{\begin{matrix}
-1,\;\;if\; \theta^{T}x\geqslant 0\\ 
-0,\;\;otherwise
-\end{matrix}\right.$$
+$$\theta^{(j)}_0=\theta^{(j)}_0-\alpha \sum_{i:r(i,j)=1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x^{(i)}_0$$
 
 
 
 
+<p>更新权重：</p>
+
+$$\theta^{(j)}_k=\theta^{(j)}_k-\alpha \left( \sum_{i:r(i,j)=1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x^{(i)}_k+\lambda \theta^{(j)}_k \right),\;\;\; k \neq 0$$
 
 
-<h2 id="二-Large-Margin-Classification-大间距分类器"><a href="#二-Large-Margin-Classification-大间距分类器" class="headerlink" title="二. Large Margin Classification 大间距分类器"></a>二. Large Margin Classification 大间距分类器</h2><p>支持向量机是最后一个监督学习算法，与前面我们所学的逻辑回归和神经网络相比，支持向量机在学习复杂的非线性方程时，提供了一种更为清晰、更加强大的方式。</p>
-<p>支持向量机也叫做大间距分类器(large margin classifiers)。</p>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/76_4.png" alt=""></p>
-<p>假如我们有一个数据集是这样的，可以看出，这是线性可分的。但是有时候我们的决策边界就好像图中绿色线或者粉红色线一样，这样的决策边界看起来都不是特别好的选择。支持向量机就会选择黑色这一条决策边界。黑色这条边界相比之前跟正负样本有更大的距离，而这个距离就叫做间距（margin）。这也是为什么我们将支持向量机叫做大间距分类器的原因。</p>
-<p>支持向量机模型的做法是，即努力将正样本和负样本用最大的间距分开。</p>
-<p>$$min_{\theta} C[\sum_{i=1}^{m}{y^{(i)}}cost_1(\theta^Tx^{(i)})+(1-y^{(i)})cost_0(\theta^Tx^{(i)})]+\frac{1}{2}\sum_{j=1}^{n}{\theta_j^2}$$</p>
-<p>当 y=1 时，SVM 希望 $\theta^Tx\geqslant 1$ 。在 y=0 时，SVM 希望  $\theta^Tx \leqslant -1$，对于前面的那一项 A 最小化代价函数，那么最理想当然是为0。所以这就变成了：</p>
-
-$$min_{\theta}\frac{1}{2}\sum_{i=1}^{n}{\theta_j^2}\;\;\;\;\;\; \left\{\begin{matrix}
-\theta^Tx\geqslant 1,if \;y^{(i)}=1 \\
-\theta^Tx\leqslant 1 ,if \;y^{(i)}=0
-\end{matrix}\right.
-$$
 
 
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/76_12.png" alt=""></p>
-<p><strong>参数 C 其实是支持向量机对异常点的敏感程度，C 越大就越敏感，任何异常点都会影响最终结果。 C 越小，对异常点就越不敏感，普通的一两个异常点都会被忽略。</strong></p>
 <hr>
-<h3 id="推导"><a href="#推导" class="headerlink" title="推导"></a>推导</h3><p><img src="https://img.halfrost.com/Blog/ArticleImage/76_5.png" alt=""></p>
-<p>以两个二维向量为例，我们把向量 v 投影到向量 u 上，其投影的长度为 p，$\left | u \right |$ 为向量 u 的模，那么向量的内积就等于$p*\left | u \right |$。在代数定义向量内积可表示为： $u_1v_1+u_2v_2$ ，根据此定义可以得出： $u^Tv=u_1v_1+u_2v_2$ 。</p>
-<p>$\left | u \right |$为 $\overrightarrow{u}$ 的范数，也就是向量 $\overrightarrow{u}$ 的欧几里得长度。</p>
-<p>最小化函数为： $$min_{\theta}\frac{1}{2}\sum_{i=1}^{n}{\theta_j^2}$$ </p>
-<p>这里以简单的二维为例：</p>
-
-$$min_{\theta}\frac{1}{2}\sum_{i=1}^{n}{\theta_j^2}=\frac{1}{2}(\theta_1^2+\theta_2^2)=\frac{1}{2}(\sqrt{\theta_1^2+\theta_2^2})^2=\frac{1}{2}\left \| \theta \right \|^2$$
-
-
-
-
-<p>毕达哥拉斯定理：</p>
-<p>$$ \left | u \right | = \sqrt{u_{1}^{2} + u_{2}^{2}}$$</p>
-<p><strong>只要 $\theta$ 能最小，最小化函数就能取到最小</strong>。</p>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/76_11.png" alt=""></p>
-<p>当垂直的时候 $\theta$ 取最小值(垂直的时候，两个向量的夹角 cos $\theta$ 最小)。这就解释了为什么支持向量机的决策边界不会选择左图绿色那条。因为方便理解所以 $\theta_0=0$ ，这就意味着决策边界要经过原点。然后我们可以看到在垂直于决策边界的 $\theta $和 $x^{(i)}$ 的关系（红色投影和粉红色投影），可以看到其投影 $p^{(i)}$ 的值都比较小，这也就意味着要 $||\theta||^2$ 的值很大。这显然是与最小化公式 $\frac{1}{2}||\theta||^2$ 矛盾的。所以支持向量机的决策边界会使 $p^{(i)}$ 在 $\theta$ 的投影尽量大。</p>
-<p>这就是为什么决策边界会是右图的原因，也就是为什么支持向量机能有效地产生最大间距分类的原因。</p>
-<p>(<strong>因为只有最大间距才能使 $p^{(i)}$ 大，从而 $||\theta||^2$ 值小</strong>)</p>
-<hr>
-<h2 id="三-Kernels"><a href="#三-Kernels" class="headerlink" title="三. Kernels"></a>三. Kernels</h2><h3 id="1-定义"><a href="#1-定义" class="headerlink" title="1. 定义"></a>1. 定义</h3><p><img src="https://img.halfrost.com/Blog/ArticleImage/76_6.png" alt=""></p>
-<p>在我们之前拟合一个非线性的判断边界来区别正负样本，是构造多项式特征变量。</p>
-<p>我们先用一种新的写法来表示决策边界： $\theta_0+\theta_1f_1+\theta_2f_2+\theta_3f_3+\cdots $。我们这里用 $f_i$ 表达新的特征变量。</p>
-<p>假如是之前我们所学的决策边界，那么就是： $f_1=x_1 , f_2=x_2 , f_3=x_1x_2 , f_4=x_1^2 ， f_5=x_2^2$ ，等等。但是这样的高阶项作为特征变量并不是我们确定所需要的，而且运算量非常巨大，那么有没有其他更高的特征变量呢？</p>
-<p>下面是构造新特征量的一种想法：</p>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/76_7.png" alt=""></p>
-<p>为了简单理解，我们这里只建立三个特征变量。首先我们在 $x_1,x_2$ 坐标轴上手动选择3个不同的点： $l^{(1)},l^{(2)},l^{(3)}$ 。</p>
-<p>然后我们将第一个特征量定义为： $f_1=similarity(x,l^{(1)})$ ，可以看做是样本 x 和第一个标记 $l^{(1)}$ 的相似度。其中可以用这个公式表达这种关系： $f_1=similarity(x,l^{(1)})=exp(-\frac{||x-l^{(1)}||^2}{2\sigma^2})$ (exp：自然常数e为底的指数函数)</p>
-<p>类似的有： $f_2=similarity(x,l^{(2)})=exp(-\frac{||x-l^{(2)}||^2}{2\sigma^2})$ ，</p>
-
-$f_3=similarity(x,l^{(3)})=exp(-\frac{||x-l^{(3)}||^2}{2\sigma^2})$
- 。
-<p>这个表达式我们称之为核函数（Kernels），在这里我们选用的核函数是高斯核函数（Gaussian Kernels）。</p>
-<p>那么高斯核函数与相似性又有什么关系呢？</p>
-<p>先来看第一个特征量 $f_1$ ，<br>$f_1=similarity(x,l^{(1)})=exp(-\frac{||x-l^{(1)}||^2}{2\sigma^2})=exp(\frac{\sum_{j=1}^{n}{(x_j-l_j^{(1)})^2}}{2\sigma^2})$</p>
-<p>假如样本 x 非常接近 $l^{(1)}$ ，即$x\approx l^{(1)}$ ，那么：$ f_1\approx exp(-\frac{0^2}{2\sigma^2})\approx 1$ 。</p>
-<p>假如样本 x 离 $l^{(1)}$ 非常远，即 $x\gg l^{(1)}$ ，那么：$ f_1\approx exp(-\frac{\infty^2}{2\sigma^2})\approx 0$ 。</p>
-<p>可视化如下：</p>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/76_8.png" alt=""></p>
-<p>从图中可以看到越接近 $l^{(1)} , f_1$ 的值越大。</p>
-<p>这里顺带说一下 $\sigma^2$ 这个高斯核函数的参数对函数的影响。从图中可以看到，减小或者增加只会对图像的肥瘦产生影响，也就是影响增加或者减小的速度而已。</p>
-<h3 id="2-标记点选取"><a href="#2-标记点选取" class="headerlink" title="2. 标记点选取"></a>2. 标记点选取</h3><p>通过标记点以及核函数，训练出非常复杂的非线性判别边界。那标记点 $l^{(1)},l^{(2)},l^{(3)}$ 这些点是怎么来的？</p>
-<p>假定我们有如下的数据集：</p>
-<p>$$(x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}),(x^{(3)},y^{(3)})\cdots(x^{(m)},y^{(m)})$$</p>
-<p>我们就将每个样本作为一个标记点：</p>
-<p>$$l^{(1)}=x^{(1)},l^{(2)}=x^{(2)},l^{(3)}=x^{(3)}\cdots l^{(m)}=x^{(m)}$$</p>
-<p>则对于样本 $(x^{(i)},y^{(i)})$ ，我们计算其与各个标记点的距离：</p>
-
-$$
-\begin{matrix}
-f^{(i)}_1=sim(x^{(i)},l^{(1)})\\
-f^{(i)}_2=sim(x^{(i)},l^{(2)})\\
-\vdots \\
-f^{(i)}_m=sim(x^{(i)},l^{(3)})\\
-\end{matrix}
-$$
-
-<p>得到新的特征向量： $f \in \mathbb{R}^{m+1} $</p>
-
-$$f = \begin{bmatrix}
-f_0\\ 
-f_1\\ 
-f_2\\ 
-\vdots \\ 
-f_m
-\end{bmatrix}
-$$
-
-<p>其中 $f_0=1$</p>
-<p>则具备核函数的 SVM 的训练过程如下：</p>
-<p>$$min_{\theta} C[\sum_{i=1}^{m}{y^{(i)}}cost_1(\theta^Tf^{(i)})+(1-y^{(i)})cost_0(\theta^Tf^{(i)})]+\frac{1}{2}\sum_{j=1}^{n}{\theta_j^2}$$</p>
-<hr>
-<h2 id="四-SVMs-in-Practice"><a href="#四-SVMs-in-Practice" class="headerlink" title="四. SVMs in Practice"></a>四. SVMs in Practice</h2><h3 id="1-使用流行库"><a href="#1-使用流行库" class="headerlink" title="1. 使用流行库"></a>1. 使用流行库</h3><p>作为当今最为流行的分类算法之一，SVM 已经拥有了不少优秀的实现库，如 libsvm 等，因此，我们不再需要自己手动实现 SVM（要知道，一个能用于生产环境的 SVM 模型并非课程中介绍的那么简单）。</p>
-<p>在使用这些库时，我们通常需要声明 SVM 需要的两个关键部分：</p>
-<ul>
-<li>参数  C </li>
-<li>核函数（Kernel）</li>
-</ul>
-<p>由于 C 可以看做与正规化参数 $\lambda $ 作用相反，则对于 C 的调节：</p>
-<p><strong>低偏差</strong>，<strong>高方差</strong>，即遇到了过拟合时：减小 C 值。<br><strong>高偏差</strong>，<strong>低方差</strong>，即遇到了欠拟合时：增大 C 值。  </p>
-<p>而对于核函数的选择有这么一些 tips：</p>
-<ul>
-<li>当特征维度 n 较高，而样本规模 m 较小时，不宜使用核函数，否则容易引起过拟合。</li>
-<li>当特征维度 n 较低，而样本规模 m 足够大时，考虑使用高斯核函数。不过在使用高斯核函数前，需要进行特征缩放（feature scaling）。</li>
-<li>当核函数的参数 $\sigma^2$ 较大时，特征 $f_i$ 较为平缓，即各个样本的特征差异变小，此时会造成欠拟合（高偏差，低方差），如下图上边的图，</li>
-<li>当 $\sigma^2$ 较小时，特征 $f_i$ 曲线变化剧烈，即各个样本的特征差异变大，此时会造成过拟合（低偏差，高方差），如下图下边的图：</li>
-</ul>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/76_9.png" alt=""></p>
-<h3 id="2-多分类问题"><a href="#2-多分类问题" class="headerlink" title="2. 多分类问题"></a>2. 多分类问题</h3><p>通常，流行的SVM库已经内置了多分类相关的 api，如果其不支持多分类，则与逻辑回归一样，使用 One-vs-All 策略来进行多分类：</p>
-<ol>
-<li>轮流选中某一类型 i ，将其视为正样本，即 “1” 分类，剩下样本都看做是负样本，即 “0” 分类。</li>
-<li>训练 SVM 得到参数 $\theta^{(1)},\theta^{(2)},\cdots,\theta^{(K)}$  ，即总共获得了 K−1 个决策边界。</li>
+<h2 id="二-Collaborative-Filtering-协同过滤"><a href="#二-Collaborative-Filtering-协同过滤" class="headerlink" title="二. Collaborative Filtering 协同过滤"></a>二. Collaborative Filtering 协同过滤</h2><p>前提是我们知道了 $\theta^{(j)}$ 也就是每个用户对于各个电影类型的喜爱程度。那么我们就可以根据各个用户对各部电影的评分= $(\theta^{(j)})^Tx^{(i)}$ 反推出 $x^{(i)}$ 。</p>
+<h3 id="1-目标优化-1"><a href="#1-目标优化-1" class="headerlink" title="1. 目标优化"></a>1. 目标优化</h3><p>当用户给出他们喜欢的类型，即 $\theta^{(1)},\cdots,\theta^{(n_u)}$ ，我们可以由下列式子得出 $x^{(i)}$ ： </p>
+<p>$$\min_{(x^{(i)})}=\frac{1}{2}\sum_{j:r(i,j)=1}^{}{((\theta^{(j)})^T(x^{(i)})-y^{(i,j)})^2}+\frac{\lambda}{2}\sum_{k=1}^{n}{(x_k^{(i)})^2}$$</p>
+<p>可出所有的 x 则为：</p>
+<p>$$\min_{(x^{(1)},\cdots,x^{(n_m)})}=\frac{1}{2}\sum_{i=1}^{n_m}\sum_{j:r(i,j)=1}^{}{((\theta^{(j)})^T(x^{(i)})-y^{(i,j)})^2}+\frac{\lambda}{2}\sum_{i=1}^{n_m}\sum_{k=1}^{n}{(x_k^{(i)})^2}$$</p>
+<p>只要我们得到 $\theta$ 或者 x ，都能互相推导出来。</p>
+<p>协同过滤算法基本思想就是当我们得到其中一个数据的时候，我们推导出另一个，然后根据推导出来的再推导回去进行优化，优化后再继续推导继续优化，如此循环协同推导。</p>
+<h3 id="2-协同过滤的目标优化"><a href="#2-协同过滤的目标优化" class="headerlink" title="2. 协同过滤的目标优化"></a>2. 协同过滤的目标优化</h3><ol>
+<li>推测用户喜好：给定$x^{(1)},\cdots,x^{(n_m)}$ ，估计$\theta^{(1)},\cdots,\theta^{(n_\mu)}$ ：<br>$$\min_{(\theta^{(1)},\cdots,\theta^{(n_\mu)})}=\frac{1}{2}\sum_{j=1}^{n_\mu}\sum_{i:r(i,j)=1}^{}{((\theta^{(j)})^T(x^{(i)})-y^{(i,j)})^2}+\frac{\lambda}{2}\sum_{j=1}^{n_\mu}\sum_{k=1}^{n}{(\theta_k^{(j)})^2}$$</li>
+<li>推测商品内容：给定$\theta^{(1)},\cdots,\theta^{(n_\mu)}$ ，估计$x^{(1)},\cdots,x^{(n_m)}$ ：<br>$$\min_{(x^{(1)},\cdots,x^{(n_m)})}=\frac{1}{2}\sum_{i=1}^{n_m}\sum_{j:r(i,j)=1}^{}{((\theta^{(j)})^T(x^{(i)})-y^{(i,j)})^2}+\frac{\lambda}{2}\sum_{i=1}^{n_m}\sum_{k=1}^{n}{(x_k^{(i)})^2}$$</li>
+<li>协同过滤：同时优化$x^{(1)},\cdots,x^{(n_m)}$ ，估计$\theta^{(1)},\cdots,\theta^{(n_\mu)}$：<br>$$\min ; J(x^{(1)},\cdots,x^{(n_m)};\theta^{(1)},\cdots,\theta^{(n_\mu)})$$</li>
 </ol>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/76_10.png" alt=""></p>
-<h3 id="3-分类模型的选择"><a href="#3-分类模型的选择" class="headerlink" title="3. 分类模型的选择"></a>3. 分类模型的选择</h3><p>目前，我们学到的分类模型有：</p>
-<p>（1）逻辑回归；<br>（2）神经网络；<br>（3）SVM  </p>
-<p>怎么选择在这三者中做出选择呢？我们考虑特征维度 n 及样本规模 m ：</p>
-<p>如果 n 相对于 m 非常大，例如 n=10000 ，而 $m\in(10,1000)$ ：此时选用逻辑回归或者无核的 SVM。  </p>
-<p>如果 n 较小，m 适中，如  $n\in(1,1000)$ ，而  $m\in(10,10000)$ ：此时选用核函数为高斯核函数的 SVM。  </p>
-<p>如果 n 较小，m 较大，如  $n\in(1,1000)$ ，而  m&gt;50000 ：此时，需要创建更多的特征（比如通过多项式扩展），再使用逻辑回归或者无核的 SVM。<br>神经网络对于上述情形都有不错的适应性，但是计算性能上较慢。  </p>
+<p>即：</p>
+<p>$$\min_{(x^{(1)},\cdots,x^{(n_m)};\theta^{(1)},\cdots,\theta^{(n_\mu)})}=\frac{1}{2}\sum_{(i,j):r(i,j)=1}^{}{((\theta^{(j)})^T(x^{(i)})-y^{(i,j)})^2}+\frac{\lambda}{2}\sum_{i=1}^{n_m}\sum_{k=1}^{n}{(x_k^{(i)})^2}+\frac{\lambda}{2}\sum_{j=1}^{n_u}\sum_{k=1}^{n}{(\theta_k^{(j)})^2}$$</p>
+<p>因为正则化的原因在这里面不再有之前的 $x_0=1$,$\theta_0=0$ 。</p>
+<h3 id="3-协同过滤算法的步骤为："><a href="#3-协同过滤算法的步骤为：" class="headerlink" title="3. 协同过滤算法的步骤为："></a>3. 协同过滤算法的步骤为：</h3><ol>
+<li>随机初始化$x^{(1)},\cdots,x^{(n_m)},\theta^{(1)},\cdots,\theta^{(n_\mu)} $为一些较小值，与神经网络的参数初始化类似，为避免系统陷入僵死状态，不使用 0 值初始化。</li>
+<li>通过梯度下降的算法计算出$J(x^{(1)},\cdots,x^{(n_m)},\theta^{(1)},\cdots,\theta^{(n_\mu)})$,参数更新式为：
+   $$x^{(i)}_k=x^{(i)}_k-\alpha \left( \sum_{j:r(i,j)=1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})\theta^{(j)}_k+\lambda x^{(i)}_k \right)$$
+   $$\theta^{(j)}_k=\theta^{(j)}_k-\alpha \left( \sum_{i:r(i,j)=1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x^{(i)}_k+\lambda \theta^{(j)}_k \right)$$
+   </li>
+<li>如果用户的偏好向量为$\theta$，而商品的特征向量为 x ，则可以预测用户评价为 $\theta^Tx$ 。</li>
+</ol>
+<p>因为协同过滤算法 $\theta$ 和 x 相互影响，因此，二者都没必要使用偏置 $\theta_0$ 和 $x_0$，即，$x \in \mathbb{R}^n$、 $\theta \in \mathbb{R}^n$ 。</p>
 <hr>
-<h2 id="四-Support-Vector-Machines-测试"><a href="#四-Support-Vector-Machines-测试" class="headerlink" title="四. Support_Vector_Machines 测试"></a>四. Support_Vector_Machines 测试</h2><h3 id="1-Question-1"><a href="#1-Question-1" class="headerlink" title="1. Question 1"></a>1. Question 1</h3><p>Suppose you have trained an SVM classifier with a Gaussian kernel, and it learned the following decision boundary on the training set:</p>
-<p><img src="http://spark-public.s3.amazonaws.com/ml/images/12.1-b.jpg" alt=""></p>
-<p>When you measure the SVM’s performance on a cross validation set, it does poorly. Should you try increasing or decreasing C? Increasing or decreasing $\sigma^{2}$?</p>
-<p>A. It would be reasonable to try <strong>decreasing</strong> C. It would also be reasonable to try <strong>increasing</strong> $\sigma^{2}$.</p>
-<p>B. It would be reasonable to try <strong>increasing</strong> C. It would also be reasonable to try <strong>increasing</strong> $\sigma^{2}$.</p>
-<p>C. It would be reasonable to try <strong>increasing</strong> C. It would also be reasonable to try <strong>decreasing</strong> $\sigma^{2}$.</p>
-<p>D. It would be reasonable to try <strong>decreasing</strong> C. It would also be reasonable to try <strong>decreasing</strong> $\sigma^{2}$.</p>
-<p>解答：A</p>
-<p>过拟合应该减小 C 和增大 $\sigma^2$</p>
-<h3 id="2-Question-2"><a href="#2-Question-2" class="headerlink" title="2. Question 2"></a>2. Question 2</h3><p>The formula for the Gaussian kernel is given by similarity $(x,l^{(1)})=exp(-\frac{\left \| x-l^{(1)} \right \|^{2}}{2\sigma^{2} })$ .</p>
-<p>The figure below shows a plot of f1=similarity $(x,l^{(1)})$ when $\sigma^{2} = 1$.</p>
-<p><img src="http://spark-public.s3.amazonaws.com/ml/images/12.2-question.jpg" alt=""></p>
-<p>Which of the following is a plot of f1 when $\sigma^{2} = 0.25$?</p>
-<p>A. <img src="http://spark-public.s3.amazonaws.com/ml/images/12.2-b.jpg" alt=""></p>
-<p>B. <img src="http://spark-public.s3.amazonaws.com/ml/images/12.2-a.jpg" alt=""></p>
-<p>C. <img src="http://spark-public.s3.amazonaws.com/ml/images/12.2-d.jpg" alt=""></p>
-<p>D. <img src="http://spark-public.s3.amazonaws.com/ml/images/12.2-c.jpg" alt=""></p>
-<p>解答：A</p>
-<p> $\sigma^{2} $ 变小图像变瘦高。</p>
-<h3 id="3-Question-3"><a href="#3-Question-3" class="headerlink" title="3. Question 3"></a>3. Question 3</h3><p>The SVM solves</p>
-
-$$min_{\theta} C \sum^{m}_{i=1}y^{(i)}cost_{1}(\theta^{T}x^{(i)})+(1-y^{(i)})cost_{0}(\theta^{T}x^{(i)})+\sum^{n}_{j=1}\theta^{2}_{j}$$
-
-
-<p>where the functions $cost_0(z)$ and $cost_1(z)$ look like this:</p>
-<p>The first term in the objective is:</p>
-
-$$C \sum^{m}_{i=1}y^{(i)}cost_{1}(\theta^{T} x^{(i)})+(1-y^{(i)})cost_{0}(\theta^{T}x^{(i)})$$
-
-
-<p>This first term will be zero if two of the following four conditions hold true. Which are the two conditions that would guarantee that this term equals zero?</p>
-<p>A. For every example with $y^{(i)}=0$, we have that $\theta^{T}x(i) \leqslant 0$.</p>
-<p>B. For every example with $y^{(i)}=1$, we have that $\theta^{T}x(i) \geqslant 0$.</p>
-<p>C. For every example with $y^{(i)}=0$, we have that $\theta^{T}x(i)\leqslant-1$.</p>
-<p>D. For every example with $y^{(i)}=1$, we have that $\theta^{T}x(i)\geqslant 1$.</p>
-<p>解答：C、D</p>
-<h3 id="4-Question-4"><a href="#4-Question-4" class="headerlink" title="4. Question 4"></a>4. Question 4</h3><p>Suppose you have a dataset with n = 10 features and m = 5000 examples.</p>
-<p>After training your logistic regression classifier with gradient descent, you find that it has underfit the training set and does not achieve the desired performance on the training or cross validation sets.</p>
-<p>Which of the following might be promising steps to take? Check all that apply.</p>
-<p>A. Try using a neural network with a large number of hidden units.</p>
-<p>B. Create / add new polynomial features.</p>
-<p>C. Reduce the number of examples in the training set.</p>
-<p>D. Use a different optimization method since using gradient descent to train logistic regression might result in a local minimum.</p>
-<p>解答： A、B</p>
-<p>题干中要求解决欠拟合的问题。</p>
-<p>A.增多神经网络的隐藏层可以解决欠拟合问题。<br>B.增加特征量可以解决欠拟合问题。<br>C.减少训练集样本，不行。<br>D.不是梯度下降函数到达最低值是代价函数。  </p>
-<h3 id="5-Question-5"><a href="#5-Question-5" class="headerlink" title="5. Question 5"></a>5. Question 5</h3><p>Which of the following statements are true? Check all that apply.</p>
-<p>A. Suppose you have 2D input examples (ie, $x^{(i)} \in \mathbb{R}^2$). The decision boundary of the SVM (with the linear kernel) is a straight line.</p>
-<p>B. If the data are linearly separable, an SVM using a linear kernel will return the same parameters $\theta$ regardless of the chosen value of C (i.e., the resulting value of $\theta$ does not depend on C).</p>
-<p>C. If you are training multi-class SVMs with the one-vs-all method, it is not possible to use a kernel.</p>
-<p>D. The maximum value of the Gaussian kernel (i.e., $sim(x,l^{(1)})$) is 1.</p>
-<p>解答：A、D</p>
-<p>A. 线性是一条直线。<br>B. $min_{\theta} C[\sum_{i=1}^{m}{y^{(i)}}cost_1(\theta^Tx^{(i)})+(1-y^{(i)})cost_0(\theta^Tx^{(i)})]+\frac{1}{2}\sum_{j=1}^{n}{\theta_j^2}$， $\theta$正是由 C 的大小决定的。<br>C. 解决多分类问题可以用 SVM 。<br>D. 高斯核函数范围：[0,1]。  </p>
+<h2 id="三-Low-Rank-Matrix-Factorization-低秩矩阵分解"><a href="#三-Low-Rank-Matrix-Factorization-低秩矩阵分解" class="headerlink" title="三. Low Rank Matrix Factorization 低秩矩阵分解"></a>三. Low Rank Matrix Factorization 低秩矩阵分解</h2><h3 id="1-向量化"><a href="#1-向量化" class="headerlink" title="1. 向量化"></a>1. 向量化</h3><p><img src="https://img.halfrost.com/Blog/ArticleImage/80_2.png" alt=""></p>
+<p>还是以电影评分为例子。首先我们将用户的评分写成一个矩阵 Y 。</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/80_3.png" alt=""></p>
+<p>更为详细的表达如上图所示。矩阵 Y 可表示为 $\Theta^TX$ 。这个算法也叫低秩矩阵分解（Low Rank Matric Factorization）。</p>
+<h3 id="2-均值标准化-Mean-Normalization"><a href="#2-均值标准化-Mean-Normalization" class="headerlink" title="2. 均值标准化 Mean Normalization"></a>2. 均值标准化 Mean Normalization</h3><p><img src="https://img.halfrost.com/Blog/ArticleImage/80_4.png" alt=""></p>
+<p>当有一个用户什么电影都没有看过的话，我们用 $\Theta^TX$ 计算最后得到的结果全部都是一样的，并不能很好地推荐哪一部电影给他。</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/80_5.png" alt=""></p>
+<p>均值归一化要做的就是先计算每一行的平均值，再将每一个数据减去该行的平均值，得出一个新的评分矩阵。然后根据这个矩阵拟合出 $\Theta^TX$ ，最后的衡量结果加上平均值，即： $\Theta^TX+\mu_i$ 。而该 $\mu_i$ 就作为之前什么都没有的一个权值进行推荐。</p>
+<hr>
+<h2 id="四-Recommender-Systems-测试"><a href="#四-Recommender-Systems-测试" class="headerlink" title="四. Recommender Systems 测试"></a>四. Recommender Systems 测试</h2><h3 id="1-Question-1"><a href="#1-Question-1" class="headerlink" title="1. Question 1"></a>1. Question 1</h3><p>Suppose you run a bookstore, and have ratings (1 to 5 stars) of books. Your collaborative filtering algorithm has learned a parameter vector θ(j) for user j, and a feature vector x(i) for each book. You would like to compute the “training error”, meaning the average squared error of your system’s predictions on all the ratings that you have gotten from your users. Which of these are correct ways of doing so (check all that apply)? For this problem, let m be the total number of ratings you have gotten from your users. (Another way of saying this is that $m=\sum^{n_m}_{i=1}\sum^{n_\mu}_{j=1}r(i,j))$. [Hint: Two of the four options below are correct.]</p>
+<p>A. $$\frac{1}{m}\sum_{(i,j):r(i,j)=1}((\theta^{(j)})^{T}x_{i}^{(i)}-y^{(i,j)})^2$$</p>
+<p>B. $$\frac{1}{m}\sum^{n_\mu}_{i=1}\sum_{j:r(i,j)=1}(\sum_{k=1}^{n}(\theta^{(j)})_{k}x_{k}^{(i)}-y^{(i,j)})^2$$</p>
+<p>C. $$\frac{1}{m}\sum^{n_\mu}_{j=1}\sum_{i:r(i,j)=1}(\sum_{k=1}^{n}(\theta^{(k)})_{j}x_{i}^{(k)}-y^{(i,j)})^2$$</p>
+<p>D. $$\frac{1}{m}\sum_{(i,j):r(i,j)=1}((\theta^{(j)})^{T}x_{i}^{(i)}-r(i,j))^2$$</p>
+<p>解答：A、B</p>
+<h3 id="2-Question-2"><a href="#2-Question-2" class="headerlink" title="2. Question 2"></a>2. Question 2</h3><p>In which of the following situations will a collaborative filtering system be the most appropriate learning algorithm (compared to linear or logistic regression)?</p>
+<p>A. You run an online bookstore and collect the ratings of many users. You want to use this to identify what books are “similar” to each other (i.e., if one user likes a certain book, what are other books that she might also like?)</p>
+<p>B. You own a clothing store that sells many styles and brands of jeans. You have collected reviews of the different styles and brands from frequent shoppers, and you want to use these reviews to offer those shoppers discounts on the jeans you think they are most likely to purchase</p>
+<p>C. You manage an online bookstore and you have the book ratings from many users. You want to learn to predict the expected sales volume (number of books sold) as a function of the average rating of a book.</p>
+<p>D. You’re an artist and hand-paint portraits for your clients. Each client gets a different portrait (of themselves) and gives you 1-5 star rating feedback, and each client purchases at most 1 portrait. You’d like to predict what rating your next customer will give you.</p>
+<p>解答：A、B</p>
+<p>协同过滤算法的要求是特征量和数据比较多。</p>
+<p>A. 您运行在线书店并收集许多用户的评分。你想用这个来确定哪些书是彼此“相似”的（例如，如果一个用户喜欢某本书，她可能还喜欢其他书？）特征量很多，协同过滤。</p>
+<p>B. 你拥有一家销售多种风格和品牌牛仔裤的服装店。您已经收集了来自经常购物者的不同款式和品牌的评论，并且您希望使用这些评论为您认为他们最有可能购买的牛仔裤提供这些购物者折扣。特征量很多，协同过滤。</p>
+<p>C. 您可以管理在线书店，并拥有来自许多用户的图书评分。你想要学习预测预期销售量（出售书籍的数量）作为书籍平均评分的函数。用线性回归更好。</p>
+<p>D. 你是一位艺术家，为你的客户提供手绘肖像画。每个客户都会获得不同的肖像（他们自己），并为您提供1-5星评级反馈，每位客户至多购买1张肖像。您想预测下一位客户给您的评分。用逻辑回归更好。</p>
+<h3 id="3-Question-3"><a href="#3-Question-3" class="headerlink" title="3. Question 3"></a>3. Question 3</h3><p>You run a movie empire, and want to build a movie recommendation system based on collaborative filtering. There were three popular review websites (which we’ll call A, B and C) which users to go to rate movies, and you have just acquired all three companies that run these websites. You’d like to merge the three companies’ datasets together to build a single/unified system. On website A, users rank a movie as having 1 through 5 stars. On website B, users rank on a scale of 1 - 10, and decimal values (e.g., 7.5) are allowed. On website C, the ratings are from 1 to 100. You also have enough information to identify users/movies on one website with users/movies on a different website. Which of the following statements is true?</p>
+<p>A. It is not possible to combine these websites’ data. You must build three separate recommendation systems.</p>
+<p>B. You can merge the three datasets into one, but you should first normalize each dataset separately by subtracting the mean and then dividing by (max - min) where the max and min (5-1) or (10-1) or (100-1) for the three websites respectively.</p>
+<p>C. You can combine all three training sets into one as long as your perform mean normalization and feature scaling after you merge the data.</p>
+<p>D. You can combine all three training sets into one without any modification and expect high performance from a recommendation system.</p>
+<p>解答： B</p>
+<p>做特征缩放。</p>
+<h3 id="4-Question-4"><a href="#4-Question-4" class="headerlink" title="4. Question 4"></a>4. Question 4</h3><p>Which of the following are true of collaborative filtering systems? Check all that apply.</p>
+<p>A. Even if each user has rated only a small fraction of all of your products (so r(i,j)=0 for the vast majority of (i,j) pairs), you can still build a recommender system by using collaborative filtering.</p>
+<p>B. For collaborative filtering, it is possible to use one of the advanced optimization algoirthms (L-BFGS/conjugate gradient/etc.) to solve for both the $x^{(i)}$’s and $\theta^{(j)}$’s simultaneously.</p>
+<p>C. For collaborative filtering, the optimization algorithm you should use is gradient descent. In particular, you cannot use more advanced optimization algorithms (L-BFGS/conjugate gradient/etc.) for collaborative filtering, since you have to solve for both the $x^{(i)}$’s and $\theta^{(j)}$’s simultaneously.</p>
+<p>D. Suppose you are writing a recommender system to predict a user’s book preferences. In order to build such a system, you need that user to rate all the other books in your training set.</p>
+<p>解答：A、B</p>
+<h3 id="5-Question-5"><a href="#5-Question-5" class="headerlink" title="5. Question 5"></a>5. Question 5</h3><p>Suppose you have two matrices A and B, where A is 5x3 and B is 3x5. Their product is C=AB, a 5x5 matrix. Furthermore, you have a 5x5 matrix R where every entry is 0 or 1. You want to find the sum of all elements C(i,j) for which the corresponding R(i,j) is 1, and ignore all elements C(i,j) where R(i,j)=0. One way to do so is the following code:</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/7X_5_0.png" alt=""></p>
+<p>Which of the following pieces of Octave code will also correctly compute this total? Check all that apply. Assume all options are in code.</p>
+<p>A. $total = sum(sum((A * B) .* R))$</p>
+<p>B. $C = A * B; total = sum(sum(C(R == 1)))$;</p>
+<p>C. $C = (A * B) * R; total = sum(C(:))$;</p>
+<p>D. $total = sum(sum(A(R == 1) * B(R == 1))$;</p>
+<p>解答：A、B</p>
 <hr>
 <blockquote>
 <p>GitHub Repo：<a href="https://github.com/halfrost/Halfrost-Field" target="_blank" rel="noopener">Halfrost-Field</a></p>
 <p>Follow: <a href="https://github.com/halfrost" target="_blank" rel="noopener">halfrost · GitHub</a></p>
-<p>Source: <a href="https://github.com/halfrost/Halfrost-Field/blob/master/contents/Machine_Learning/Support_Vector_Machines.ipynb" target="_blank" rel="noopener">https://github.com/halfrost/Halfrost-Field/blob/master/contents/Machine_Learning/Support_Vector_Machines.ipynb</a></p>
+<p>Source: <a href="https://github.com/halfrost/Halfrost-Field/blob/master/contents/Machine_Learning/Recommender_Systems.ipynb" target="_blank" rel="noopener">https://github.com/halfrost/Halfrost-Field/blob/master/contents/Machine_Learning/Recommender_Systems.ipynb</a></p>
 </blockquote>
 <script>
         document.querySelectorAll('.github-emoji')
@@ -748,7 +625,7 @@ $$C \sum^{m}_{i=1}y^{(i)}cost_{1}(\theta^{T} x^{(i)})+(1-y^{(i)})cost_{0}(\theta
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://Xw-Jia.github.io/2020/02/07/7-1-support-vector-machines/">http://Xw-Jia.github.io/2020/02/07/7-1-support-vector-machines/</a>
+                    <a href="http://Xw-Jia.github.io/2020/02/07/9-2-recommender-systems/">http://Xw-Jia.github.io/2020/02/07/9-2-recommender-systems/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -957,28 +834,29 @@ $$C \sum^{m}_{i=1}y^{(i)}cost_{1}(\theta^{T} x^{(i)})+(1-y^{(i)})cost_{0}(\theta
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/02/07/8-1-unsupervised-learning/">
+                <a href="/2020/02/07/9-2-recommender-systems/">
                     <div class="card-image">
                         
-                        <img src="/medias/cover_pics/8-1-Unsupervised-Learning/1.png" class="responsive-img" alt="8.1_Unsupervised_Learning">
+                        <img src="/medias/cover_pics/9-2-Recommender-Systems/1.png" class="responsive-img" alt="9.2_Recommender_Systems">
                         
-                        <span class="card-title">8.1_Unsupervised_Learning</span>
+                        <span class="card-title">9.2_Recommender_Systems</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            吴恩达Machine_Learning入门课Week8第一节
+                            吴恩达Machine_Learning入门课Week3第二节
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-02-07
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-07
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -991,6 +869,7 @@ $$C \sum^{m}_{i=1}y^{(i)}cost_{1}(\theta^{T} x^{(i)})+(1-y^{(i)})cost_{0}(\theta
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -1013,23 +892,23 @@ $$C \sum^{m}_{i=1}y^{(i)}cost_{1}(\theta^{T} x^{(i)})+(1-y^{(i)})cost_{0}(\theta
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/02/05/6-2-machine-learning-system-design/">
+                <a href="/2020/02/07/9-1-anomaly-detection/">
                     <div class="card-image">
                         
-                        <img src="/medias/cover_pics/6-2-Machine-Learning-System-Design/1.png" class="responsive-img" alt="6.2_Machine_Learning_System_Design">
+                        <img src="/medias/cover_pics/9-1-Anomaly-Detection/1.png" class="responsive-img" alt="9.1_Anomaly_Detection">
                         
-                        <span class="card-title">6.2_Machine_Learning_System_Design</span>
+                        <span class="card-title">9.1_Anomaly_Detection</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            吴恩达Machine_Learning入门课Week6第二节
+                            吴恩达Machine_Learning入门课Week9第一节
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-07
                             </span>
                         <span class="publish-author">
                             

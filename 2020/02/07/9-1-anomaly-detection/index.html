@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="7.1_Support_Vector_Machines, DustOfStars">
-    <meta name="description" content="吴恩达Machine_Learning入门课Week7第一节">
+    <meta name="keywords" content="9.1_Anomaly_Detection, DustOfStars">
+    <meta name="description" content="吴恩达Machine_Learning入门课Week9第一节">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>7.1_Support_Vector_Machines | DustOfStars</title>
+    <title>9.1_Anomaly_Detection | DustOfStars</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -295,12 +295,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/cover_pics/7-1-Support-Vector-Machines/1.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/cover_pics/9-1-Anomaly-Detection/1.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">7.1_Support_Vector_Machines</h1>
+                    <h1 class="description center-align post-title">9.1_Anomaly_Detection</h1>
                 </div>
             </div>
         </div>
@@ -460,7 +460,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4k
+                    3.3k
                 </div>
                 
 
@@ -478,232 +478,191 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><img src="https://upload-images.jianshu.io/upload_images/1194012-db5ca3ef83a4cc2e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<h2 id="一-引子"><a href="#一-引子" class="headerlink" title="一. 引子"></a>一. 引子</h2><p>在逻辑回归中，我们的预测函数为：</p>
-<p>$$h_\theta(x)=\frac{1}{1+e^{-\theta^Tx}}$$</p>
-<p>对于每一个样本 (x,y) 而言（注意是每一个），其代价函数为：</p>
- 
+                <p><img src="https://img.halfrost.com/Blog/ArticleImage/79_0.png" alt=""></p>
+<h2 id="一-Density-Estimation-密度估计"><a href="#一-Density-Estimation-密度估计" class="headerlink" title="一. Density Estimation 密度估计"></a>一. Density Estimation 密度估计</h2><p>假如要更为正式定义异常检测问题，首先我们有一组从 $x^{(1)}$ 到 $x^{(m)}$ m个样本，且这些样本均为正常的。我们将这些样本数据建立一个模型 p(x) ， p(x) 表示为 x 的分布概率。</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/79_1.png" alt=""></p>
+<p>那么假如我们的测试集 $x_{test}$ 概率 p 低于阈值 $\varepsilon$ ，那么则将其标记为异常。</p>
+<p>异常检测的核心就在于找到一个概率模型，帮助我们知道一个样本落入正常样本中的概率，从而帮助我们区分正常和异常样本。高斯分布（Gaussian Distribution）模型就是异常检测算法最常使用的概率分布模型。</p>
+<h3 id="1-高斯分布"><a href="#1-高斯分布" class="headerlink" title="1. 高斯分布"></a>1. 高斯分布</h3><p>假如 x 服从高斯分布，那么我们将表示为： $x\sim N(\mu,\sigma^2)$ 。其分布概率为： </p>
+<p>$$p(x;\mu,\sigma^2)=\frac{1}{\sqrt{2\pi}\sigma}exp(-\frac{(x-\mu)^2}{2\sigma^2})$$ </p>
+<p>其中 $\mu$ 为期望值（均值）， $\sigma^2$ 为方差。</p>
+<p>其中，期望值 $\mu$ 决定了其轴的位置，标准差 $\sigma$ 决定了分布的幅度宽窄。当 $\mu=0,\sigma=1$ 时的正态分布是标准正态分布。</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/79_2.png" alt=""></p>
+<p><strong>由概率分布的性质，曲线下方的面积等于1，即积分为1，所以图形越宽，高度越矮；图像越高，宽度越窄。</strong></p>
+<p>期望值：$$\mu=\frac{1}{m}\sum_{i=1}^{m}{x^{(i)}}$$</p>
+<p>方差： $$\sigma^2=\frac{1}{m}\sum_{i=1}^{m}{(x^{(i)}-\mu)}^2$$</p>
+<p><strong>上面计算期望值和方差，就是统计学里面的极大似然估计</strong>。</p>
+<p>假如我们有一组 m 个无标签训练集，其中每个训练数据又有 n 个特征，那么这个训练集应该是 m 个 n 维向量构成的样本矩阵。</p>
+<p>在概率论中，对有限个样本进行参数估计</p>
+<p>$$\mu_j = \frac{1}{m} \sum_{i=1}^{m}x_j^{(i)};;;,;;; \delta^2_j = \frac{1}{m} \sum_{i=1}^{m}(x_j^{(i)}-\mu_j)^2$$</p>
+<p>这里对参数 $\mu$ 和参数 $\delta^2$ 的估计就是二者的极大似然估计。</p>
+<p>假定每一个特征 $x_{1}$ 到 $x_{n}$ 均服从正态分布，则其模型的概率为：</p>
+
 $$
 \begin{align*}
-J(\theta)&amp;=-(ylogh_\theta(x)+(1-y)log(1-h_\theta((x)))\\
-&amp;=-ylog\frac{1}{1+e^{-\theta^Tx}}-(1-y)log(1-\frac{1}{1+e^{-\theta^Tx}})
-\end{align*}\\
+p(x)&amp;=p(x_1;\mu_1,\sigma_1^2)p(x_2;\mu_2,\sigma_2^2) \cdots p(x_n;\mu_n,\sigma_n^2)\\
+&amp;=\prod_{j=1}^{n}p(x_j;\mu_j,\sigma_j^2)\\
+&amp;=\prod_{j=1}^{n} \frac{1}{\sqrt{2\pi}\sigma_{j}}exp(-\frac{(x_{j}-\mu_{j})^2}{2\sigma_{j}^2})
+\end{align*}
 $$
 
-<p>那么当 y=1 的时候， $J(\theta)=-ylog\frac{1}{1+e^{-\theta^Tx}}$ ，其代价函数的图像入左下图所示。</p>
-<p>当 y=0 的时候， $J(\theta)=-(1-y)log(1-\frac{1}{1+e^{-\theta^Tx}})$ ，其代价函数的图像入右下图所示。</p>
-<p>对于支持向量机而言，</p>
-<p>$y=1$ 的时候：</p>
-<p>$$cost_1(\theta^Tx^{(i)})=(-logh_\theta(x^{(i)}))$$</p>
-<p>$y=0$ 的时候：</p>
-<p>$$cost_0((\theta^Tx^{(i)})=((-log(1-h_\theta(x^{(i)})))$$ </p>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/76_1.png" alt=""></p>
-<p>当 y=1 时，随着 z 取值变大，预测代价变小，因此，逻辑回归想要在面对正样本  y=1  时，获得足够高的预测精度，就希望  $z= \theta^Tx\gg 0 $ 。而 SVM 则将上图的曲线拉直为下图中的折线，构成了 y=1 时的代价函数曲线  $cost_1(z)$ ：</p>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/76_2.png" alt=""></p>
-<p>当 y=1 时，为了预测精度足够高，SVM 希望 $\theta^Tx\geqslant 1$ 。</p>
-<p>同样，在 y=0 时，SVM 定义了代价函数 $cost_0(z)$ ，为了预测精度足够高，SVM 希望  $\theta^Tx \leqslant -1$ ：</p>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/76_3.png" alt=""></p>
-<p>在逻辑回归中，其代价函数是： </p>
-
-$$J(\theta)=min_{\theta} \frac{1}{m}[\sum_{i=1}^{m}{y^{(i)}}(-logh_\theta(x^{(i)}))+(1-y^{(i)})((-log(1-h_\theta(x^{(i)})))]+\frac{\lambda}{2m}\sum_{j=1}^{n}{\theta_j^2}$$
-
-
-<p>对于逻辑回归而言，其代价函数是有两项决定的，第一项是来自训练样本的代价函数，第二项是正则化项，这就相当于我们用最小化 A 加上正则化参数 $\lambda$ 乘以参数平方项 B，其形式大概是： $A+\lambda B$ 。这里我们是通过设置不同的正则参数 $\lambda$ 来达到优化的目的。但是在支持向量机这里，把参数提到前面，用参数 C 作为 A 的参数，以 A 作为权重。所以其形式是这样的： $CA+B$ 。</p>
-<p>在逻辑回归中，我们通过正规化参数 $\lambda$ 调节 A、B 所占的权重，且 A 的权重与$\lambda$ 取值成反比。而在 SVM 中，则通过参数 C 调节 A、B 所占的权重，且 A 的权重与  C 的取值成反比。亦即，参数 C 可以被认为是扮演了 $\frac{1}{\lambda}$ 的角色。</p>
-<p>所以 $\frac{1}{ m}$ 这一项仅仅是相当于一个常量，对于最小化参数 $\theta$ 是没有完全任何影响的，所以这里我们将其去掉。</p>
-<p>支持向量机的代价函数为：</p>
-
-$$min_{\theta} C[\sum_{i=1}^{m}{y^{(i)}}cost_1(\theta^Tx^{(i)})+(1-y^{(i)})cost_0(\theta^Tx^{(i)})]+\frac{1}{2}\sum_{j=1}^{n}{\theta_j^2}$$
-
-
-<p>有别于逻辑回归假设函数输出的是概率，支持向量机它是直接预测 y 的值是0还是1。也就是说其假设函数是这样子的：</p>
-
-$$h_{\theta}(x)=\left\{\begin{matrix}
-1,\;\;if\; \theta^{T}x\geqslant 0\\ 
-0,\;\;otherwise
-\end{matrix}\right.$$
-
-
-
-
-
-
-<h2 id="二-Large-Margin-Classification-大间距分类器"><a href="#二-Large-Margin-Classification-大间距分类器" class="headerlink" title="二. Large Margin Classification 大间距分类器"></a>二. Large Margin Classification 大间距分类器</h2><p>支持向量机是最后一个监督学习算法，与前面我们所学的逻辑回归和神经网络相比，支持向量机在学习复杂的非线性方程时，提供了一种更为清晰、更加强大的方式。</p>
-<p>支持向量机也叫做大间距分类器(large margin classifiers)。</p>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/76_4.png" alt=""></p>
-<p>假如我们有一个数据集是这样的，可以看出，这是线性可分的。但是有时候我们的决策边界就好像图中绿色线或者粉红色线一样，这样的决策边界看起来都不是特别好的选择。支持向量机就会选择黑色这一条决策边界。黑色这条边界相比之前跟正负样本有更大的距离，而这个距离就叫做间距（margin）。这也是为什么我们将支持向量机叫做大间距分类器的原因。</p>
-<p>支持向量机模型的做法是，即努力将正样本和负样本用最大的间距分开。</p>
-<p>$$min_{\theta} C[\sum_{i=1}^{m}{y^{(i)}}cost_1(\theta^Tx^{(i)})+(1-y^{(i)})cost_0(\theta^Tx^{(i)})]+\frac{1}{2}\sum_{j=1}^{n}{\theta_j^2}$$</p>
-<p>当 y=1 时，SVM 希望 $\theta^Tx\geqslant 1$ 。在 y=0 时，SVM 希望  $\theta^Tx \leqslant -1$，对于前面的那一项 A 最小化代价函数，那么最理想当然是为0。所以这就变成了：</p>
-
-$$min_{\theta}\frac{1}{2}\sum_{i=1}^{n}{\theta_j^2}\;\;\;\;\;\; \left\{\begin{matrix}
-\theta^Tx\geqslant 1,if \;y^{(i)}=1 \\
-\theta^Tx\leqslant 1 ,if \;y^{(i)}=0
-\end{matrix}\right.
-$$
-
-
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/76_12.png" alt=""></p>
-<p><strong>参数 C 其实是支持向量机对异常点的敏感程度，C 越大就越敏感，任何异常点都会影响最终结果。 C 越小，对异常点就越不敏感，普通的一两个异常点都会被忽略。</strong></p>
-<hr>
-<h3 id="推导"><a href="#推导" class="headerlink" title="推导"></a>推导</h3><p><img src="https://img.halfrost.com/Blog/ArticleImage/76_5.png" alt=""></p>
-<p>以两个二维向量为例，我们把向量 v 投影到向量 u 上，其投影的长度为 p，$\left | u \right |$ 为向量 u 的模，那么向量的内积就等于$p*\left | u \right |$。在代数定义向量内积可表示为： $u_1v_1+u_2v_2$ ，根据此定义可以得出： $u^Tv=u_1v_1+u_2v_2$ 。</p>
-<p>$\left | u \right |$为 $\overrightarrow{u}$ 的范数，也就是向量 $\overrightarrow{u}$ 的欧几里得长度。</p>
-<p>最小化函数为： $$min_{\theta}\frac{1}{2}\sum_{i=1}^{n}{\theta_j^2}$$ </p>
-<p>这里以简单的二维为例：</p>
-
-$$min_{\theta}\frac{1}{2}\sum_{i=1}^{n}{\theta_j^2}=\frac{1}{2}(\theta_1^2+\theta_2^2)=\frac{1}{2}(\sqrt{\theta_1^2+\theta_2^2})^2=\frac{1}{2}\left \| \theta \right \|^2$$
-
-
-
-
-<p>毕达哥拉斯定理：</p>
-<p>$$ \left | u \right | = \sqrt{u_{1}^{2} + u_{2}^{2}}$$</p>
-<p><strong>只要 $\theta$ 能最小，最小化函数就能取到最小</strong>。</p>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/76_11.png" alt=""></p>
-<p>当垂直的时候 $\theta$ 取最小值(垂直的时候，两个向量的夹角 cos $\theta$ 最小)。这就解释了为什么支持向量机的决策边界不会选择左图绿色那条。因为方便理解所以 $\theta_0=0$ ，这就意味着决策边界要经过原点。然后我们可以看到在垂直于决策边界的 $\theta $和 $x^{(i)}$ 的关系（红色投影和粉红色投影），可以看到其投影 $p^{(i)}$ 的值都比较小，这也就意味着要 $||\theta||^2$ 的值很大。这显然是与最小化公式 $\frac{1}{2}||\theta||^2$ 矛盾的。所以支持向量机的决策边界会使 $p^{(i)}$ 在 $\theta$ 的投影尽量大。</p>
-<p>这就是为什么决策边界会是右图的原因，也就是为什么支持向量机能有效地产生最大间距分类的原因。</p>
-<p>(<strong>因为只有最大间距才能使 $p^{(i)}$ 大，从而 $||\theta||^2$ 值小</strong>)</p>
-<hr>
-<h2 id="三-Kernels"><a href="#三-Kernels" class="headerlink" title="三. Kernels"></a>三. Kernels</h2><h3 id="1-定义"><a href="#1-定义" class="headerlink" title="1. 定义"></a>1. 定义</h3><p><img src="https://img.halfrost.com/Blog/ArticleImage/76_6.png" alt=""></p>
-<p>在我们之前拟合一个非线性的判断边界来区别正负样本，是构造多项式特征变量。</p>
-<p>我们先用一种新的写法来表示决策边界： $\theta_0+\theta_1f_1+\theta_2f_2+\theta_3f_3+\cdots $。我们这里用 $f_i$ 表达新的特征变量。</p>
-<p>假如是之前我们所学的决策边界，那么就是： $f_1=x_1 , f_2=x_2 , f_3=x_1x_2 , f_4=x_1^2 ， f_5=x_2^2$ ，等等。但是这样的高阶项作为特征变量并不是我们确定所需要的，而且运算量非常巨大，那么有没有其他更高的特征变量呢？</p>
-<p>下面是构造新特征量的一种想法：</p>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/76_7.png" alt=""></p>
-<p>为了简单理解，我们这里只建立三个特征变量。首先我们在 $x_1,x_2$ 坐标轴上手动选择3个不同的点： $l^{(1)},l^{(2)},l^{(3)}$ 。</p>
-<p>然后我们将第一个特征量定义为： $f_1=similarity(x,l^{(1)})$ ，可以看做是样本 x 和第一个标记 $l^{(1)}$ 的相似度。其中可以用这个公式表达这种关系： $f_1=similarity(x,l^{(1)})=exp(-\frac{||x-l^{(1)}||^2}{2\sigma^2})$ (exp：自然常数e为底的指数函数)</p>
-<p>类似的有： $f_2=similarity(x,l^{(2)})=exp(-\frac{||x-l^{(2)}||^2}{2\sigma^2})$ ，</p>
-
-$f_3=similarity(x,l^{(3)})=exp(-\frac{||x-l^{(3)}||^2}{2\sigma^2})$
- 。
-<p>这个表达式我们称之为核函数（Kernels），在这里我们选用的核函数是高斯核函数（Gaussian Kernels）。</p>
-<p>那么高斯核函数与相似性又有什么关系呢？</p>
-<p>先来看第一个特征量 $f_1$ ，<br>$f_1=similarity(x,l^{(1)})=exp(-\frac{||x-l^{(1)}||^2}{2\sigma^2})=exp(\frac{\sum_{j=1}^{n}{(x_j-l_j^{(1)})^2}}{2\sigma^2})$</p>
-<p>假如样本 x 非常接近 $l^{(1)}$ ，即$x\approx l^{(1)}$ ，那么：$ f_1\approx exp(-\frac{0^2}{2\sigma^2})\approx 1$ 。</p>
-<p>假如样本 x 离 $l^{(1)}$ 非常远，即 $x\gg l^{(1)}$ ，那么：$ f_1\approx exp(-\frac{\infty^2}{2\sigma^2})\approx 0$ 。</p>
-<p>可视化如下：</p>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/76_8.png" alt=""></p>
-<p>从图中可以看到越接近 $l^{(1)} , f_1$ 的值越大。</p>
-<p>这里顺带说一下 $\sigma^2$ 这个高斯核函数的参数对函数的影响。从图中可以看到，减小或者增加只会对图像的肥瘦产生影响，也就是影响增加或者减小的速度而已。</p>
-<h3 id="2-标记点选取"><a href="#2-标记点选取" class="headerlink" title="2. 标记点选取"></a>2. 标记点选取</h3><p>通过标记点以及核函数，训练出非常复杂的非线性判别边界。那标记点 $l^{(1)},l^{(2)},l^{(3)}$ 这些点是怎么来的？</p>
-<p>假定我们有如下的数据集：</p>
-<p>$$(x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}),(x^{(3)},y^{(3)})\cdots(x^{(m)},y^{(m)})$$</p>
-<p>我们就将每个样本作为一个标记点：</p>
-<p>$$l^{(1)}=x^{(1)},l^{(2)}=x^{(2)},l^{(3)}=x^{(3)}\cdots l^{(m)}=x^{(m)}$$</p>
-<p>则对于样本 $(x^{(i)},y^{(i)})$ ，我们计算其与各个标记点的距离：</p>
-
-$$
-\begin{matrix}
-f^{(i)}_1=sim(x^{(i)},l^{(1)})\\
-f^{(i)}_2=sim(x^{(i)},l^{(2)})\\
-\vdots \\
-f^{(i)}_m=sim(x^{(i)},l^{(3)})\\
-\end{matrix}
-$$
-
-<p>得到新的特征向量： $f \in \mathbb{R}^{m+1} $</p>
-
-$$f = \begin{bmatrix}
-f_0\\ 
-f_1\\ 
-f_2\\ 
-\vdots \\ 
-f_m
-\end{bmatrix}
-$$
-
-<p>其中 $f_0=1$</p>
-<p>则具备核函数的 SVM 的训练过程如下：</p>
-<p>$$min_{\theta} C[\sum_{i=1}^{m}{y^{(i)}}cost_1(\theta^Tf^{(i)})+(1-y^{(i)})cost_0(\theta^Tf^{(i)})]+\frac{1}{2}\sum_{j=1}^{n}{\theta_j^2}$$</p>
-<hr>
-<h2 id="四-SVMs-in-Practice"><a href="#四-SVMs-in-Practice" class="headerlink" title="四. SVMs in Practice"></a>四. SVMs in Practice</h2><h3 id="1-使用流行库"><a href="#1-使用流行库" class="headerlink" title="1. 使用流行库"></a>1. 使用流行库</h3><p>作为当今最为流行的分类算法之一，SVM 已经拥有了不少优秀的实现库，如 libsvm 等，因此，我们不再需要自己手动实现 SVM（要知道，一个能用于生产环境的 SVM 模型并非课程中介绍的那么简单）。</p>
-<p>在使用这些库时，我们通常需要声明 SVM 需要的两个关键部分：</p>
+<p>当 $p(x)&lt;\varepsilon$时，$x$ 为异常样本。</p>
+<h3 id="2-举例"><a href="#2-举例" class="headerlink" title="2. 举例"></a>2. 举例</h3><p>假定我们有两个特征 $x_1$ 、 $x_2$ ，它们都服从于高斯分布，并且通过参数估计，我们知道了分布参数：</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/79_3.png" alt=""></p>
+<p>则模型 $p(x)$  能由如下的热力图反映，热力图越热的地方，是正常样本的概率越高，参数 $\varepsilon$ 描述了一个截断高度，当概率落到了截断高度以下（下图紫色区域所示），则为异常样本：</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/79_4.png" alt=""></p>
+<p>将 $p(x)$ 投影到特征 $x_1$ 、$x_2$ 所在平面，下图紫色曲线就反映了 $\varepsilon$ 的投影，它是一条截断曲线，落在截断曲线以外的样本，都会被认为是异常样本：</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/79_5.png" alt=""></p>
+<h3 id="3-算法评估"><a href="#3-算法评估" class="headerlink" title="3. 算法评估"></a>3. 算法评估</h3><p>由于异常样本是非常少的，所以整个数据集是非常偏斜的，我们不能单纯的用预测准确率来评估算法优劣，所以用我们之前的查准率（Precision）和召回率（Recall）计算出 F 值进行衡量异常检测算法了。</p>
 <ul>
-<li>参数  C </li>
-<li>核函数（Kernel）</li>
+<li>真阳性、假阳性、真阴性、假阴性    </li>
+<li>查准率（Precision）与 召回率（Recall）   </li>
+<li>F1 Score  </li>
 </ul>
-<p>由于 C 可以看做与正规化参数 $\lambda $ 作用相反，则对于 C 的调节：</p>
-<p><strong>低偏差</strong>，<strong>高方差</strong>，即遇到了过拟合时：减小 C 值。<br><strong>高偏差</strong>，<strong>低方差</strong>，即遇到了欠拟合时：增大 C 值。  </p>
-<p>而对于核函数的选择有这么一些 tips：</p>
-<ul>
-<li>当特征维度 n 较高，而样本规模 m 较小时，不宜使用核函数，否则容易引起过拟合。</li>
-<li>当特征维度 n 较低，而样本规模 m 足够大时，考虑使用高斯核函数。不过在使用高斯核函数前，需要进行特征缩放（feature scaling）。</li>
-<li>当核函数的参数 $\sigma^2$ 较大时，特征 $f_i$ 较为平缓，即各个样本的特征差异变小，此时会造成欠拟合（高偏差，低方差），如下图上边的图，</li>
-<li>当 $\sigma^2$ 较小时，特征 $f_i$ 曲线变化剧烈，即各个样本的特征差异变大，此时会造成过拟合（低偏差，高方差），如下图下边的图：</li>
-</ul>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/76_9.png" alt=""></p>
-<h3 id="2-多分类问题"><a href="#2-多分类问题" class="headerlink" title="2. 多分类问题"></a>2. 多分类问题</h3><p>通常，流行的SVM库已经内置了多分类相关的 api，如果其不支持多分类，则与逻辑回归一样，使用 One-vs-All 策略来进行多分类：</p>
+<p>我们还有一个参数 $\varepsilon$ ，这个 $\varepsilon$ 是我们用来决定什么时候把一个样本当做是异常样本的阈值。我们应该试用多个不同的 $\varepsilon$ 值，选取一个使得 F 值最大的那个 $\varepsilon$ 。</p>
+<hr>
+<h2 id="二-Building-an-Anomaly-Detection-System"><a href="#二-Building-an-Anomaly-Detection-System" class="headerlink" title="二. Building an Anomaly Detection System"></a>二. Building an Anomaly Detection System</h2><h3 id="1-有监督学习与异常检测"><a href="#1-有监督学习与异常检测" class="headerlink" title="1. 有监督学习与异常检测"></a>1. 有监督学习与异常检测</h3><table>
+<thead>
+<tr>
+<th align="center">有监督学习</th>
+<th align="center">异常检测</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">数据分布均匀</td>
+<td align="center">数据非常偏斜，异常样本数目远小于正常样本数目</td>
+</tr>
+<tr>
+<td align="center">可以根据对正样本的拟合来知道正样本的形态，从而预测新来的样本是否是正样本</td>
+<td align="center">异常的类型不一，很难根据对现有的异常样本（即正样本）的拟合来判断出异常样本的形态</td>
+</tr>
+</tbody></table>
+<p>下面的表格则展示了二者的一些应用场景：</p>
+<table>
+<thead>
+<tr>
+<th align="center">有监督学习</th>
+<th align="center">异常检测</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">垃圾邮件检测</td>
+<td align="center">故障检测</td>
+</tr>
+<tr>
+<td align="center">天气预测（预测雨天、晴天、或是多云天气）</td>
+<td align="center">某数据中心对于机器设备的监控</td>
+</tr>
+<tr>
+<td align="center">癌症的分类</td>
+<td align="center">制造业判断一个零部件是否异常</td>
+</tr>
+</tbody></table>
+<p>如果异常样本非常少，特征也不一样完全一样（比如今天飞机引擎异常是因为原因一，明天飞机引擎异常是因为原因二，谁也不知道哪天出现异常是什么原因），这种情况下就应该采用异常检测。</p>
+<p>如果异常样本多，特征比较稳当，这种情况就应该采用监督学习。</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/79_6.png" alt=""></p>
+<p>假如我们的数据看起来不是很服从高斯分布，可以通过对数、指数、幂等数学变换让其接近于高斯分布。</p>
+<hr>
+<h2 id="三-Multivariate-Gaussian-Distribution-Optional"><a href="#三-Multivariate-Gaussian-Distribution-Optional" class="headerlink" title="三. Multivariate Gaussian Distribution (Optional)"></a>三. Multivariate Gaussian Distribution (Optional)</h2><h3 id="1-多元高斯分布模型"><a href="#1-多元高斯分布模型" class="headerlink" title="1. 多元高斯分布模型"></a>1. 多元高斯分布模型</h3><p><img src="https://img.halfrost.com/Blog/ArticleImage/79_7.png" alt=""></p>
+<p>我们以数据中心的监控计算机为例子。 $x_1$ 是CPU的负载，$x_2$ 是内存的使用量。其正常样本如左图红色点所示。假如我们有一个异常的样本（图中左上角绿色点），在图中看很明显它并不是正常样本所在的范围。但是在计算概率 $p(x)$ 的时候，因为它在 $x_1$ 和 $x_2$ 的高斯分布都属于正常范围，所以该点并不会被判断为异常点。</p>
+<p>这是因为在高斯分布中，它并不能察觉在蓝色椭圆处才是正常样本概率高的范围，其概率是通过圆圈逐渐向外减小。所以在同一个圆圈内，虽然在计算中概率是一样的，但是在实际上却往往有很大偏差。</p>
+<p>所以我们开发了一种改良版的异常检测算法：多元高斯分布。</p>
+<p>我们不将每一个特征值都分开进行高斯分布的计算，而是作为整个模型进行高斯分布的拟合。</p>
+<p>其概率模型为： $$p(x;\mu,\Sigma)=\frac{1}{(2\pi)^{\frac{n}{2}}|\Sigma|^{\frac{1}{2}}}exp(-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu))$$ （其中 $|\Sigma|$ 是 $\Sigma$ 的行列式，$\mu$ 表示样本均值，$\Sigma$ 表示样本协方差矩阵。）。</p>
+<p>多元高斯分布模型的热力图如下：</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/79_8.png" alt=""></p>
+<p>$\Sigma$ 是一个协方差矩阵，所以它衡量的是方差。减小 $\Sigma$ 其宽度也随之减少，增大反之。</p>
+<p><strong>同理，多元高斯分布模型也同样遵循概率分布，曲线下方的积分等于1</strong>。如上图，多元高斯分布相当于体积为1 。这样就可以通过 $\mu$ 和 $\Sigma$ (这里是协方差矩阵，原来是 $\sigma$ )的关系来判断图形的大致形状。</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/79_9.png" alt=""></p>
+<p>$\Sigma$ 中第一个数字是衡量 $x_1$ 的，假如减少第一个数字，则可从图中观察到 $x_1$ 的范围也随之被压缩，变成了一个椭圆。</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/79_10.png" alt=""></p>
+<p>多元高斯分布还可以给数据的相关性建立模型。假如我们在非主对角线上改变数据（如图中间那副），则其图像会根据 $y=x$ 这条直线上进行高斯分布。</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/79_11.png" alt=""></p>
+<p>反之亦然。</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/79_12.png" alt=""></p>
+<p>改变 $\mu$ 的值则是改变其中心点的位置。</p>
+<h3 id="2-参数估计"><a href="#2-参数估计" class="headerlink" title="2. 参数估计"></a>2. 参数估计</h3><p>多元高斯分布模型的参数估计如下：</p>
+<p>$$\mu=\frac{1}{m}\sum_{i=1}^{m}{x^{(i)}}$$</p>
+<p>$$\Sigma=\frac{1}{m}\sum_{i=1}^{m}{(x^{(i)}-\mu)(x^{(i)}-\mu)^T}$$</p>
+<h3 id="3-算法流程"><a href="#3-算法流程" class="headerlink" title="3. 算法流程"></a>3. 算法流程</h3><p>采用了多元高斯分布的异常检测算法流程如下：</p>
 <ol>
-<li>轮流选中某一类型 i ，将其视为正样本，即 “1” 分类，剩下样本都看做是负样本，即 “0” 分类。</li>
-<li>训练 SVM 得到参数 $\theta^{(1)},\theta^{(2)},\cdots,\theta^{(K)}$  ，即总共获得了 K−1 个决策边界。</li>
+<li>选择一些足够反映异常样本的特征 $x_j$ 。</li>
+<li>对各个样本进行参数估计：<br>$$\mu=\frac{1}{m}\sum_{i=1}^{m}{x^{(i)}}$$<br>$$\Sigma=\frac{1}{m}\sum_{i=1}^{m}{(x^{(i)}-\mu)(x^{(i)}-\mu)^T}$$</li>
+<li>当新的样本 x 到来时，计算 $p(x)$ ：</li>
 </ol>
-<p><img src="https://img.halfrost.com/Blog/ArticleImage/76_10.png" alt=""></p>
-<h3 id="3-分类模型的选择"><a href="#3-分类模型的选择" class="headerlink" title="3. 分类模型的选择"></a>3. 分类模型的选择</h3><p>目前，我们学到的分类模型有：</p>
-<p>（1）逻辑回归；<br>（2）神经网络；<br>（3）SVM  </p>
-<p>怎么选择在这三者中做出选择呢？我们考虑特征维度 n 及样本规模 m ：</p>
-<p>如果 n 相对于 m 非常大，例如 n=10000 ，而 $m\in(10,1000)$ ：此时选用逻辑回归或者无核的 SVM。  </p>
-<p>如果 n 较小，m 适中，如  $n\in(1,1000)$ ，而  $m\in(10,10000)$ ：此时选用核函数为高斯核函数的 SVM。  </p>
-<p>如果 n 较小，m 较大，如  $n\in(1,1000)$ ，而  m&gt;50000 ：此时，需要创建更多的特征（比如通过多项式扩展），再使用逻辑回归或者无核的 SVM。<br>神经网络对于上述情形都有不错的适应性，但是计算性能上较慢。  </p>
+<p>$$p(x)=\frac{1}{(2\pi)^{\frac{n}{2}}|\Sigma|^{\frac{1}{2}}}exp(-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu))$$</p>
+<p>如果 $p(x)&lt;\varepsilon $ ，则认为样本 x 是异常样本。</p>
+<h3 id="4-多元高斯分布模型与一般高斯分布模型的差异"><a href="#4-多元高斯分布模型与一般高斯分布模型的差异" class="headerlink" title="4. 多元高斯分布模型与一般高斯分布模型的差异"></a>4. 多元高斯分布模型与一般高斯分布模型的差异</h3><p>一般的高斯分布模型只是多元高斯分布模型的一个约束，它将多元高斯分布的等高线约束到了如下所示同轴分布（概率密度的等高线是沿着轴向的）：</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/79_13.png" alt=""></p>
+<p><strong>一般的多元高斯模型的轮廓（等高线）总是轴对齐的（axis-aligned），也就是 $\Sigma $ 除对角线以外的部分都是 0，当对角线以外的部分不为 0 的时候，等高线会出现斜着的，与两个轴产生一定的斜率</strong>。</p>
+<p>当： $\Sigma=\left[ \begin{array}{ccc}\sigma_1^2 \ &amp; \sigma_2^2 \ &amp;&amp;…\&amp;&amp;&amp;\sigma_n^2\end{array} \right]$ 的时候，此时的多元高斯分布即是原来的多元高斯分布。（因为只有主对角线方差，并没有其它斜率的变化）</p>
+<p>对比</p>
+<h3 id="模型定义"><a href="#模型定义" class="headerlink" title="模型定义"></a>模型定义</h3><p>一般高斯模型：</p>
+
+$$
+\begin{align*}
+p(x)&amp;=p(x_1;\mu_1,\sigma_1^2)p(x_2;\mu_2,\sigma_2^2) \cdots p(x_n;\mu_n,\sigma_n^2)\\
+&amp;=\prod_{j=1}^{n}p(x_j;\mu_j,\sigma_j^2)\\
+&amp;=\prod_{j=1}^{n} \frac{1}{\sqrt{2\pi}\sigma_{j}}exp(-\frac{(x_{j}-\mu_{j})^2}{2\sigma_{j}^2})
+\end{align*}
+$$
+
+<p>多元高斯模型：</p>
+<p>$$p(x)=\frac{1}{(2\pi)^{\frac{n}{2}}|\Sigma|^{\frac{1}{2}}}exp(-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu))$$</p>
+<h3 id="相关性"><a href="#相关性" class="headerlink" title="相关性"></a>相关性</h3><p>一般高斯模型：</p>
+<p>需要手动创建一些特征来描述某些特征的相关性</p>
+<p>多元高斯模型：</p>
+<p>利用协方差矩阵$\Sigma$获得了各个特征相关性</p>
+<h3 id="复杂度"><a href="#复杂度" class="headerlink" title="复杂度"></a>复杂度</h3><p>一般高斯模型：</p>
+<p>计算复杂度低，适用于高维特征    </p>
+<p>多元高斯模型：</p>
+<p>计算复杂</p>
+<h3 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h3><p>一般高斯模型：</p>
+<p>在样本数目 m 较小时也工作良好    </p>
+<p>多元高斯模型：</p>
+<p>需要 $\Sigma$ 可逆，亦即需要 $m&gt;n$ ，（通常会考虑 $ m \geqslant 10*n $，确保有足够多的数据去拟合这些变量，更好的去评估协方差矩阵 $\Sigma$ )且各个特征不能线性相关，如不能存在 $x_2=3x_1$  或者 $x_3=x_1+2x_2$</p>
+<p>结论：<strong>基于多元高斯分布模型的异常检测应用十分有限</strong>。</p>
 <hr>
-<h2 id="四-Support-Vector-Machines-测试"><a href="#四-Support-Vector-Machines-测试" class="headerlink" title="四. Support_Vector_Machines 测试"></a>四. Support_Vector_Machines 测试</h2><h3 id="1-Question-1"><a href="#1-Question-1" class="headerlink" title="1. Question 1"></a>1. Question 1</h3><p>Suppose you have trained an SVM classifier with a Gaussian kernel, and it learned the following decision boundary on the training set:</p>
-<p><img src="http://spark-public.s3.amazonaws.com/ml/images/12.1-b.jpg" alt=""></p>
-<p>When you measure the SVM’s performance on a cross validation set, it does poorly. Should you try increasing or decreasing C? Increasing or decreasing $\sigma^{2}$?</p>
-<p>A. It would be reasonable to try <strong>decreasing</strong> C. It would also be reasonable to try <strong>increasing</strong> $\sigma^{2}$.</p>
-<p>B. It would be reasonable to try <strong>increasing</strong> C. It would also be reasonable to try <strong>increasing</strong> $\sigma^{2}$.</p>
-<p>C. It would be reasonable to try <strong>increasing</strong> C. It would also be reasonable to try <strong>decreasing</strong> $\sigma^{2}$.</p>
-<p>D. It would be reasonable to try <strong>decreasing</strong> C. It would also be reasonable to try <strong>decreasing</strong> $\sigma^{2}$.</p>
-<p>解答：A</p>
-<p>过拟合应该减小 C 和增大 $\sigma^2$</p>
-<h3 id="2-Question-2"><a href="#2-Question-2" class="headerlink" title="2. Question 2"></a>2. Question 2</h3><p>The formula for the Gaussian kernel is given by similarity $(x,l^{(1)})=exp(-\frac{\left \| x-l^{(1)} \right \|^{2}}{2\sigma^{2} })$ .</p>
-<p>The figure below shows a plot of f1=similarity $(x,l^{(1)})$ when $\sigma^{2} = 1$.</p>
-<p><img src="http://spark-public.s3.amazonaws.com/ml/images/12.2-question.jpg" alt=""></p>
-<p>Which of the following is a plot of f1 when $\sigma^{2} = 0.25$?</p>
-<p>A. <img src="http://spark-public.s3.amazonaws.com/ml/images/12.2-b.jpg" alt=""></p>
-<p>B. <img src="http://spark-public.s3.amazonaws.com/ml/images/12.2-a.jpg" alt=""></p>
-<p>C. <img src="http://spark-public.s3.amazonaws.com/ml/images/12.2-d.jpg" alt=""></p>
-<p>D. <img src="http://spark-public.s3.amazonaws.com/ml/images/12.2-c.jpg" alt=""></p>
-<p>解答：A</p>
-<p> $\sigma^{2} $ 变小图像变瘦高。</p>
-<h3 id="3-Question-3"><a href="#3-Question-3" class="headerlink" title="3. Question 3"></a>3. Question 3</h3><p>The SVM solves</p>
-
-$$min_{\theta} C \sum^{m}_{i=1}y^{(i)}cost_{1}(\theta^{T}x^{(i)})+(1-y^{(i)})cost_{0}(\theta^{T}x^{(i)})+\sum^{n}_{j=1}\theta^{2}_{j}$$
-
-
-<p>where the functions $cost_0(z)$ and $cost_1(z)$ look like this:</p>
-<p>The first term in the objective is:</p>
-
-$$C \sum^{m}_{i=1}y^{(i)}cost_{1}(\theta^{T} x^{(i)})+(1-y^{(i)})cost_{0}(\theta^{T}x^{(i)})$$
-
-
-<p>This first term will be zero if two of the following four conditions hold true. Which are the two conditions that would guarantee that this term equals zero?</p>
-<p>A. For every example with $y^{(i)}=0$, we have that $\theta^{T}x(i) \leqslant 0$.</p>
-<p>B. For every example with $y^{(i)}=1$, we have that $\theta^{T}x(i) \geqslant 0$.</p>
-<p>C. For every example with $y^{(i)}=0$, we have that $\theta^{T}x(i)\leqslant-1$.</p>
-<p>D. For every example with $y^{(i)}=1$, we have that $\theta^{T}x(i)\geqslant 1$.</p>
-<p>解答：C、D</p>
-<h3 id="4-Question-4"><a href="#4-Question-4" class="headerlink" title="4. Question 4"></a>4. Question 4</h3><p>Suppose you have a dataset with n = 10 features and m = 5000 examples.</p>
-<p>After training your logistic regression classifier with gradient descent, you find that it has underfit the training set and does not achieve the desired performance on the training or cross validation sets.</p>
-<p>Which of the following might be promising steps to take? Check all that apply.</p>
-<p>A. Try using a neural network with a large number of hidden units.</p>
-<p>B. Create / add new polynomial features.</p>
-<p>C. Reduce the number of examples in the training set.</p>
-<p>D. Use a different optimization method since using gradient descent to train logistic regression might result in a local minimum.</p>
-<p>解答： A、B</p>
-<p>题干中要求解决欠拟合的问题。</p>
-<p>A.增多神经网络的隐藏层可以解决欠拟合问题。<br>B.增加特征量可以解决欠拟合问题。<br>C.减少训练集样本，不行。<br>D.不是梯度下降函数到达最低值是代价函数。  </p>
-<h3 id="5-Question-5"><a href="#5-Question-5" class="headerlink" title="5. Question 5"></a>5. Question 5</h3><p>Which of the following statements are true? Check all that apply.</p>
-<p>A. Suppose you have 2D input examples (ie, $x^{(i)} \in \mathbb{R}^2$). The decision boundary of the SVM (with the linear kernel) is a straight line.</p>
-<p>B. If the data are linearly separable, an SVM using a linear kernel will return the same parameters $\theta$ regardless of the chosen value of C (i.e., the resulting value of $\theta$ does not depend on C).</p>
-<p>C. If you are training multi-class SVMs with the one-vs-all method, it is not possible to use a kernel.</p>
-<p>D. The maximum value of the Gaussian kernel (i.e., $sim(x,l^{(1)})$) is 1.</p>
+<h2 id="四-Anomaly-Detection-测试"><a href="#四-Anomaly-Detection-测试" class="headerlink" title="四. Anomaly Detection 测试"></a>四. Anomaly Detection 测试</h2><h3 id="1-Question-1"><a href="#1-Question-1" class="headerlink" title="1. Question 1"></a>1. Question 1</h3><p>For which of the following problems would anomaly detection be a suitable algorithm?</p>
+<p>A. Given a dataset of credit card transactions, identify unusual transactions to flag them as possibly fraudulent.</p>
+<p>B. Given data from credit card transactions, classify each transaction according to type of purchase (for example: food, transportation, clothing).</p>
+<p>C. Given an image of a face, determine whether or not it is the face of a particular famous individual.</p>
+<p>D. From a large set of primary care patient records, identify individuals who might have unusual health conditions.</p>
 <p>解答：A、D</p>
-<p>A. 线性是一条直线。<br>B. $min_{\theta} C[\sum_{i=1}^{m}{y^{(i)}}cost_1(\theta^Tx^{(i)})+(1-y^{(i)})cost_0(\theta^Tx^{(i)})]+\frac{1}{2}\sum_{j=1}^{n}{\theta_j^2}$， $\theta$正是由 C 的大小决定的。<br>C. 解决多分类问题可以用 SVM 。<br>D. 高斯核函数范围：[0,1]。  </p>
+<p>A、D 才适合异常检测算法。</p>
+<h3 id="2-Question-2"><a href="#2-Question-2" class="headerlink" title="2. Question 2"></a>2. Question 2</h3><p>Suppose you have trained an anomaly detection system for fraud detection, and your system that flags anomalies when $p(x)$ is less than ε, and you find on the cross-validation set that it is missing many fradulent transactions (i.e., failing to flag them as anomalies). What should you do?</p>
+<p>A. Decrease $\varepsilon$</p>
+<p>B. Increase $\varepsilon$</p>
+<p>解答：B</p>
+<h3 id="3-Question-3"><a href="#3-Question-3" class="headerlink" title="3. Question 3"></a>3. Question 3</h3><p>Suppose you are developing an anomaly detection system to catch manufacturing defects in airplane engines. You model uses</p>
+<p>$$p(x) = \prod_{j=1}^{n}p(x_{j};\mu_{j},\sigma_{j}^{2})$$</p>
+<p>You have two features $x_1$ = vibration intensity, and $x_2$ = heat generated. Both $x_1$ and $x_2$ take on values between 0 and 1 (and are strictly greater than 0), and for most “normal” engines you expect that $x_1 \approx  x_2$. One of the suspected anomalies is that a flawed engine may vibrate very intensely even without generating much heat (large $x_1$, small $x_2$), even though the particular values of $x_1$ and $x_2$ may not fall outside their typical ranges of values. What additional feature $x_3$ should you create to capture these types of anomalies:</p>
+<p>A. $x_3 = \frac{x_1}{x_2}$</p>
+<p>B. $x_3 = x_1^2\times x_2^2$</p>
+<p>C. $x_3 = (x_1 +  x_2)^2$</p>
+<p>D. $x_3 = x_1 \times x_2^2$</p>
+<p>解答：A</p>
+<p>假如特征量 $x_1$ 和 $x_2$ ，可建立特征量 $x_3=\frac{x_1}{x_2}$ 结合两者。</p>
+<h3 id="4-Question-4"><a href="#4-Question-4" class="headerlink" title="4. Question 4"></a>4. Question 4</h3><p>Which of the following are true? Check all that apply.</p>
+<p>A. When evaluating an anomaly detection algorithm on the cross validation set (containing some positive and some negative examples), classification accuracy is usually a good evaluation metric to use.</p>
+<p>B. When developing an anomaly detection system, it is often useful to select an appropriate numerical performance metric to evaluate the effectiveness of the learning algorithm.</p>
+<p>C. In a typical anomaly detection setting, we have a large number of anomalous examples, and a relatively small number of normal/non-anomalous examples.</p>
+<p>D. In anomaly detection, we fit a model p(x) to a set of negative (y=0) examples, without using any positive examples we may have collected of previously observed anomalies.</p>
+<p>解答：B、D</p>
+<h3 id="5-Question-5"><a href="#5-Question-5" class="headerlink" title="5. Question 5"></a>5. Question 5</h3><p>You have a 1-D dataset $\begin{Bmatrix}<br>x^{(i)},\cdots,x^{(m)}<br>\end{Bmatrix}$ and you want to detect outliers in the dataset. You first plot the dataset and it looks like this:</p>
+<p><img src="https://img.halfrost.com/Blog/ArticleImage/7X_5.png" alt=""></p>
+<p>Suppose you fit the gaussian distribution parameters $\mu_1$ and $\sigma_1^2$ to this dataset. Which of the following values for $\mu_1$ and $\sigma_1^2$ might you get?</p>
+<p>A. $\mu = -3$,$\sigma_1^2 = 4$</p>
+<p>B. $\mu = -6$,$\sigma_1^2 = 4$</p>
+<p>C. $\mu = -3$,$\sigma_1^2 = 2$</p>
+<p>D. $\mu = -6$,$\sigma_1^2 = 2$</p>
+<p>解答：A</p>
+<p>中心点在-3，在-3周围即（-4，-2）周围仍比较密集，所以 $\sigma_1=2$ 。</p>
 <hr>
 <blockquote>
 <p>GitHub Repo：<a href="https://github.com/halfrost/Halfrost-Field" target="_blank" rel="noopener">Halfrost-Field</a></p>
 <p>Follow: <a href="https://github.com/halfrost" target="_blank" rel="noopener">halfrost · GitHub</a></p>
-<p>Source: <a href="https://github.com/halfrost/Halfrost-Field/blob/master/contents/Machine_Learning/Support_Vector_Machines.ipynb" target="_blank" rel="noopener">https://github.com/halfrost/Halfrost-Field/blob/master/contents/Machine_Learning/Support_Vector_Machines.ipynb</a></p>
+<p>Source: <a href="https://github.com/halfrost/Halfrost-Field/blob/master/contents/Machine_Learning/Anomaly_Detection.ipynb" target="_blank" rel="noopener">https://github.com/halfrost/Halfrost-Field/blob/master/contents/Machine_Learning/Anomaly_Detection.ipynb</a></p>
 </blockquote>
 <script>
         document.querySelectorAll('.github-emoji')
@@ -748,7 +707,7 @@ $$C \sum^{m}_{i=1}y^{(i)}cost_{1}(\theta^{T} x^{(i)})+(1-y^{(i)})cost_{0}(\theta
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://Xw-Jia.github.io/2020/02/07/7-1-support-vector-machines/">http://Xw-Jia.github.io/2020/02/07/7-1-support-vector-machines/</a>
+                    <a href="http://Xw-Jia.github.io/2020/02/07/9-1-anomaly-detection/">http://Xw-Jia.github.io/2020/02/07/9-1-anomaly-detection/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -961,18 +920,18 @@ $$C \sum^{m}_{i=1}y^{(i)}cost_{1}(\theta^{T} x^{(i)})+(1-y^{(i)})cost_{0}(\theta
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/02/07/8-1-unsupervised-learning/">
+                <a href="/2020/02/07/9-2-recommender-systems/">
                     <div class="card-image">
                         
-                        <img src="/medias/cover_pics/8-1-Unsupervised-Learning/1.png" class="responsive-img" alt="8.1_Unsupervised_Learning">
+                        <img src="/medias/cover_pics/9-2-Recommender-Systems/1.png" class="responsive-img" alt="9.2_Recommender_Systems">
                         
-                        <span class="card-title">8.1_Unsupervised_Learning</span>
+                        <span class="card-title">9.2_Recommender_Systems</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            吴恩达Machine_Learning入门课Week8第一节
+                            吴恩达Machine_Learning入门课Week3第二节
                         
                     </div>
                     <div class="publish-info">
@@ -1013,23 +972,23 @@ $$C \sum^{m}_{i=1}y^{(i)}cost_{1}(\theta^{T} x^{(i)})+(1-y^{(i)})cost_{0}(\theta
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/02/05/6-2-machine-learning-system-design/">
+                <a href="/2020/02/07/8-2-dimensionality-reduction/">
                     <div class="card-image">
                         
-                        <img src="/medias/cover_pics/6-2-Machine-Learning-System-Design/1.png" class="responsive-img" alt="6.2_Machine_Learning_System_Design">
+                        <img src="/medias/cover_pics/8-2-Dimensionality-Reduction/1.png" class="responsive-img" alt="8.2_Dimensionality_Reduction">
                         
-                        <span class="card-title">6.2_Machine_Learning_System_Design</span>
+                        <span class="card-title">8.2_Dimensionality_Reduction</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            吴恩达Machine_Learning入门课Week6第二节
+                            吴恩达Machine_Learning入门课Week8第二节
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-07
                             </span>
                         <span class="publish-author">
                             
